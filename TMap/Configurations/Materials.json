@@ -1,0 +1,163 @@
+[
+  {
+    "Name": "Воздух",
+    "Density": 1.2473,
+    "ThermalConductivity": 0.0244,
+    "Humidity": 0.01,
+    "Color": "#ffffff"
+  },
+  {
+    "Name": "Суглинок легкий",
+    "Density": 1700,
+    "ThermalConductivity": 0.3,
+    "Humidity": 0.01,
+    "Color": "#d9a35d"
+  },
+  {
+    "Name": "Супесь легкая",
+    "Density": 1680,
+    "ThermalConductivity": 0.025,
+    "Humidity": 0.01,
+    "Color": "#c1cc5e"
+  },
+  {
+    "Name": "Глина",
+    "Density": 100,
+    "ThermalConductivity": 1.74,
+    "Humidity": 0.01,
+    "Color": "#824f01"
+  },
+  {
+    "Name": "Суглинок легкий пылеватый",
+    "Density": 1200,
+    "ThermalConductivity": 0.2,
+    "Humidity": 0.01,
+    "Color": "#ffcd8c"
+  },
+  {
+    "Name": "Супесь тяжелая пылеватая",
+    "Density": 1500,
+    "ThermalConductivity": 0.015,
+    "Humidity": 0.01,
+    "Color": "#ffa621"
+  },
+  {
+    "Name": "Суглинок тяжелый",
+    "Density": 2200,
+    "ThermalConductivity": 0.6,
+    "Humidity": 0.01,
+    "Color": "#5e4629"
+  },
+  {
+    "Name": "Суглинок тяжелый пылеватый",
+    "Density": 1380,
+    "ThermalConductivity": 1.7,
+    "Humidity": 0.01,
+    "Color": "#6b4516"
+  },
+  {
+    "Name": "Супесь пылеватая",
+    "Density": 1600,
+    "ThermalConductivity": 0.19,
+    "Humidity": 0.01,
+    "Color": "#ffbc57"
+  },
+  {
+    "Name": "Песок мелкий",
+    "Density": 1600,
+    "ThermalConductivity": 0.32,
+    "Humidity": 0.01,
+    "Color": "#fff175"
+  },
+  {
+    "Name": "Песок крупный",
+    "Density": 1600,
+    "ThermalConductivity": 0.32,
+    "Humidity": 0.01,
+    "Color": "#dbc92a"
+  },
+  {
+    "Name": "Песок пылеватый",
+    "Density": 1700,
+    "ThermalConductivity": 0.19,
+    "Humidity": 0.01,
+    "Color": "#fff494"
+  },
+  {
+    "Name": "Асфальтобетон крупнозернистый",
+    "Density": 2350,
+    "ThermalConductivity": 0.68,
+    "Humidity": 0.01,
+    "Color": "#1a1840"
+  },
+  {
+    "Name": "Асфальтобетон мелкозернистый",
+    "Density": 2400,
+    "ThermalConductivity": 0.75,
+    "Humidity": 0.01,
+    "Color": "#2b2952"
+  },
+  {
+    "Name": "Асфальтобетон песчаный",
+    "Density": 2320,
+    "ThermalConductivity": 1.0,
+    "Humidity": 0.01,
+    "Color": "#313040"
+  },
+  {
+    "Name": "Щебеночные (гравийные) материалы обработанные органическим вяжущим",
+    "Density": 2500,
+    "ThermalConductivity": 1.86,
+    "Humidity": 0.01,
+    "Color": "#a69a8a"
+  },
+  {
+    "Name": "Щебень, обработанный органическим вяжущим по способу пропитки",
+    "Density": 2700,
+    "ThermalConductivity": 2.15,
+    "Humidity": 0.01,
+    "Color": "#6e665b"
+  },
+  {
+    "Name": "Щебеночные и гравийные материалы, не обработанные вяжущим",
+    "Density": 2800,
+    "ThermalConductivity": 1.37,
+    "Humidity": 0.01,
+    "Color": "#7d7870"
+  },
+  {
+    "Name": "Каменные материалы",
+    "Density": 2200,
+    "ThermalConductivity": 1.4,
+    "Humidity": 0.01,
+    "Color": "#bfbfbf"
+  },
+  {
+    "Name": "Геотекстиль",
+    "Density": 300,
+    "ThermalConductivity": 0.4,
+    "Humidity": 0.01,
+    "Color": "#7a009c"
+  },
+  {
+    "Name": "Армирующая прослойка",
+    "Density": 200,
+    "ThermalConductivity": 0.04,
+    "Humidity": 0.01,
+    "Color": "#a5a5a8"
+  },
+  {
+    "Name": "Травосмесь",
+    "Density": 400,
+    "ThermalConductivity": 0.2,
+    "Humidity": 0.01,
+    "Color": "#466b3d"
+  },
+  {
+    "Name": "Железобетон",
+    "Density": 2500,
+    "ThermalConductivity": 1.69,
+    "Humidity": 0.01,
+    "Color": "#5c533e"
+  }
+]

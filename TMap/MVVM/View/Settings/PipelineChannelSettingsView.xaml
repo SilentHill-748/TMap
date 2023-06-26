@@ -1,0 +1,160 @@
+﻿<UserControl x:Class="TMap.MVVM.View.Settings.PipelineChannelSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:Models="clr-namespace:TMap.MVVM.Model.Pipeline"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=ViewModel:PipelineChannelSettingsViewModel}">
+    
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="100 25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.ColumnSpan="3"
+                Text="{Binding ViewTitle}" 
+                FontSize="{Binding ViewTitleFontSize}"
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center"/>
+
+            <ContentControl Grid.Row="2" Content="{Binding InputChannelDataView}"/>
+            <ContentControl Grid.Row="2" Grid.Column="2" Content="{Binding CreateChannelInsulationView}"/>
+
+            <GroupBox
+                Grid.Row="4"
+                Grid.ColumnSpan="3"
+                Header="Изоляционные слои коллектора трубопровода">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Максимальное число слоев - 3" FontSize="12"/>
+                    <DataGrid
+                        x:Name="insulationGrid"
+                        SnapsToDevicePixels="True"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding Settings.PipelineSettings.Channel.InsulationLayers}"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserResizeRows="False"
+                        HeadersVisibility="Column"
+                        ColumnWidth="*">
+                        <DataGrid.Columns>
+                            <DataGridComboBoxColumn Header="Материал" SelectedItemBinding="{Binding Material}" DisplayMemberPath="Name">
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=insulationGrid, Path=DataContext.Settings.PipelineSettings.ChannelInsulationMaterials}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=insulationGrid, Path=DataContext.Settings.PipelineSettings.ChannelInsulationMaterials}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                            </DataGridComboBoxColumn>
+                            <DataGridTextColumn Header="Плотность" Binding="{Binding Material.Density}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Толщина" Binding="{Binding Thickness}"/>
+                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding Material.InitialTemperature}"/>
+                            <DataGridTemplateColumn Header="Операции">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource RemoveLayerBtnStyle}">
+                                            <Behaviors:Interaction.Triggers>
+                                                <Behaviors:EventTrigger EventName="Click">
+                                                    <Behaviors:InvokeCommandAction
+                                                        Command="{Binding ElementName=insulationGrid, Path=DataContext.RemoveInsulationLayerCommand}"
+                                                        CommandParameter="{Binding ElementName=insulationGrid, Path=SelectedItem}"/>
+                                                </Behaviors:EventTrigger>
+                                            </Behaviors:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox 
+                Grid.Row="6"
+                Grid.ColumnSpan="3"
+                Header="Список труб коллектора">
+                <StackPanel Margin="10">
+                    <DataGrid
+                        x:Name="pipeGrid"
+                        SnapsToDevicePixels="True"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding Settings.PipelineSettings.Channel.Pipes}"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserResizeRows="False"
+                        HeadersVisibility="Column"
+                        ColumnWidth="*">
+                        <DataGrid.Columns>
+                            <DataGridComboBoxColumn Header="Тип трубы" SelectedItemBinding="{Binding Material}" DisplayMemberPath="Name">
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=pipeGrid, Path=DataContext.Settings.PipelineSettings.PipeMaterials}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=pipeGrid, Path=DataContext.Settings.PipelineSettings.PipeMaterials}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                            </DataGridComboBoxColumn>
+                            <DataGridTextColumn Header="Радиус" Binding="{Binding Radius}"/>
+                            <DataGridTextColumn Header="Толщина" Binding="{Binding Thickness}"/>
+                            <DataGridTextColumn Header="Температура теплоносителя" Binding="{Binding Temperature}"/>
+                            <DataGridTemplateColumn Header="Изоляционные слои" IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ItemsControl ItemsSource="{Binding Insulation}" >
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate DataType="{x:Type Models:RadialInsulation}">
+                                                    <TextBlock Text="{Binding Material.Name}"/>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </GroupBox>
+            
+            <StackPanel 
+                Grid.ColumnSpan="3"
+                Grid.Row="8"
+                Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <Button 
+                    Content="Назад"
+                    Margin="0 0 25 0"
+                    Command="{Binding NavigateBackCommand}"/>
+
+                <Button 
+                    Content="Принять настройки" 
+                    Command="{Binding SubmitSettingsCommand}"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

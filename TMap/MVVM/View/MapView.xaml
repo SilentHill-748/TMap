@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="TMap.MVVM.View.MapView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:MapComponents="clr-namespace:TMap.WPFCore.Components.Map"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Map"
+             xmlns:Models="clr-namespace:TMap.MVVM.Model.Modeling"
+             xmlns:Converters="clr-namespace:TMap.WPFCore.Converters"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=ViewModel:MapViewModel}">
+    <UserControl.Resources>
+        <Converters:OpacityToPercentageConverter x:Key="OpacityToPercentageConverter"/>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityCOnverter"/>
+    </UserControl.Resources>
+    
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.ColumnSpan="3" Orientation="Horizontal">
+            <Button 
+                Content="Настройки" 
+                Margin="0 0 10 0" 
+                Command="{Binding NavigateToSettingsCommand}"/>
+            
+            <Button 
+                Content="Загрузить карту" 
+                Command="{Binding DrawMapCommand}"/>
+            
+            <Button 
+                Content="Создать модель" 
+                Margin="10 0" 
+                Command="{Binding CreateModelCommand}"/>
+
+            <Button 
+                Content="Запустить моделирование"
+                Command="{Binding RunModelCommand}"/>
+
+            <StackPanel Margin="10 0">
+                <TextBlock Text="Видимость температурной карты"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock HorizontalAlignment="Right" Text="{Binding ElementName=temperatureMap, StringFormat={}{0:F2}%, Path=Opacity}"/>
+
+                    <Slider
+                        Grid.Column="1"
+                        x:Name="opacitySlider"
+                        Margin="5 0"
+                        Minimum="0.00" 
+                        Maximum="1.00" 
+                        TickFrequency="0.01" 
+                        Value="0"/>
+                </Grid>
+            </StackPanel>
+
+            <!--<CheckBox 
+                x:Name="visibilityBorders"
+                Content="Показать границы слоев" 
+                VerticalContentAlignment="Center" 
+                Margin="10 0">
+                <Behaviors:Interaction.Triggers>
+                    <Behaviors:EventTrigger EventName="IsChecked">
+                        <Behaviors:InvokeCommandAction/>
+                    </Behaviors:EventTrigger>
+                </Behaviors:Interaction.Triggers>
+            </CheckBox>-->
+        </StackPanel>
+
+        <ScrollViewer 
+            Grid.Row="2"
+            HorizontalScrollBarVisibility="Auto" 
+            VerticalScrollBarVisibility="Disabled">
+            <ItemsControl FontSize="12" ItemsSource="{Binding MaterialList}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type Models:Material}">
+                        <Grid Margin="2" SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="10"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border 
+                                BorderBrush="Black" 
+                                CornerRadius="5" 
+                                BorderThickness="1"
+                                MinWidth="20">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{Binding Color}"/>
+                                </Border.Background>
+                            </Border>
+
+                            <TextBlock Grid.Column="2" Text="{Binding Name}"/>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+
+        <Border
+            Grid.Row="2"
+            Grid.Column="2"
+            Margin="20">
+
+            <ScrollViewer
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto">
+
+                <Grid>
+                    <Border SnapsToDevicePixels="True">
+                        <MapComponents:Map/>
+                    </Border>
+                    <Image 
+                        Stretch="Fill"
+                        Panel.ZIndex="2"
+                        x:Name="temperatureMap"
+                        Opacity="{Binding ElementName=opacitySlider, StringFormat={}{0:F2}, Path=Value}"
+                        Source="{Binding TemperatureSource}"/>
+                </Grid>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

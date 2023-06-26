@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="TMap.MVVM.View.Settings.RoadSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=ViewModel:RoadSettingsViewModel}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="100 25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <!--Title-->
+            <TextBlock
+                Grid.ColumnSpan="3"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Text="{Binding ViewTitle}"
+                FontSize="{Binding ViewTitleFontSize}"/>
+
+            <!--Input settings and input layer settings-->
+            <ContentControl Grid.Row="2" Content="{Binding InputRoadSettingsView}"/>
+
+            <ContentControl Grid.Row="2" Grid.Column="2" Content="{Binding CreateRoadLayerView}"/>
+
+            <!--Show created layers-->
+            <GroupBox Grid.Row="4" Grid.ColumnSpan="3">
+                <GroupBox.Header>
+                    <TextBlock Text="Слои дорожной конструкции"/>
+                </GroupBox.Header>
+
+                <StackPanel Margin="10">
+                    <TextBlock 
+                        Text="Число слоев должно быть больше 0!" 
+                        Visibility="{Binding IsInvalidLayerCount, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        FontSize="12"/>
+
+                    <DataGrid
+                        x:Name="layerGrid"
+                        Grid.ColumnSpan="3"
+                        Grid.Row="4"
+                        ItemsSource="{Binding Settings.Layers}"
+                        AutoGenerateColumns="False"
+                        CanUserDeleteRows="False"
+                        CanUserAddRows="False"
+                        ColumnWidth="*"
+                        HeadersVisibility="Column">
+
+                        <DataGrid.Columns>
+                            <DataGridComboBoxColumn 
+                                Header="Материал" 
+                                DisplayMemberPath="Name"
+                                SelectedItemBinding="{Binding Material}">
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=layerGrid, Path=DataContext.Materials}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=layerGrid, Path=DataContext.Materials}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
+                            </DataGridComboBoxColumn>
+                            <DataGridTextColumn Header="Толщина" Binding="{Binding Thickness}"/>
+                            <DataGridTextColumn Header="Ширина" Binding="{Binding Width}"/>
+                            <DataGridTextColumn Header="Плотность" IsReadOnly="True" Binding="{Binding Material.Density}"/>
+                            <DataGridTextColumn Header="Влажность" Binding="{Binding Material.Humidity}"/>
+                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding Material.InitialTemperature}"/>
+                            <DataGridTemplateColumn Header="Операции">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource RemoveLayerBtnStyle}">
+                                            <Behaviors:Interaction.Triggers>
+                                                <Behaviors:EventTrigger EventName="Click">
+                                                    <Behaviors:InvokeCommandAction
+                                                        Command="{Binding ElementName=layerGrid, Path=DataContext.RemoveRoadLayerCommand}"
+                                                        CommandParameter="{Binding ElementName=layerGrid, Path=SelectedItem}"/>
+                                                </Behaviors:EventTrigger>
+                                            </Behaviors:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </GroupBox>
+
+            <!--Navigation buttons-->
+            <StackPanel 
+                Grid.ColumnSpan="3"
+                Grid.Row="6"
+                Orientation="Horizontal"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center">
+                <Button
+                    Content="Назад"
+                    Command="{Binding NavigateBackCommand}"
+                    Margin="0 0 25 0"/>
+
+                <Button
+                    Content="Далее"
+                    IsEnabled="{Binding HasNext}"
+                    Command="{Binding NavigateNextCommand}"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

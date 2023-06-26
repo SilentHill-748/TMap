@@ -1,0 +1,58 @@
+[
+  {
+    "Name": "Керамическая канализационная труба",
+    "Density": 2000,
+    "ThermalConductivity": 1.5,
+    "Humidity": 0.01,
+    "Color": "#2a3e6e"
+  },
+  {
+    "Name": "Труба из высокопрочного чугунного материала с шаровидным графитом",
+    "Density": 7500,
+    "ThermalConductivity": 0.029,
+    "Humidity": 0.01,
+    "Color": "#2a3e6d"
+  },
+  {
+    "Name": "Железобетонная безнапорная труба",
+    "Density": 2500,
+    "ThermalConductivity": 1.7,
+    "Humidity": 0.01,
+    "Color": "#2a3e6c"
+  },
+  {
+    "Name": "Асбестоцементная безнапорная труба",
+    "Density": 1700,
+    "ThermalConductivity": 1.76,
+    "Humidity": 0.01,
+    "Color": "#2a3e6b"
+  },
+  {
+    "Name": "Поливинилхлоридная труба",
+    "Density": 1400,
+    "ThermalConductivity": 0.15,
+    "Humidity": 0.01,
+    "Color": "#2a3e6a"
+  },
+  {
+    "Name": "Полиэтиленовая труба",
+    "Density": 955,
+    "ThermalConductivity": 0.35,
+    "Humidity": 0.01,
+    "Color": "#2a3e69"
+  },
+  {
+    "Name": "Гофрированная полипропиленовая труба",
+    "Density": 900,
+    "ThermalConductivity": 0.16,
+    "Humidity": 0.01,
+    "Color": "#2a3e68"
+  },
+  {
+    "Name": "Стеклопластиковая труба",
+    "Density": 1800,
+    "ThermalConductivity": 0.23,
+    "Humidity": 0.01,
+    "Color": "#2a3e67"
+  }
+]

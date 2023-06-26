@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="TMap.WPFCore.Components.Inputs.CreateRoadLayerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Custom="clr-namespace:TMap.CustomControls;assembly=TMap.CustomControls"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             mc:Ignorable="d"
+             SnapsToDevicePixels="True"
+             d:DataContext="{d:DesignInstance Type=ViewModel:CreateRoadLayerViewModel}">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Custom:PlaceholderTextBox}">
+            <Setter Property="Margin" Value="0 0 0 5"/>
+            <Setter Property="Grid.Column" Value="2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="0 0 0 5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
+    <GroupBox Header="Создание слоя дороной одежды">
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Материал"/>
+            <TextBlock Grid.Row="1" Text="Ширина слоя"/>
+            <TextBlock Grid.Row="2" Text="Толщина слоя"/>
+            <TextBlock Grid.Row="3" Text="Влажность слоя"/>
+            <TextBlock Grid.Row="4" Text="Начальная температура" Margin="0"/>
+
+            <ComboBox 
+                Grid.Column="2"
+                Margin="0 0 0 5"
+                VerticalAlignment="Center"
+                DisplayMemberPath="Name"
+                Style="{StaticResource ValidatableComboBoxStyle}"
+                ItemsSource="{Binding Materials}"
+                SelectedItem="{Binding Material, ValidatesOnDataErrors=True}"/>
+            
+            <Custom:PlaceholderTextBox
+                Grid.Row="1"
+                Placeholder="от 700 см"
+                Text="{Binding Width, ValidatesOnDataErrors=True}"/>
+            
+            <Custom:PlaceholderTextBox
+                Grid.Row="2"
+                Placeholder="От 1 см"
+                Text="{Binding Thickness, ValidatesOnDataErrors=True}"/>
+            
+            <Custom:PlaceholderTextBox
+                Grid.Row="3"
+                Placeholder="от 0.01 гр/м³"
+                Text="{Binding Humidity, ValidatesOnDataErrors=True}"/>
+            
+            <Custom:PlaceholderTextBox
+                Grid.Row="4"
+                Placeholder="от -70.00 до +170.00 °С"
+                Text="{Binding InitialTemperature, ValidatesOnDataErrors=True}"/>
+
+            <Button
+                Grid.ColumnSpan="3"
+                Grid.Row="5"
+                HorizontalAlignment="Left"
+                Margin="0 10 0 0"
+                Padding="10 5"
+                Content="Добавить"
+                IsEnabled="{Binding IsValid}"
+                Command="{Binding AddRoadLayerCommand}"/>
+        </Grid>
+    </GroupBox>
+</UserControl>

@@ -1,0 +1,117 @@
+﻿<UserControl x:Class="TMap.MVVM.View.Settings.MapSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:Converters="clr-namespace:TMap.WPFCore.Converters"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             mc:Ignorable="d" 
+             d:DataContext="{d:DesignInstance Type=ViewModel:MapSettingsViewModel}"
+             x:Name="self">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <Converters:HasNoErrorsConverter x:Key="HasNoErrorsConverter"/>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="100 25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="25"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.ColumnSpan="3"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                Text="{Binding ViewTitle}"
+                FontSize="{Binding TitleFontSize}"/>
+
+            <ContentControl Grid.Row="2" Content="{Binding InputMapSettingsView}"/>
+
+            <ContentControl Grid.Row="2" Grid.Column="2" Content="{Binding CreateLayerView}"/>
+
+            <GroupBox Grid.Row="4" Grid.ColumnSpan="3">
+                <GroupBox.Header>
+                    <TextBlock Text="Слои карты"/>
+                </GroupBox.Header>
+                <StackPanel Margin="10">
+                    <TextBlock 
+                        FontSize="12"
+                        Text="Общая толщина всех слоев должна быть не менее 100 см для продолжения."
+                        Visibility="{Binding IsInvalidMapHeight, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+                    <DataGrid 
+                        x:Name="layerGrid"
+                        ItemsSource="{Binding Settings.MapSoilLayers, ValidatesOnDataErrors=True}"
+                        AutoGenerateColumns="False"
+                        ColumnWidth="*"
+                        VerticalScrollBarVisibility="Disabled"
+                        HorizontalScrollBarVisibility="Disabled"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserReorderColumns="False"
+                        HeadersVisibility="Column">
+                        <DataGrid.Columns>
+                            <DataGridComboBoxColumn 
+                                Header="Материал" 
+                                SelectedValueBinding="{Binding Material}" 
+                                DisplayMemberPath="Name">
+                                <DataGridComboBoxColumn.ElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=self, Path=DataContext.Materials}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=self, Path=DataContext.Materials}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
+                            </DataGridComboBoxColumn>
+                            <DataGridTextColumn Header="Глубина слоя" Binding="{Binding Thickness}"/>
+                            <DataGridTextColumn Header="Плотность" IsReadOnly="True" Binding="{Binding Material.Density}"/>
+                            <DataGridTextColumn Header="Влажность" Binding="{Binding Material.Humidity}"/>
+                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding Material.InitialTemperature}"/>
+                            <DataGridTemplateColumn Header="Операции" Width="auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button Style="{StaticResource RemoveLayerBtnStyle}">
+                                            <Behaviors:Interaction.Triggers>
+                                                <Behaviors:EventTrigger EventName="Click">
+                                                    <Behaviors:InvokeCommandAction
+                                                        Command="{Binding ElementName=layerGrid, Path=DataContext.RemoveLayerCommand}"
+                                                        CommandParameter="{Binding ElementName=layerGrid, Path=SelectedItem}"/>
+                                                </Behaviors:EventTrigger>
+                                            </Behaviors:Interaction.Triggers>
+                                        </Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </GroupBox>
+
+            <Button 
+                Grid.ColumnSpan="3" 
+                Grid.Row="6" 
+                Content="Далее"
+                HorizontalAlignment="Center"
+                IsEnabled="{Binding CanNext}"
+                Command="{Binding NavigateNextCommand}"/>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
