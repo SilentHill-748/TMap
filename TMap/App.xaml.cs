@@ -1,10 +1,8 @@
-﻿using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
 
 using SimpleInjector;
 
-using TMap.MVVM.Model.Settings;
 using TMap.MVVM.View.Windows;
 
 namespace TMap;
@@ -15,6 +13,8 @@ public partial class App : System.Windows.Application
 
     public App()
     {
+        SetNewCurrentDirectory();
+
         DispatcherUnhandledException += App_DispatcherUnhandledException;
     }
 
@@ -25,8 +25,6 @@ public partial class App : System.Windows.Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
-        SetNewCurrentDirectory();
-
         _container.RegisterServices();
 
         MainWindow = new MainWindow()

@@ -1,14 +1,15 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
-namespace TMap.CustomControls;
+namespace TMap.CustomControls.Controls;
 
 public class PlaceholderTextBox : TextBox
 {
-    public static readonly DependencyProperty PlaceholderProperty 
+    public static readonly DependencyProperty PlaceholderProperty
         = DependencyProperty.Register("Placeholder", typeof(string), typeof(PlaceholderTextBox), new PropertyMetadata(string.Empty));
 
-    public static readonly DependencyProperty IsEmptyProperty 
+    public static readonly DependencyProperty IsEmptyProperty
         = DependencyProperty.Register("IsEmpty", typeof(bool), typeof(PlaceholderTextBox), new PropertyMetadata(true));
 
     static PlaceholderTextBox()

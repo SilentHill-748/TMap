@@ -8,8 +8,6 @@ using System.Windows.Media.Imaging;
 
 using MathNet.Numerics.Integration;
 
-using Microsoft.Extensions.Logging;
-
 using TMap.Services;
 
 namespace TMap.MVVM.Model.Modeling;

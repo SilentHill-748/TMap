@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMap", "TMap\TMap.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMap.Application", "TMap.Application\TMap.Application.csproj", "{0241D398-39D1-4234-932F-E29ABBC10A65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMap.CustomControls", "TMap.CustomControls\TMap.CustomControls.csproj", "{36EA525A-607A-46CB-975E-0121DA5B3748}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TMap.CustomControls", "TMap.CustomControls\TMap.CustomControls.csproj", "{86703E22-5E66-4678-9D97-128800F32CA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{0241D398-39D1-4234-932F-E29ABBC10A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0241D398-39D1-4234-932F-E29ABBC10A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0241D398-39D1-4234-932F-E29ABBC10A65}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36EA525A-607A-46CB-975E-0121DA5B3748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36EA525A-607A-46CB-975E-0121DA5B3748}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36EA525A-607A-46CB-975E-0121DA5B3748}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36EA525A-607A-46CB-975E-0121DA5B3748}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86703E22-5E66-4678-9D97-128800F32CA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86703E22-5E66-4678-9D97-128800F32CA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86703E22-5E66-4678-9D97-128800F32CA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86703E22-5E66-4678-9D97-128800F32CA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

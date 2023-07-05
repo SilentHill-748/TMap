@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Resources/Colors.xaml"/>
+
+        <ResourceDictionary Source="/Resources/Styles/CheckBoxDefaultStyle.xaml"/>
+        <ResourceDictionary Source="/Resources/Styles/DataGridColumnHeaderStyle.xaml"/>
+        <ResourceDictionary Source="/Resources/Styles/DefaultButtonStyle.xaml"/>
+        <ResourceDictionary Source="/Resources/Styles/RectangularGroupBoxStyle.xaml"/>
+        <ResourceDictionary Source="/Resources/Styles/RemoveLayerBtnStyle.xaml"/>
+        <ResourceDictionary Source="/Resources/Styles/ValidatableComboBoxStyle.xaml"/>
+
+        <ResourceDictionary Source="/Resources/Templates/Mappings/MappingViewToViewModels.xaml"/>
+        <ResourceDictionary Source="/Resources/Templates/Mappings/MappingComponentsToViewModels.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
