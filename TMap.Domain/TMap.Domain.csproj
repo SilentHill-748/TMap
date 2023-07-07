@@ -7,7 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\TemperatureModel\" />
+    <Compile Remove="Entities\TemperatureModel\**" />
+    <EmbeddedResource Remove="Entities\TemperatureModel\**" />
+    <None Remove="Entities\TemperatureModel\**" />
   </ItemGroup>
 
 </Project>
