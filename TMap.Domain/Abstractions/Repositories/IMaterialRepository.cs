@@ -1,4 +1,5 @@
-﻿using TMap.Domain.Entities.Material;
+﻿using TMap.Domain.DTO.Material;
+using TMap.Domain.Entities.Material;
 
 namespace TMap.Domain.Abstractions.Repositories;
 
@@ -12,29 +13,29 @@ public interface IMaterialRepository
     /// </summary>
     /// <param name="type">Type of material.</param>
     /// <returns>The material collection.</returns>
-    IEnumerable<Material> GetAllMaterialsByType(MaterialType type);
+    IEnumerable<MaterialDTO> GetAllMaterialsByType(MaterialType type);
 
     /// <summary>
     ///     Create a new material.
     /// </summary>
     /// <param name="material">The material.</param>
-    void CreateMaterial(Material material);
+    void CreateMaterial(MaterialDTO material);
 
     /// <summary>
     ///     Create collection of materials.
     /// </summary>
     /// <param name="materials">The material collection.</param>
-    void CreateMaterials(IEnumerable<Material> materials);
+    void CreateMaterials(IEnumerable<MaterialDTO> materials);
 
     /// <summary>
     ///     Delete a chosen material.
     /// </summary>
     /// <param name="material">The material.</param>
-    void DeleteMaterial(Material material);
+    void DeleteMaterial(MaterialDTO material);
 
     /// <summary>
     ///     Update data of a chosen material.
     /// </summary>
     /// <param name="material">The material.</param>
-    void UpdateMaterial(Material material);
+    void UpdateMaterial(MaterialDTO material);
 }
