@@ -7,5 +7,7 @@ public enum MaterialType
     Road,
     RoadAndSoil,
     Channel,
+    ChannelInsulation,
+    Insulation,
     Pipeline
 }
