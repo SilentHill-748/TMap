@@ -14,6 +14,7 @@ public static class ConfigureAppServices
 
         container
             .RegisterDbContext(opt => opt.UseSqlite("Data Source=tmap.db"))
+            .RegisterServices()
             .RegisterModels()
             .RegisterViewModels()
             .RegisterWPFServices();
