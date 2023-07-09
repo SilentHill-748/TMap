@@ -25,7 +25,7 @@ public partial class App : System.Windows.Application
 
     protected override void OnStartup(StartupEventArgs e)
     {
-        _container.RegisterServices();
+        _container.RegisterAppServices();
 
         MainWindow = new MainWindow()
         {

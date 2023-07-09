@@ -9,7 +9,7 @@ namespace TMap.Configurations.DI;
 
 public static class ConfigureAppServices
 {
-    public static Container RegisterServices(this Container container)
+    public static Container RegisterAppServices(this Container container)
     {
         container.RegisterSingleton<MaterialHelper>();
 
