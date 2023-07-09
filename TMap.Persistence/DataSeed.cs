@@ -27,10 +27,10 @@ public class DataSeed
 
         var materialDAOs = JsonConvert.DeserializeObject<List<MaterialDAO>>(File.ReadAllText(json)) ?? 
             throw new Exception("Не удалось загрузить данные по базовым материалам!");
-        
-        await _dbContext.Materials
-            .AddRangeAsync(materialDAOs.Select(
-                _mapper.Map<MaterialDAO, Material>));
+
+        var materials = materialDAOs.Select(_mapper.Map<MaterialDAO, Material>);
+
+        await _dbContext.Materials.AddRangeAsync(materials);
         
         _ = await _dbContext.SaveChangesAsync();
     }
