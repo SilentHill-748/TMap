@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Configurations\Extensions\**" />
+    <EmbeddedResource Remove="Configurations\Extensions\**" />
+    <None Remove="Configurations\Extensions\**" />
+    <Page Remove="Configurations\Extensions\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Configurations\MapSettings.json" />
   </ItemGroup>
 
@@ -35,10 +42,6 @@
     <None Update="Resources\Assets\Blocks\air.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Configurations\Extensions\" />
   </ItemGroup>
 
 </Project>
