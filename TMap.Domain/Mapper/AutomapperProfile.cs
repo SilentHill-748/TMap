@@ -12,5 +12,7 @@ public class AutomapperProfile : Profile
     {
         CreateMap<Material, MaterialDTO>();
         CreateMap<Material, MaterialDAO>();
+        CreateMap<MaterialDTO, Material>();
+        CreateMap<MaterialDAO, Material>();
     }
 }

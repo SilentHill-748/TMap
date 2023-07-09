@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+using Microsoft.EntityFrameworkCore;
+
 using SimpleInjector;
 
 using TMap.MVVM.View.Windows;
@@ -16,11 +18,13 @@ public partial class App : System.Windows.Application
     private readonly Container _container = new();
     private readonly string _workPath;
     private readonly string _rootAppPath;
+    private readonly string _databasePath;
 
     public App()
     {
         _workPath = Directory.GetCurrentDirectory();
         _rootAppPath = Path.GetFullPath(@"..\..\..\..\");
+        _databasePath = Path.Combine(_workPath, "tmap.db");
 
         Environment.CurrentDirectory = _rootAppPath;
 
@@ -34,7 +38,7 @@ public partial class App : System.Windows.Application
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        _container.RegisterAppServices();
+        _container.RegisterAppServices(_databasePath);
 
         await SeedDataAsync();
 
@@ -55,6 +59,9 @@ public partial class App : System.Windows.Application
         var databaseFiles = workDir.GetFiles("*.db");
 
         if (!databaseFiles.Any())
+        {
+            _container.GetInstance<TMapDbContext>().Database.Migrate();
             await _container.GetInstance<DataSeed>().SeedAsync();
+        }
     }
 }

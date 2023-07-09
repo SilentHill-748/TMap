@@ -10,7 +10,7 @@ namespace TMap.Configurations.DI;
 
 public static class ConfigureAppServices
 {
-    public static Container RegisterAppServices(this Container container)
+    public static Container RegisterAppServices(this Container container, string databasePath)
     {
         container.RegisterSingleton<MaterialHelper>();
 
@@ -21,7 +21,7 @@ public static class ConfigureAppServices
             });
 
         container
-            .RegisterDbContext(opt => opt.UseSqlite("Data Source=tmap.db"))
+            .RegisterDbContext(opt => opt.UseSqlite($"Data Source={databasePath}"))
             .RegisterRepositories()
             .RegisterServices()
             .RegisterModels()
