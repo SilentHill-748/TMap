@@ -21,14 +21,7 @@ public class MaterialRepository : IMaterialRepository
     {
         var materials = _materials.Where(material => material.Type.Equals(type));
 
-        return materials.Select(material => 
-            new MaterialDTO(
-                material.MaterialId,
-                material.Name,
-                material.Density, 
-                material.Humidity,
-                material.Type, 
-                material.ColorHexCode));
+        return materials.Select(material => new MaterialDTO(material));
     }
 
     public async Task CreateMaterial(MaterialDTO materialDTO)

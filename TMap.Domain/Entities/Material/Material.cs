@@ -22,13 +22,9 @@ public class Material
 
     public int MaterialId { get; set; }
     public string Name { get; set; }
+    public double ThermalConductivity { get; set; }
     public double Density { get; set; }
     public double Humidity { get; set; }
     public MaterialType Type { get; set; }
     public string ColorHexCode { get; set; }
-
-    public MaterialDTO MapToDTO()
-    {
-        return new MaterialDTO(MaterialId, Name, Density, Humidity, Type, ColorHexCode);
-    }
 }
