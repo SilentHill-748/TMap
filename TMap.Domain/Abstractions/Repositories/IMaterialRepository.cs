@@ -12,30 +12,30 @@ public interface IMaterialRepository
     ///     Get all materials by concrete type.
     /// </summary>
     /// <param name="type">Type of material.</param>
-    /// <returns>The material collection.</returns>
+    /// <returns>The <see cref="MaterialDTO"/> collection.</returns>
     IEnumerable<MaterialDTO> GetAllMaterialsByType(MaterialType type);
 
     /// <summary>
     ///     Create a new material.
     /// </summary>
-    /// <param name="material">The material.</param>
-    Task CreateMaterial(MaterialDTO materialDTO);
+    /// <param name="materialDTO">The material data.</param>
+    Task CreateMaterialAsync(MaterialDTO materialDTO);
 
     /// <summary>
     ///     Create collection of materials.
     /// </summary>
-    /// <param name="materials">The material collection.</param>
-    Task CreateMaterials(IEnumerable<MaterialDTO> materialDTOs);
+    /// <param name="materialDTOs">The <see cref="MaterialDTO"/> collection.</param>
+    Task CreateMaterialsAsync(IEnumerable<MaterialDTO> materialDTOs);
 
     /// <summary>
     ///     Delete a chosen material.
     /// </summary>
-    /// <param name="material">The material.</param>
-    Task DeleteMaterial(MaterialDTO materialDTO);
+    /// <param name="materialDTO">The material data.</param>
+    Task DeleteMaterialAsync(MaterialDTO materialDTO);
 
     /// <summary>
     ///     Update data of a chosen material.
     /// </summary>
-    /// <param name="material">The material.</param>
-    Task UpdateMaterial(MaterialDTO materialDTO);
+    /// <param name="materialDTO">The material data.</param>
+    Task UpdateMaterialAsync(MaterialDTO materialDTO);
 }

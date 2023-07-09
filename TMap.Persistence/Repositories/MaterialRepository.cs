@@ -31,7 +31,7 @@ public class MaterialRepository : IMaterialRepository
         return materials.Select(material => _mapper.Map<Material, MaterialDTO>(material));
     }
 
-    public async Task CreateMaterial(MaterialDTO materialDTO)
+    public async Task CreateMaterialAsync(MaterialDTO materialDTO)
     {
         var material = _mapper.Map<MaterialDTO, Material>(materialDTO);
 
@@ -39,7 +39,7 @@ public class MaterialRepository : IMaterialRepository
         _ = await _dbContext.SaveChangesAsync();
     }
 
-    public async Task CreateMaterials(IEnumerable<MaterialDTO> materialDTOs)
+    public async Task CreateMaterialsAsync(IEnumerable<MaterialDTO> materialDTOs)
     {
         var materials = materialDTOs.Select(_mapper.Map<MaterialDTO, Material>);
 
@@ -48,7 +48,7 @@ public class MaterialRepository : IMaterialRepository
         _ = _dbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateMaterial(MaterialDTO materialDTO)
+    public async Task UpdateMaterialAsync(MaterialDTO materialDTO)
     {
         var material = _mapper.Map<MaterialDTO, Material>(materialDTO);
 
@@ -56,7 +56,7 @@ public class MaterialRepository : IMaterialRepository
         _ = await _dbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteMaterial(MaterialDTO materialDTO)
+    public async Task DeleteMaterialAsync(MaterialDTO materialDTO)
     {
         var material = _mapper.Map<MaterialDTO, Material>(materialDTO);
 
