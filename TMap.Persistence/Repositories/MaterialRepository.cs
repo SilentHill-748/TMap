@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+
+using Microsoft.EntityFrameworkCore;
 
 using TMap.Domain.Abstractions.Repositories;
 using TMap.Domain.DTO.Material;
@@ -10,23 +12,28 @@ public class MaterialRepository : IMaterialRepository
 {
     private readonly DbSet<Material> _materials;
     private readonly TMapDbContext _dbContext;
+    private readonly IMapper _mapper;
 
-    public MaterialRepository(TMapDbContext dbContext)
+    public MaterialRepository(TMapDbContext dbContext, IMapper mapper)
     {
+        ArgumentNullException.ThrowIfNull(dbContext, nameof(dbContext));
+        ArgumentNullException.ThrowIfNull(mapper, nameof(mapper));
+
         _dbContext = dbContext;
         _materials = dbContext.Materials;
+        _mapper = mapper;
     }
 
     public IEnumerable<MaterialDTO> GetAllMaterialsByType(MaterialType type)
     {
         var materials = _materials.Where(material => material.Type.Equals(type));
 
-        return materials.Select(material => new MaterialDTO(material));
+        return materials.Select(material => _mapper.Map<Material, MaterialDTO>(material));
     }
 
     public async Task CreateMaterial(MaterialDTO materialDTO)
     {
-        var material = await CreateNonContainedMaterialAsync(materialDTO);
+        var material = _mapper.Map<MaterialDTO, Material>(materialDTO);
 
         _ = await _materials.AddAsync(material);
         _ = await _dbContext.SaveChangesAsync();
@@ -34,17 +41,16 @@ public class MaterialRepository : IMaterialRepository
 
     public async Task CreateMaterials(IEnumerable<MaterialDTO> materialDTOs)
     {
-        foreach (MaterialDTO dto in materialDTOs)
-        {
-            _ = await _materials.AddAsync(await CreateNonContainedMaterialAsync(dto));
-        }
+        var materials = materialDTOs.Select(_mapper.Map<MaterialDTO, Material>);
+
+        await _materials.AddRangeAsync(materials);
 
         _ = _dbContext.SaveChangesAsync();
     }
 
     public async Task UpdateMaterial(MaterialDTO materialDTO)
     {
-        var material = await GetMaterialByDTOAsync(materialDTO);
+        var material = _mapper.Map<MaterialDTO, Material>(materialDTO);
 
         _ = _materials.Update(material);
         _ = await _dbContext.SaveChangesAsync();
@@ -52,30 +58,9 @@ public class MaterialRepository : IMaterialRepository
 
     public async Task DeleteMaterial(MaterialDTO materialDTO)
     {
-        var material = await GetMaterialByDTOAsync(materialDTO);
+        var material = _mapper.Map<MaterialDTO, Material>(materialDTO);
 
         _ = _materials.Remove(material);
         _ = await _dbContext.SaveChangesAsync();
-    }
-
-    private async Task<Material> GetMaterialByDTOAsync(MaterialDTO materialDTO)
-    {
-        Material? material = await _materials.FirstOrDefaultAsync(material => material.MaterialId == materialDTO.MaterialId);
-
-        //TODO: Написать свои классы Exception.
-        if (material is null)
-            throw new Exception("Не удалось найти материал в базе данных!");
-
-        return material;
-    }
-
-    private async Task<Material> CreateNonContainedMaterialAsync(MaterialDTO dto)
-    {
-        Material? containedMaterial = await _materials.FindAsync(dto.MaterialId);
-
-        if (containedMaterial is not null)
-            throw new Exception("Такой материал уже есть в базе данных!");
-
-        return new Material(dto);
     }
 }
