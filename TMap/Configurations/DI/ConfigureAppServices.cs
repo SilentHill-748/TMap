@@ -1,4 +1,6 @@
-﻿using SimpleInjector;
+﻿using Microsoft.EntityFrameworkCore;
+
+using SimpleInjector;
 
 using TMap.Configurations.DI.Extentions;
 
@@ -11,6 +13,7 @@ public static class ConfigureAppServices
         container.RegisterSingleton<MaterialHelper>();
 
         container
+            .RegisterDbContext(opt => opt.UseSqlite("Data Source=tmap.db"))
             .RegisterModels()
             .RegisterViewModels()
             .RegisterWPFServices();

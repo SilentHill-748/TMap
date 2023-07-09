@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\TMap.Application\TMap.Application.csproj" />
     <ProjectReference Include="..\TMap.CustomControls\TMap.CustomControls.csproj" />
+    <ProjectReference Include="..\TMap.Persistence\TMap.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
