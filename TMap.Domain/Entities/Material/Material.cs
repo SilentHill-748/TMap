@@ -6,8 +6,6 @@ public class Material
     public string Name { get; set; } = string.Empty;
     public double Density { get; set; }
     public double Humidity { get; set; }
-    public int TypeId { get; set; }
-    public MaterialType? Type { get; set; }
-    public int ColorId { get; set; }
-    public MaterialColor? Color { get; set; }
+    public MaterialType Type { get; set; }
+    public string ColorHexCode { get; set; } = "#ffffffff";
 }

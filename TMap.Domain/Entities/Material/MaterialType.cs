@@ -1,7 +1,11 @@
 ﻿namespace TMap.Domain.Entities.Material;
 
-public class MaterialType
+public enum MaterialType
 {
-    public int TypeId { get; set; }
-    public string Name { get; set; } = string.Empty;
+    Environment,
+    Soil,
+    Road,
+    RoadAndSoil,
+    Channel,
+    Pipeline
 }
