@@ -20,4 +20,8 @@
     <ProjectReference Include="..\TMap.Domain\TMap.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Seed\" />
+  </ItemGroup>
+
 </Project>

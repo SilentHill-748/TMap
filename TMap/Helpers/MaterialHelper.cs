@@ -8,7 +8,7 @@ namespace TMap.Helpers;
 public class MaterialHelper
 {
     private readonly string _configurationPath
-        = Path.Combine(Directory.GetCurrentDirectory(), "Configurations");
+        = Path.Combine(Directory.GetCurrentDirectory(), "TMap", "Configurations");
 
     public MaterialHelper()
     {

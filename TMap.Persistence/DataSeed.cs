@@ -25,7 +25,7 @@ public class DataSeed
 
     public async Task SeedAsync()
     {
-        var jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "TMap.Persistence", "Materials.json");
+        var jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "TMap.Persistence\\Seed\\Materials.json");
         var json = File.ReadAllText(jsonPath);
         var stringEnumConverter = new StringEnumConverter(new CamelCaseNamingStrategy());
 

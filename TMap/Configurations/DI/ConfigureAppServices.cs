@@ -4,6 +4,7 @@ using SimpleInjector;
 
 using TMap.Configurations.DI.Extentions;
 using TMap.Domain.Mapper;
+using TMap.Persistence;
 
 namespace TMap.Configurations.DI;
 
@@ -26,6 +27,8 @@ public static class ConfigureAppServices
             .RegisterModels()
             .RegisterViewModels()
             .RegisterWPFServices();
+
+        container.Register<DataSeed>();
 
         return container;
     }

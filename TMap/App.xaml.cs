@@ -1,19 +1,28 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 using SimpleInjector;
 
 using TMap.MVVM.View.Windows;
+using TMap.Persistence;
 
 namespace TMap;
 
 public partial class App : System.Windows.Application
 {
     private readonly Container _container = new();
+    private readonly string _workPath;
+    private readonly string _rootAppPath;
 
     public App()
     {
-        SetNewCurrentDirectory();
+        _workPath = Directory.GetCurrentDirectory();
+        _rootAppPath = Path.GetFullPath(@"..\..\..\..\");
+
+        Environment.CurrentDirectory = _rootAppPath;
 
         DispatcherUnhandledException += App_DispatcherUnhandledException;
     }
@@ -23,9 +32,11 @@ public partial class App : System.Windows.Application
         MessageBox.Show(e.Exception.Message, "Unhandled exception!");
     }
 
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
         _container.RegisterAppServices();
+
+        await SeedDataAsync();
 
         MainWindow = new MainWindow()
         {
@@ -37,10 +48,13 @@ public partial class App : System.Windows.Application
         base.OnStartup(e);
     }
 
-    private static void SetNewCurrentDirectory()
+    private async Task SeedDataAsync()
     {
-        string rootPath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent!.Parent!.Parent!.FullName;
+        var workDir = new DirectoryInfo(_workPath);
 
-        Directory.SetCurrentDirectory(rootPath);
+        var databaseFiles = workDir.GetFiles("*.db");
+
+        if (!databaseFiles.Any())
+            await _container.GetInstance<DataSeed>().SeedAsync();
     }
 }
