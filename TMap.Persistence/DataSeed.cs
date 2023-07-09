@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
 
 using TMap.Domain.DAO.Material;
 using TMap.Domain.Entities.Material;
@@ -23,9 +25,11 @@ public class DataSeed
 
     public async Task SeedAsync()
     {
-        var json = Path.Combine(Directory.GetCurrentDirectory(), "TMap.Persistence", "Materials.json");
+        var jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "TMap.Persistence", "Materials.json");
+        var json = File.ReadAllText(jsonPath);
+        var stringEnumConverter = new StringEnumConverter(new CamelCaseNamingStrategy());
 
-        var materialDAOs = JsonConvert.DeserializeObject<List<MaterialDAO>>(File.ReadAllText(json)) ?? 
+        var materialDAOs = JsonConvert.DeserializeObject<List<MaterialDAO>>(json, stringEnumConverter) ?? 
             throw new Exception("Не удалось загрузить данные по базовым материалам!");
 
         var materials = materialDAOs.Select(_mapper.Map<MaterialDAO, Material>);

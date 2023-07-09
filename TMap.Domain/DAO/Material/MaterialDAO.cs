@@ -20,7 +20,6 @@ public class MaterialDAO
     public double Humidity { get; set; }
 
     [JsonProperty("Type")]
-    [JsonConverter(typeof(StringEnumConverter))]
     public MaterialType Type { get; set; }
 
     [JsonProperty("Color")]
