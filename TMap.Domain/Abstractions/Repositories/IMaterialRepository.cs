@@ -19,23 +19,23 @@ public interface IMaterialRepository
     ///     Create a new material.
     /// </summary>
     /// <param name="material">The material.</param>
-    void CreateMaterial(MaterialDTO material);
+    Task CreateMaterial(MaterialDTO materialDTO);
 
     /// <summary>
     ///     Create collection of materials.
     /// </summary>
     /// <param name="materials">The material collection.</param>
-    void CreateMaterials(IEnumerable<MaterialDTO> materials);
+    Task CreateMaterials(IEnumerable<MaterialDTO> materialDTOs);
 
     /// <summary>
     ///     Delete a chosen material.
     /// </summary>
     /// <param name="material">The material.</param>
-    void DeleteMaterial(MaterialDTO material);
+    Task DeleteMaterial(MaterialDTO materialDTO);
 
     /// <summary>
     ///     Update data of a chosen material.
     /// </summary>
     /// <param name="material">The material.</param>
-    void UpdateMaterial(MaterialDTO material);
+    Task UpdateMaterial(MaterialDTO materialDTO);
 }
