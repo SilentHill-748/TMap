@@ -16,6 +16,13 @@ public interface IMaterialRepository
     IEnumerable<MaterialDTO> GetAllMaterialsByType(MaterialType type);
 
     /// <summary>
+    ///     Get finded material by specified name.
+    /// </summary>
+    /// <param name="materialName">The material name.</param>
+    /// <returns>Finded material data as <see cref="MaterialDTO"/>.</returns>
+    MaterialDTO GetMaterialByName(string materialName);
+
+    /// <summary>
     ///     Create a new material.
     /// </summary>
     /// <param name="materialDTO">The material data.</param>
