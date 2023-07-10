@@ -16,41 +16,14 @@ public class MaterialService : IMaterialService
         _materialRepository = materialRepository;
     }
 
-    public MaterialDTO GetMaterialByName(string name)
+    public IEnumerable<MaterialDTO> GetMaterialsByType(MaterialType types)
     {
-        return _materialRepository.GetMaterialByName(name);
+        return _materialRepository.GetMaterials(material => material.Type.HasFlag(types));
     }
 
-    public IEnumerable<MaterialDTO> GetSoilMaterials()
+    public async Task<MaterialDTO> GetMaterialByNameAsync(string name)
     {
-        return _materialRepository.GetAllMaterialsByType(MaterialType.Soil);
-    }
-
-    public IEnumerable<MaterialDTO> GetRoadMaterials()
-    {
-        var soilMaterials = _materialRepository.GetAllMaterialsByType(MaterialType.Soil);
-        var roadMaterials = _materialRepository.GetAllMaterialsByType(MaterialType.Road);
-        var soilAndRoadMaterials = _materialRepository.GetAllMaterialsByType(MaterialType.RoadAndSoil);
-
-        return soilMaterials
-            .Union(roadMaterials)
-            .Union(soilAndRoadMaterials)
-            .OrderBy(material => material.Name);
-    }
-
-    public IEnumerable<MaterialDTO> GetPipelineChannelInsulationMaterials()
-    {
-        return _materialRepository.GetAllMaterialsByType(MaterialType.ChannelInsulation);
-    }
-
-    public IEnumerable<MaterialDTO> GetPipelineInsulationMaterials()
-    {
-        return _materialRepository.GetAllMaterialsByType(MaterialType.Insulation);
-    }
-
-    public IEnumerable<MaterialDTO> GetPipeMaterials()
-    {
-        return _materialRepository.GetAllMaterialsByType(MaterialType.Pipeline);
+        return await _materialRepository.GetMaterialByNameAsync(name);
     }
 
     public async Task CreateMaterialAsync(MaterialDTO materialDTO)

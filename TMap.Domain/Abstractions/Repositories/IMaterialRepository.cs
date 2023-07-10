@@ -1,4 +1,6 @@
-﻿using TMap.Domain.DTO.Material;
+﻿using System.Linq.Expressions;
+
+using TMap.Domain.DTO.Material;
 using TMap.Domain.Entities.Material;
 
 namespace TMap.Domain.Abstractions.Repositories;
@@ -9,18 +11,18 @@ namespace TMap.Domain.Abstractions.Repositories;
 public interface IMaterialRepository
 {
     /// <summary>
-    ///     Get all materials by concrete type.
+    ///     Get materials by condition.
     /// </summary>
     /// <param name="type">Type of material.</param>
     /// <returns>The <see cref="MaterialDTO"/> collection.</returns>
-    IEnumerable<MaterialDTO> GetAllMaterialsByType(MaterialType type);
+    IEnumerable<MaterialDTO> GetMaterials(Expression<Func<Material, bool>> condition);
 
     /// <summary>
     ///     Get finded material by specified name.
     /// </summary>
     /// <param name="materialName">The material name.</param>
     /// <returns>Finded material data as <see cref="MaterialDTO"/>.</returns>
-    MaterialDTO GetMaterialByName(string materialName);
+    Task<MaterialDTO> GetMaterialByNameAsync(string materialName);
 
     /// <summary>
     ///     Create a new material.

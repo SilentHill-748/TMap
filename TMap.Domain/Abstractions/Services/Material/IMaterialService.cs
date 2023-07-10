@@ -1,42 +1,20 @@
 ﻿using TMap.Domain.DTO.Material;
 using TMap.Domain.Abstractions.Repositories;
+using TMap.Domain.Entities.Material;
 
 namespace TMap.Domain.Abstractions.Services.Material;
 
 public interface IMaterialService
 {
-    /// <inheritdoc cref="IMaterialRepository.GetMaterialByName(string)"/>
-    MaterialDTO GetMaterialByName(string name);
+    /// <inheritdoc cref="IMaterialRepository.GetMaterialByNameAsync(string)"/>
+    Task<MaterialDTO> GetMaterialByNameAsync(string name);
 
     /// <summary>
-    ///     Get collection of soil materials for geological map.
+    ///     Get materials by specified type.
     /// </summary>
+    /// <param name="types">Material types.</param>
     /// <returns>The collection of <see cref="MaterialDTO"/>.</returns>
-    IEnumerable<MaterialDTO> GetSoilMaterials();
-
-    /// <summary>
-    ///     Get collection of soil and road materials for geological road map.
-    /// </summary>
-    /// <returns>The collection of <see cref="MaterialDTO"/>.</returns>
-    IEnumerable<MaterialDTO> GetRoadMaterials();
-
-    /// <summary>
-    ///     Get collection of insulation materials for pipeline channel.
-    /// </summary>
-    /// <returns>The collection of <see cref="MaterialDTO"/>.</returns>
-    IEnumerable<MaterialDTO> GetPipelineChannelInsulationMaterials();
-
-    /// <summary>
-    ///     Get collection of insulation materials for pipes.
-    /// </summary>
-    /// <returns>The collection of <see cref="MaterialDTO"/>.</returns>
-    IEnumerable<MaterialDTO> GetPipelineInsulationMaterials();
-
-    /// <summary>
-    ///     Get collection of pipe materials for pipeline.
-    /// </summary>
-    /// <returns>The collection of <see cref="MaterialDTO"/>.</returns>
-    IEnumerable<MaterialDTO> GetPipeMaterials();
+    IEnumerable<MaterialDTO> GetMaterialsByType(MaterialType types);
 
     /// <summary>
     ///     Add new material to database.

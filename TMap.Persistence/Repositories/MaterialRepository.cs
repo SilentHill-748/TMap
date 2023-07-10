@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System.Linq.Expressions;
+
+using AutoMapper;
 
 using Microsoft.EntityFrameworkCore;
 
@@ -24,11 +26,14 @@ public class MaterialRepository : IMaterialRepository
         _mapper = mapper;
     }
 
-    public IEnumerable<MaterialDTO> GetAllMaterialsByType(MaterialType type)
+    public IEnumerable<MaterialDTO> GetMaterials(Expression<Func<Material, bool>> condition)
     {
-        var materials = _materials.Where(material => material.Type.Equals(type));
+        IQueryable<Material> materials = _materials;
 
-        return materials.Select(material => _mapper.Map<Material, MaterialDTO>(material));
+        if (condition is not null)
+            materials = materials.Where(condition);
+
+        return materials.Select(_mapper.Map<Material, MaterialDTO>);
     }
 
     public async Task CreateMaterialAsync(MaterialDTO materialDTO)
@@ -62,5 +67,13 @@ public class MaterialRepository : IMaterialRepository
 
         _ = _materials.Remove(material);
         _ = await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<MaterialDTO> GetMaterialByNameAsync(string materialName)
+    {
+        var material = await _materials.FirstOrDefaultAsync(material => material.Name.Equals(materialName))
+            ?? throw new Exception("Материал с указанным именем не найден!");
+
+        return _mapper.Map<Material, MaterialDTO>(material);
     }
 }
