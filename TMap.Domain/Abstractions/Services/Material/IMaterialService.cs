@@ -1,5 +1,6 @@
 ﻿using TMap.Domain.DTO.Material;
 using TMap.Domain.Entities.Material;
+using TMap.Domain.Abstractions.Repositories;
 
 namespace TMap.Domain.Abstractions.Services.Material;
 
@@ -11,6 +12,9 @@ public interface IMaterialService
     /// <param name="type">The type of materials.</param>
     /// <returns><see cref="MaterialDTO"/> collection.</returns>
     IEnumerable<MaterialDTO> GetMaterialsByType(MaterialType type);
+
+    /// <inheritdoc cref="IMaterialRepository.GetMaterialByName(string)"/>
+    MaterialDTO GetMaterialByName(string name);
 
     /// <summary>
     ///     Add new material to database.
