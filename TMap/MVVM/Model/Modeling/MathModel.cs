@@ -17,18 +17,18 @@ namespace TMap.MVVM.Model.Modeling;
 /// </summary>
 public class MathModel
 {
-    private readonly Dictionary<Color, Material> _materialMap;
+    private readonly Dictionary<Color, MaterialModel> _materialMap;
     private readonly SettingsModel _settingsModel;
     private readonly WriteableBitmap _map;
     private readonly Cell[,] _modelCells;
-    private readonly Material _defaultMaterial;
+    private readonly MaterialModel _defaultMaterial;
     private readonly TemperatureColorService _temperatureService;
 
     private readonly double _minInterval;
     private readonly double _maxIntervalX;
     private readonly double _maxIntervalY;
 
-    public MathModel(SettingsModel settingsModel, Dictionary<Color, Material> materialMap, WriteableBitmap map)
+    public MathModel(SettingsModel settingsModel, Dictionary<Color, MaterialModel> materialMap, WriteableBitmap map)
     {
         ArgumentNullException.ThrowIfNull(settingsModel, nameof(settingsModel));
         ArgumentNullException.ThrowIfNull(materialMap, nameof(materialMap));
@@ -173,7 +173,7 @@ public class MathModel
         var h = channel.PipesCenterline;
         var b = channel.Pipes.Sum(x => x.TotalThichness) + channel.InteraxalWidth;
         var pipeCenterlineMaterial = Cells[_map.PixelWidth / 2, channel.PipesCenterline].Material!;
-        var layers = new List<Material>();
+        var layers = new List<MaterialModel>();
         layers.AddRange(_settingsModel.MapSettings.MapSoilLayers.Select(x => x.Material));
         layers.AddRange(_settingsModel.RoadSettings.Layers.Select(x => x.Material));
 
@@ -307,7 +307,7 @@ public class MathModel
             }
     }
 
-    private double GetPipeInsulationR(Pipe pipe, Material material)
+    private double GetPipeInsulationR(Pipe pipe, MaterialModel material)
     {
         return pipe.Insulation.Sum(x => x.Thickness / x.Material.ThermalConductivity) + (material.LayerThickness / material.ThermalConductivity);
     }

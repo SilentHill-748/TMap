@@ -88,7 +88,7 @@
             VerticalScrollBarVisibility="Disabled">
             <ItemsControl FontSize="12" ItemsSource="{Binding MaterialList}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type Models:Material}">
+                    <DataTemplate DataType="{x:Type Models:MaterialModel}">
                         <Grid Margin="2" SnapsToDevicePixels="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>

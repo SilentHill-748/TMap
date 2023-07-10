@@ -57,7 +57,7 @@ public class MapViewModel : ViewModelBase
         set => Set(ref _temperatureSource, value, nameof(TemperatureSource));
     }
 
-    public ObservableCollection<Material> MaterialList { get; }
+    public ObservableCollection<MaterialModel> MaterialList { get; }
     #endregion
 
     #region Observable properties

@@ -12,10 +12,10 @@ public class CreateChannelInsulationViewModel : ViewModelBase
 
     private int _thickness;
     private double _initTemperature;
-    private Material? _material;
+    private MaterialModel? _material;
 
     public CreateChannelInsulationViewModel(
-        ObservableCollection<Material> channelInsulationMaterials,
+        ObservableCollection<MaterialModel> channelInsulationMaterials,
         ObservableCollection<ChannelInsulation> insulationCollection)
     {
         ArgumentNullException.ThrowIfNull(channelInsulationMaterials, nameof(channelInsulationMaterials));
@@ -29,11 +29,11 @@ public class CreateChannelInsulationViewModel : ViewModelBase
         InitialValidation();
     }
 
-    public ObservableCollection<Material> ChannelInsulationMaterials { get; }
+    public ObservableCollection<MaterialModel> ChannelInsulationMaterials { get; }
     public ObservableCollection<ChannelInsulation> ChannelInsulationCollection { get; }
 
     #region Notify properties
-    public Material? Material
+    public MaterialModel? Material
     {
         get => _material;
         set

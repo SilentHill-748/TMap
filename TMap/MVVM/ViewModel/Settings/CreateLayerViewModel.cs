@@ -12,11 +12,11 @@ public class CreateLayerViewModel : ViewModelBase
     private const string InitTemperatureError = ValidationErrors.MaterialErrors.InitTemperatureError;
 
     private int _thickness;
-    private Material? _material;
+    private MaterialModel? _material;
     private double _humidity;
     private double _initTemperature;
 
-    public CreateLayerViewModel(ObservableCollection<Material> materials)
+    public CreateLayerViewModel(ObservableCollection<MaterialModel> materials)
     {
         Materials = materials;
 
@@ -36,7 +36,7 @@ public class CreateLayerViewModel : ViewModelBase
             ValidateProperty(() => Thickness < 1, nameof(Thickness), ThicknessError);
         }
     }
-    public Material? Material
+    public MaterialModel? Material
     {
         get => _material;
         set
@@ -64,7 +64,7 @@ public class CreateLayerViewModel : ViewModelBase
         }
     }
 
-    public ObservableCollection<Material> Materials { get; }
+    public ObservableCollection<MaterialModel> Materials { get; }
 
     public ICommand AddLayerCommand { get; }
 

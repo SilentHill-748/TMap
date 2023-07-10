@@ -4,7 +4,7 @@ namespace TMap.MVVM.Model.Modeling;
 
 public class RoadLayer
 {
-    public RoadLayer(Material material)
+    public RoadLayer(MaterialModel material)
     {
         ArgumentNullException.ThrowIfNull(material, nameof(Material));
 
@@ -13,5 +13,5 @@ public class RoadLayer
 
     public int Width { get; set; }
     public int Thickness { get; set; }
-    public Material Material { get; set; }
+    public MaterialModel Material { get; set; }
 }

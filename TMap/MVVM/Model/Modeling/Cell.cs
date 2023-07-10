@@ -14,5 +14,5 @@ public class Cell
     /// <summary>
     ///     Тип грунта или материал трубопровода/дороги точки. 
     /// </summary>
-    public Material? Material { get; set; }
+    public MaterialModel? Material { get; set; }
 }

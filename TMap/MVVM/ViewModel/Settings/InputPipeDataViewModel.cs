@@ -14,9 +14,9 @@ public class InputPipeDataViewModel : ViewModelBase
     private int _thickness;
     private double _materialTemperature;
     private double _coolantTemperature;
-    private Material? _pipeType;
+    private MaterialModel? _pipeType;
 
-    public InputPipeDataViewModel(ObservableCollection<Material> pipeMaterials)
+    public InputPipeDataViewModel(ObservableCollection<MaterialModel> pipeMaterials)
     {
         PipeMaterials = pipeMaterials;
 
@@ -27,7 +27,7 @@ public class InputPipeDataViewModel : ViewModelBase
         ValidateProperty(() => _pipeType is not { }, nameof(PipeType), PipeMaterialError);
     }
 
-    public ObservableCollection<Material> PipeMaterials { get; }
+    public ObservableCollection<MaterialModel> PipeMaterials { get; }
 
     #region Notify properties
     public int Radius
@@ -66,7 +66,7 @@ public class InputPipeDataViewModel : ViewModelBase
             ValidateProperty(() => _coolantTemperature < 1 || _coolantTemperature > 400, nameof(CoolantTemperature), CoolantTemperatureError);
         }
     }
-    public Material? PipeType
+    public MaterialModel? PipeType
     {
         get => _pipeType;
         set

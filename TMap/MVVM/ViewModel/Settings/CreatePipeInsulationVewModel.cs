@@ -11,11 +11,11 @@ public class CreatePipeInsulationVewModel : ViewModelBase
     private const string InsulationMaterialError = ValidationErrors.MaterialErrors.MaterialError;
 
     private int _thickness;
-    private Material? _insulationMaterial;
+    private MaterialModel? _insulationMaterial;
     private double _initTemperature;
 
     public CreatePipeInsulationVewModel(
-        ObservableCollection<Material> pipeInsulationMaterials, 
+        ObservableCollection<MaterialModel> pipeInsulationMaterials, 
         ObservableCollection<RadialInsulation> insulationCollection)
     {
         ArgumentNullException.ThrowIfNull(insulationCollection, nameof(insulationCollection));
@@ -29,7 +29,7 @@ public class CreatePipeInsulationVewModel : ViewModelBase
         InitialValidation();
     }
 
-    public ObservableCollection<Material> PipeInsulationMaterials { get; }
+    public ObservableCollection<MaterialModel> PipeInsulationMaterials { get; }
     public ObservableCollection<RadialInsulation> PipeInsulationLayers { get; }
 
     public int Thickness
@@ -50,7 +50,7 @@ public class CreatePipeInsulationVewModel : ViewModelBase
             ValidateProperty(() => _initTemperature < -70 || _initTemperature > 170, nameof(InitialTemperature), InitialTemperatureError);
         }
     }
-    public Material? InsulationMaterial
+    public MaterialModel? InsulationMaterial
     {
         get => _insulationMaterial;
         set

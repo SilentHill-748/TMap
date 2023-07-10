@@ -10,9 +10,9 @@ public class DrawingService
 {
     private readonly SettingsModel _settings;
     private readonly WriteableBitmap _map;
-    private readonly Material _defaultMaterial;
+    private readonly MaterialModel _defaultMaterial;
 
-    public DrawingService(SettingsModel settingsModel, WriteableBitmap writeableBitmap, Material defaultMaterial)
+    public DrawingService(SettingsModel settingsModel, WriteableBitmap writeableBitmap, MaterialModel defaultMaterial)
     {
         ArgumentNullException.ThrowIfNull(settingsModel, nameof(settingsModel));
         ArgumentNullException.ThrowIfNull(writeableBitmap, nameof(writeableBitmap));
@@ -91,7 +91,7 @@ public class DrawingService
 
         foreach (ChannelInsulation insulation in insulations)
         {
-            insulation.Material.Color = "#7d818a";
+            insulation.Material.ColorHexCode = "#7d818a";
             polygons.Add(CreateRectPolygon(startPoint, width, height, insulation.Material));
 
             var thickness = insulation.Thickness;
@@ -131,12 +131,12 @@ public class DrawingService
 
         foreach (RadialInsulation insulation in pipe.Insulation)
         {
-            insulation.Material.Color = "#7d818a";
+            insulation.Material.ColorHexCode = "#7d818a";
             DrawCircle(center, radius, insulation.Material.GetColor());
             radius -= insulation.Thickness;
         }
 
-        pipe.Material.Color = "#adadad";
+        pipe.Material.ColorHexCode = "#adadad";
         DrawCircle(center, radius, pipe.Material.GetColor());
     }
 
@@ -146,7 +146,7 @@ public class DrawingService
         //_map.DrawEllipseCentered(center.X, center.Y, radius, radius, Colors.Black);
     }
 
-    private Polygon CreateRectPolygon(Point start, int width, int height, Material material)
+    private Polygon CreateRectPolygon(Point start, int width, int height, MaterialModel material)
     {
         var points = new List<Point>() { start };
 
@@ -160,7 +160,7 @@ public class DrawingService
         return polygon;
     }
 
-    private Polygon CreateMainMapHeadPolygon(Material material)
+    private Polygon CreateMainMapHeadPolygon(MaterialModel material)
     {
         var points = new List<Point>();
         var roadSettings = _settings.RoadSettings;

@@ -17,38 +17,38 @@ public class MaterialHelper
         DefaultMaterial.LayerThickness = 1;
     }
 
-    public Material DefaultMaterial { get; }
+    public MaterialModel DefaultMaterial { get; }
 
-    public ObservableCollection<Material> GetSoilMaterials()
+    public ObservableCollection<MaterialModel> GetSoilMaterials()
     {
         var materials = GetMaterials("Materials.json").Where(x => x.Name != "Воздух");
 
-        return new ObservableCollection<Material>(materials);
+        return new ObservableCollection<MaterialModel>(materials);
     }
 
-    public ObservableCollection<Material> GetChannelInsulationMaterials()
+    public ObservableCollection<MaterialModel> GetChannelInsulationMaterials()
     {
         return GetMaterials("PipelineInsulationChannelMaterials.json");
     }
 
-    public ObservableCollection<Material> GetPipeInsulationMaterials()
+    public ObservableCollection<MaterialModel> GetPipeInsulationMaterials()
     {
         return GetMaterials("PipeInsulationMaterials.json");
     }
 
-    public ObservableCollection<Material> GetPipeMaterials()
+    public ObservableCollection<MaterialModel> GetPipeMaterials()
     {
         return GetMaterials("PipeMaterials.json");
     }
 
-    private ObservableCollection<Material> GetMaterials(string jsonFilename)
+    private ObservableCollection<MaterialModel> GetMaterials(string jsonFilename)
     {
         string filepath = Path.Combine(_configurationPath, jsonFilename);
 
         // TODO: Реализуй свой эксепшн, если класс MaterialHelper останется.
-        var materials = JsonSerializer.Deserialize<Material[]>(File.ReadAllText(filepath)) ??
+        var materials = JsonSerializer.Deserialize<MaterialModel[]>(File.ReadAllText(filepath)) ??
             throw new System.Exception("Materials doesn't got!");
 
-        return new ObservableCollection<Material>(materials.OrderBy(material => material.Name));
+        return new ObservableCollection<MaterialModel>(materials.OrderBy(material => material.Name));
     }
 }

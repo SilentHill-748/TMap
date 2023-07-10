@@ -9,9 +9,9 @@ namespace TMap.WPFCore.Commands.Map;
 public class DrawMapCommand : CommandBase
 {
     private readonly MapViewModel _viewModel;
-    private readonly Material _defaultMaterial;
+    private readonly MaterialModel _defaultMaterial;
 
-    public DrawMapCommand(MapViewModel mapViewModel, Material defaultMaterial)
+    public DrawMapCommand(MapViewModel mapViewModel, MaterialModel defaultMaterial)
     {
         ArgumentNullException.ThrowIfNull(mapViewModel, nameof(mapViewModel));
         ArgumentNullException.ThrowIfNull(defaultMaterial, nameof(defaultMaterial));

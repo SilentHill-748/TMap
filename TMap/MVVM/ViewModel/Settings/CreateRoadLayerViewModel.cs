@@ -14,11 +14,11 @@ public class CreateRoadLayerViewModel : ViewModelBase
 
     private int _width;
     private int _thickness;
-    private Material? _material;
+    private MaterialModel? _material;
     private double _initTemp;
     private double _humidity;
 
-    public CreateRoadLayerViewModel(ObservableCollection<Material> materials)
+    public CreateRoadLayerViewModel(ObservableCollection<MaterialModel> materials)
     {
         ArgumentNullException.ThrowIfNull(materials, nameof(materials));
 
@@ -48,7 +48,7 @@ public class CreateRoadLayerViewModel : ViewModelBase
             ValidateThickness();
         }
     }
-    public Material? Material
+    public MaterialModel? Material
     {
         get => _material;
         set
@@ -77,7 +77,7 @@ public class CreateRoadLayerViewModel : ViewModelBase
     }
     #endregion
 
-    public ObservableCollection<Material> Materials { get; }
+    public ObservableCollection<MaterialModel> Materials { get; }
 
     public ICommand AddRoadLayerCommand { get; }
 

@@ -8,7 +8,7 @@ public class MapSettingsViewModel : ViewModelBase
 {
     #region Private fields
     private readonly NavigationService _navigationService;
-    private readonly ObservableCollection<Material> _materials;
+    private readonly ObservableCollection<MaterialModel> _materials;
     private readonly MapSettingsModel _settings;
 
     private readonly CreateLayerViewModel _createLayerViewModel;
@@ -43,7 +43,7 @@ public class MapSettingsViewModel : ViewModelBase
     }
 
     #region Public properties
-    public ObservableCollection<Material> Materials => _materials;
+    public ObservableCollection<MaterialModel> Materials => _materials;
     public MapSettingsModel Settings => _settings;
     public CreateLayerViewModel CreateLayerView => _createLayerViewModel;
     public InputMapSettingsViewModel InputMapSettingsView => _inputMapSettingsViewModel;

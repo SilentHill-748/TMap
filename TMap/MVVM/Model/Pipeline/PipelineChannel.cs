@@ -6,7 +6,7 @@ namespace TMap.MVVM.Model.Pipeline;
 
 public class PipelineChannel
 {
-    public PipelineChannel(Material channelMaterial)
+    public PipelineChannel(MaterialModel channelMaterial)
     {
         ArgumentNullException.ThrowIfNull(channelMaterial, nameof(channelMaterial));
 
@@ -51,7 +51,7 @@ public class PipelineChannel
     /// <summary>
     ///     Материал, из которого состоит канал.
     /// </summary>
-    public Material Material { get; } // Железобетон. Всегда.
+    public MaterialModel Material { get; } // Железобетон. Всегда.
 
     /// <summary>
     ///     Изоляция коллектора.

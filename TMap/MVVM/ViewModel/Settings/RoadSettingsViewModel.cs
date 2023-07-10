@@ -42,7 +42,7 @@ public class RoadSettingsViewModel : ViewModelBase
     }
 
     #region Public properties
-    public ObservableCollection<Material> Materials { get; }
+    public ObservableCollection<MaterialModel> Materials { get; }
     public CreateRoadLayerViewModel CreateRoadLayerView => _createRoadLayerViewModel;
     public InputRoadSettingsViewModel InputRoadSettingsView => _inputRoadSettingsViewModel;
     public RoadSettingsModel Settings => _settings.RoadSettings;

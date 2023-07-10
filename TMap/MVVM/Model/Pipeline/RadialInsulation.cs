@@ -7,7 +7,7 @@ namespace TMap.MVVM.Model.Pipeline;
 /// </summary>
 public class RadialInsulation
 {
-    public RadialInsulation(Material insulationMaterial)
+    public RadialInsulation(MaterialModel insulationMaterial)
     {
         ArgumentNullException.ThrowIfNull(insulationMaterial, nameof(insulationMaterial));
 
@@ -22,5 +22,5 @@ public class RadialInsulation
     /// <summary>
     ///     Материал изоляции, из которого состоит данное изоляционное покрытие.
     /// </summary>
-    public Material Material { get; set; }
+    public MaterialModel Material { get; set; }
 }

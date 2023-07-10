@@ -44,10 +44,10 @@ public class CreateModelCommand : CommandBase
             map.PixelHeight > 0;
     }
 
-    private Dictionary<Color, Material> GetMaterialMap(SettingsModel settings)
+    private Dictionary<Color, MaterialModel> GetMaterialMap(SettingsModel settings)
     {
-        var materials = new List<Material>() { _materialHelper.DefaultMaterial, settings.PipelineSettings.Channel.Material };
-        var map = new Dictionary<Color, Material>();
+        var materials = new List<MaterialModel>() { _materialHelper.DefaultMaterial, settings.PipelineSettings.Channel.Material };
+        var map = new Dictionary<Color, MaterialModel>();
 
         materials.AddRange(settings.MapSettings.MapSoilLayers.Select(x => x.Material));
         materials.AddRange(settings.RoadSettings.Layers.Select(x => x.Material));
@@ -57,9 +57,9 @@ public class CreateModelCommand : CommandBase
         foreach (Pipe pipe in settings.PipelineSettings.Channel.Pipes)
             materials.AddRange(pipe.Insulation.Select(x => x.Material));
 
-        foreach (Material material in materials)
+        foreach (MaterialModel material in materials)
         {
-            var color = (Color)ColorConverter.ConvertFromString(material.Color);
+            var color = (Color)ColorConverter.ConvertFromString(material.ColorHexCode);
 
             _ = map.TryAdd(color, material);
         }

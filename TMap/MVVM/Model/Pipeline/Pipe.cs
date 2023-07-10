@@ -6,7 +6,7 @@ namespace TMap.MVVM.Model.Pipeline;
 
 public class Pipe
 {
-    public Pipe(Material pipeMaterial)
+    public Pipe(MaterialModel pipeMaterial)
     {
         ArgumentNullException.ThrowIfNull(pipeMaterial, nameof(pipeMaterial));
 
@@ -32,7 +32,7 @@ public class Pipe
     /// <summary>
     ///     Материал трубы
     /// </summary>
-    public Material Material { get; set; }
+    public MaterialModel Material { get; set; }
 
     /// <summary>
     ///     Температура жидкости. Константа.

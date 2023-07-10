@@ -33,7 +33,7 @@ public class PipelineSettingsModel
     public PipelineSettingsModel(MaterialHelper materialHelper)
     {
         //TODO: PipelineSettingsModel нужно внедрить материал железобетона.
-        Channel = new PipelineChannel(new Material() { Name = "Железобетон", Color = "#5c533e" });
+        Channel = new PipelineChannel(new MaterialModel() { Name = "Железобетон", ColorHexCode = "#5c533e" });
 
         PipeMaterials = materialHelper.GetPipeMaterials();
         PipeInsulationMaterials = materialHelper.GetPipeInsulationMaterials();
@@ -42,7 +42,7 @@ public class PipelineSettingsModel
 
     public bool IsSkiped { get; set; }
     public PipelineChannel Channel { get; set; }
-    public ObservableCollection<Material> PipeMaterials { get; }
-    public ObservableCollection<Material> PipeInsulationMaterials { get; }
-    public ObservableCollection<Material> ChannelInsulationMaterials { get; }
+    public ObservableCollection<MaterialModel> PipeMaterials { get; }
+    public ObservableCollection<MaterialModel> PipeInsulationMaterials { get; }
+    public ObservableCollection<MaterialModel> ChannelInsulationMaterials { get; }
 }

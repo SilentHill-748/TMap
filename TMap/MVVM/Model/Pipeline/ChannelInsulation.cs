@@ -4,7 +4,7 @@ namespace TMap.MVVM.Model.Pipeline;
 
 public class ChannelInsulation
 {
-    public ChannelInsulation(Material insulationMaterial)
+    public ChannelInsulation(MaterialModel insulationMaterial)
     {
         ArgumentNullException.ThrowIfNull(insulationMaterial, nameof(insulationMaterial));
 
@@ -19,5 +19,5 @@ public class ChannelInsulation
     /// <summary>
     ///     Материал изоляции.
     /// </summary>
-    public Material Material { get; set; }
+    public MaterialModel Material { get; set; }
 }
