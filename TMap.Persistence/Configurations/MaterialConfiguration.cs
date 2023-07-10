@@ -22,6 +22,10 @@ internal class MaterialConfiguration : IEntityTypeConfiguration<Material>
             .HasColumnName("name");
 
         builder
+            .Property(x => x.ThermalConductivity)
+            .HasColumnName("thermal_conductivity");
+
+        builder
             .Property(x => x.Humidity)
             .HasColumnName("humidity");
 
