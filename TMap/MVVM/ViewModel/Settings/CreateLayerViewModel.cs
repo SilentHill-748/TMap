@@ -25,7 +25,7 @@ public class CreateLayerViewModel : ViewModelBase
         InitialValidation();
     }
 
-    public event Action<MapLayer>? LayerCreated;
+    public event Action<Layer>? LayerCreated;
 
     public int Thickness
     {
@@ -68,7 +68,7 @@ public class CreateLayerViewModel : ViewModelBase
 
     public ICommand AddLayerCommand { get; }
 
-    private void OnLayerCreated(MapLayer layer)
+    private void OnLayerCreated(Layer layer)
     {
         LayerCreated?.Invoke(layer);
         Material = default;

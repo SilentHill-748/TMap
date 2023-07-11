@@ -7,9 +7,9 @@ namespace TMap.WPFCore.Commands.Settings;
 public class AddMapLayerCommand : CommandBase
 {
     private readonly CreateLayerViewModel _viewModel;
-    private readonly Action<MapLayer>? _callback;
+    private readonly Action<Layer>? _callback;
 
-    public AddMapLayerCommand(CreateLayerViewModel viewModel, Action<MapLayer>? callback)
+    public AddMapLayerCommand(CreateLayerViewModel viewModel, Action<Layer>? callback)
     {
         ArgumentNullException.ThrowIfNull(viewModel, nameof(viewModel));
 
@@ -28,7 +28,7 @@ public class AddMapLayerCommand : CommandBase
         material.InitialTemperature = _viewModel.InitTemperature;
         material.LayerThickness = _viewModel.Thickness;
 
-        var layer = new MapLayer(material)
+        var layer = new Layer(material)
         {
             Thickness = _viewModel.Thickness
         };

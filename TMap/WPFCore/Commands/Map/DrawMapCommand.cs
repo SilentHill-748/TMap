@@ -37,7 +37,7 @@ public class DrawMapCommand : CommandBase
 
     public override bool CanExecute()
     {
-        return _viewModel.Settings.IsComplete;
+        return _viewModel.Settings.IsCompleted;
     }
 
 

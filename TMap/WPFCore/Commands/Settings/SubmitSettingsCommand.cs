@@ -25,7 +25,7 @@ public class SubmitSettingsCommand : CommandBase
     protected override void Execute()
     {
         _viewModel.Settings.PipelineSettings.IsSkiped = false;
-        _viewModel.Settings.IsComplete = true;
+        _viewModel.Settings.IsCompleted = true;
 
         _navigationService.NavigateTo<MapViewModel>();
 

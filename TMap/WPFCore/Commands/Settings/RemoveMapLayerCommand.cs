@@ -4,7 +4,7 @@ using TMap.WPFCore.Commands.Base;
 
 namespace TMap.WPFCore.Commands.Settings
 {
-    public class RemoveMapLayerCommand : ParameterizedCommandBase<MapLayer>
+    public class RemoveMapLayerCommand : ParameterizedCommandBase<Layer>
     {
         private readonly MapSettingsViewModel _viewModel;
 
@@ -15,7 +15,7 @@ namespace TMap.WPFCore.Commands.Settings
             _viewModel = mapSettingsViewModel;
         }
 
-        protected override void Execute(MapLayer parameter)
+        protected override void Execute(Layer parameter)
         {
             _viewModel.Settings.MapSoilLayers.Remove(parameter);
         }

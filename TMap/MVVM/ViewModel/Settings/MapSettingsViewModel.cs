@@ -66,7 +66,7 @@ public class MapSettingsViewModel : ViewModelBase
     #endregion
 
     #region Private methods
-    private void CreateLayerViewModel_LayerCreated(MapLayer layer)
+    private void CreateLayerViewModel_LayerCreated(Layer layer)
     {
         Settings.MapSoilLayers.Add(layer);
     }

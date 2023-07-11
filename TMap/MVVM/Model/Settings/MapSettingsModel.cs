@@ -7,31 +7,23 @@ public class MapSettingsModel
 {
     public MapSettingsModel()
     {
-        MapSoilLayers = new ObservableCollection<MapLayer>();
+        MapSoilLayers = new ObservableCollection<Layer>();
+
+        MapSoilLayers.CollectionChanged += MapSoilLayers_CollectionChanged;
     }
 
-    /// <summary>
-    ///     Ширина карты.
-    /// </summary>
     public int MapWidth { get; set; }
 
-    /// <summary>
-    ///     Глубина карты.
-    /// </summary>
-    public int MapHeight => MapSoilLayers.Sum(x => x.Thickness);
+    public int MapHeight { get; private set; }
 
-    /// <summary>
-    ///     Температура внешней среды для моделирования.
-    /// </summary>
     public double EnvironmentTemperature { get; set; }
 
-    /// <summary>
-    ///     Флаг, указывающий, какая проекция дороги будет использоваться.
-    /// </summary>
     public bool IsFrontView { get; set; }
 
-    /// <summary>
-    ///     Слои карты.
-    /// </summary>
-    public ObservableCollection<MapLayer> MapSoilLayers { get; set; }
+    public ObservableCollection<Layer> MapSoilLayers { get; set; }
+
+    private void MapSoilLayers_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        MapHeight = MapSoilLayers.Sum(x => x.Thickness);
+    }
 }

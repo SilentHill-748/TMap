@@ -12,8 +12,6 @@ public static class ConfigureAppServices
 {
     public static Container RegisterAppServices(this Container container, string databasePath)
     {
-        container.RegisterSingleton<MaterialHelper>();
-
         container
             .RegisterMapper(config =>
             {
@@ -24,8 +22,8 @@ public static class ConfigureAppServices
             .RegisterDbContext(opt => opt.UseSqlite($"Data Source={databasePath}"))
             .RegisterRepositories()
             .RegisterServices()
-            .RegisterModels()
             .RegisterViewModels()
+            .RegisterModels()
             .RegisterWPFServices();
 
         container.Register<DataSeed>();

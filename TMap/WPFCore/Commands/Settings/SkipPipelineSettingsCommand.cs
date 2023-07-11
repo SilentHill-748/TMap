@@ -24,7 +24,7 @@ public class SkipPipelineSettingsCommand : CommandBase
     {
         _settings.PipelineSettings.IsSkiped = true;
         _settings.PipelineSettings.Channel.Clear();
-        _settings.IsComplete = true;
+        _settings.IsCompleted = true;
 
         _navigationService.NavigateTo<MapViewModel>();
 
