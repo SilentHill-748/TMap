@@ -1,5 +1,4 @@
 ﻿global using TMap.Configurations.DI;
-global using TMap.Helpers;
 global using TMap.MVVM.Messages;
 global using TMap.MVVM.Model;
 global using TMap.MVVM.Model.Drawing;

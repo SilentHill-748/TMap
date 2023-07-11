@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-using CommunityToolkit.Mvvm.Messaging;
+using AutoMapper;
 
-using TMap.MVVM.Messages;
+using TMap.Domain.Abstractions.Services.Material;
+using TMap.Domain.Entities.Material;
 using TMap.WPFCore.Commands.Modeling;
 
 namespace TMap.MVVM.ViewModel.Map;
@@ -20,31 +20,28 @@ public class MapViewModel : ViewModelBase
     private WriteableBitmap? _mapBitmap;
     private WriteableBitmap? _temperatureSource;
 
-    private readonly MathModel _mathModel;
     private readonly ImageModel _imageModel = new();
     private readonly SettingsModel _settings;
-    private readonly MaterialHelper _materialHelper;
+    private readonly IMaterialService _materialService;
+    private readonly IMapper _mapper;
     #endregion
 
-    public MapViewModel(MaterialHelper materialHelper, SettingsModel settings, NavigationService navigationService)
+    public MapViewModel(IMaterialService materialService, IMapper mapper, SettingsModel settings, NavigationService navigationService)
     {
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
         ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
 
         _settings = settings;
         _navigationService = navigationService;
-        _materialHelper = materialHelper;
+        _materialService = materialService;
+        _mapper = mapper;
 
-        MaterialList = materialHelper.GetSoilMaterials();
+        MaterialList = new ObservableCollection<MaterialModel>(
+            materialService
+                .GetMaterialsByType(MaterialType.Soil)
+                .Select(mapper.Map<MaterialModel>));
 
         InitializeCommands();
-
-        WeakReferenceMessenger.Default.Register<SettingsDoneMessage>(this, OnSettingsCompleted);
-    }
-
-    private void OnSettingsCompleted(object recipient, SettingsDoneMessage message)
-    {
-        _materialHelper.DefaultMaterial.InitialTemperature = Settings.MapSettings.EnvironmentTemperature;
     }
 
     #region Models
@@ -77,29 +74,9 @@ public class MapViewModel : ViewModelBase
 
     private void InitializeCommands()
     {
-        DrawMapCommand = new DrawMapCommand(this, _materialHelper.DefaultMaterial);
-        CreateModelCommand = new CreateModelCommand(this, _materialHelper);
+        DrawMapCommand = new DrawMapCommand(this, _materialService, _mapper);
+        CreateModelCommand = new CreateModelCommand(this, _materialService, _mapper);
         RunModelCommand = new RunModelCommand(this);
         NavigateToSettingsCommand = new NavigateCommand<MapSettingsViewModel>(_navigationService);
     }
-
-    //private Dictionary<Color, Material> GetMaterialMap(MaterialHelper materialHelper)
-    //{
-    //    var materials = new List<Material>();
-    //    var map = new Dictionary<Color, Material>();
-
-    //    materials.AddRange(materialHelper.GetSoilMaterials());
-    //    materials.AddRange(materialHelper.GetPipeInsulationMaterials());
-    //    materials.AddRange(materialHelper.GetPipeMaterials());
-    //    materials.AddRange(materialHelper.GetChannelInsulationMaterials());
-
-    //    foreach (Material material in materials)
-    //    {
-    //        var color = (Color)ColorConverter.ConvertFromString(material.Color);
-            
-    //        map.Add(color, material);
-    //    }
-
-    //    return map;
-    //}
 }

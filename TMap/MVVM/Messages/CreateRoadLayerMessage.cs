@@ -2,9 +2,9 @@
 
 namespace TMap.MVVM.Messages
 {
-    class CreateRoadLayerMessage : ValueChangedMessage<RoadLayer>
+    class CreateRoadLayerMessage : ValueChangedMessage<Layer>
     {
-        public CreateRoadLayerMessage(RoadLayer value) : base(value)
+        public CreateRoadLayerMessage(Layer value) : base(value)
         {
         }
     }

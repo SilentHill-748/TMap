@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 
+using AutoMapper;
+
+using TMap.Domain.Abstractions.Services.Material;
+using TMap.Domain.Entities.Material;
 using TMap.WPFCore.Commands.Base;
 
 namespace TMap.WPFCore.Commands.Modeling;
@@ -10,15 +14,18 @@ namespace TMap.WPFCore.Commands.Modeling;
 public class CreateModelCommand : CommandBase
 {
     private readonly MapViewModel _viewModel;
-    private readonly MaterialHelper _materialHelper;
+    private readonly IMaterialService _materialService;
+    private readonly IMapper _mapper;
 
-    public CreateModelCommand(MapViewModel viewModel, MaterialHelper materialHelper)
+    public CreateModelCommand(MapViewModel viewModel, IMaterialService materialService, IMapper mapper)
     {
         ArgumentNullException.ThrowIfNull(viewModel, nameof(viewModel));
-        ArgumentNullException.ThrowIfNull(materialHelper, nameof(materialHelper));
+        ArgumentNullException.ThrowIfNull(materialService, nameof(materialService));
+        ArgumentNullException.ThrowIfNull(mapper, nameof(mapper));
 
         _viewModel = viewModel;
-        _materialHelper = materialHelper;
+        _materialService = materialService;
+        _mapper = mapper;
     }
 
     protected override void Execute()
@@ -30,11 +37,6 @@ public class CreateModelCommand : CommandBase
         _viewModel.MathModel.ModelStopped += MathModel_ModelStopped;
     }
 
-    private void MathModel_ModelStopped()
-    {
-        _viewModel.TemperatureSource = _viewModel.MathModel?.GetTemperatureMap();
-    }
-
     public override bool CanExecute()
     {
         var map = _viewModel.MapBitmap;
@@ -44,9 +46,16 @@ public class CreateModelCommand : CommandBase
             map.PixelHeight > 0;
     }
 
+    private void MathModel_ModelStopped()
+    {
+        _viewModel.TemperatureSource = _viewModel.MathModel?.GetTemperatureMap();
+    }
+
     private Dictionary<Color, MaterialModel> GetMaterialMap(SettingsModel settings)
     {
-        var materials = new List<MaterialModel>() { _materialHelper.DefaultMaterial, settings.PipelineSettings.Channel.Material };
+        var defaultMaterial = _materialService.GetMaterialsByType(MaterialType.Environment).First();
+
+        var materials = new List<MaterialModel>() { _mapper.Map<MaterialModel>(defaultMaterial), settings.PipelineSettings.Channel.Material };
         var map = new Dictionary<Color, MaterialModel>();
 
         materials.AddRange(settings.MapSettings.MapSoilLayers.Select(x => x.Material));

@@ -52,7 +52,7 @@ public class DrawingService
         var roadLayers = roadSettings.Layers;
         var startPoint = new Point();
 
-        foreach (RoadLayer layer in roadLayers)
+        foreach (Layer layer in roadLayers)
         {
             startPoint.X = (MapCenterLine - layer.Width / 2);
             polygons.Add(CreateRectPolygon(startPoint, layer.Width, layer.Thickness, layer.Material));
