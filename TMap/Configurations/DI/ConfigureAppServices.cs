@@ -4,6 +4,7 @@ using SimpleInjector;
 
 using TMap.Configurations.DI.Extentions;
 using TMap.Domain.Mapper;
+using TMap.MapperProfiles;
 using TMap.Persistence;
 
 namespace TMap.Configurations.DI;
@@ -16,6 +17,7 @@ public static class ConfigureAppServices
             .RegisterMapper(config =>
             {
                 config.AddProfile<AutomapperProfile>();
+                config.AddProfile<MaterialModelProfile>();
             });
 
         container
