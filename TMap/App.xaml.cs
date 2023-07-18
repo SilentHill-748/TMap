@@ -24,11 +24,7 @@ public partial class App : WpfApp
     {
         await InitializeServicesAsync();
 
-        MainWindow = new MainWindow()
-        {
-            DataContext = _container.GetInstance<MainViewModel>()
-        };
-
+        MainWindow = _container.GetInstance<MainWindow>();
         MainWindow.Show();
 
         base.OnStartup(e);

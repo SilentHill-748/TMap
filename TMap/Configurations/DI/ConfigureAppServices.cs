@@ -23,6 +23,7 @@ public static class ConfigureAppServices
             .RegisterWPFServices();
 
         container.Register<DataSeed>();
+        container.Register<MainWindow>();
 
         container.Verify();
 
