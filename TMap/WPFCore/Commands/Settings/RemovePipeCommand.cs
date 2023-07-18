@@ -1,4 +1,4 @@
-﻿namespace TMap.MVVM.ViewModel.Settings;
+﻿namespace TMap.WPFCore.Commands.Settings;
 
 public class RemovePipeCommand : ParameterizedCommandBase<Pipe>
 {
