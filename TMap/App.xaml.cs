@@ -35,6 +35,13 @@ public partial class App : WpfApp
         base.OnStartup(e);
     }
 
+    protected override async void OnExit(ExitEventArgs e)
+    {
+        await _container.DisposeAsync();
+
+        base.OnExit(e);
+    }
+
     private async Task InitializeServicesAsync()
     {
         _container.RegisterAppServices();
