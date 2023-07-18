@@ -6,7 +6,7 @@
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Converters="clr-namespace:TMap.WPFCore.Converters"
              xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Map"
-             xmlns:MapSettings="clr-namespace:TMap.WPFCore.Components.MapSettings"
+             xmlns:MapSettings="clr-namespace:TMap.WPFCore.Components.Settings.Map"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=ViewModel:MapSettingsViewModel}"
              x:Name="self">
@@ -41,7 +41,7 @@
                 Text="{Binding ViewTitle}"
                 FontSize="{Binding TitleFontSize}"/>
 
-            <MapSettings:MapSettingsInputView 
+            <MapSettings:MapInputDataView 
                 Grid.Row="2" 
                 DataContext="{Binding InputMapSettingsView}"/>
 

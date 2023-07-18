@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TMap.WPFCore.Components.Inputs.CreateRoadLayerView"
+﻿<UserControl x:Class="TMap.WPFCore.Components.Settings.Road.CreateRoadLayerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,6 +8,7 @@
              mc:Ignorable="d"
              SnapsToDevicePixels="True"
              d:DataContext="{d:DesignInstance Type=ViewModel:CreateRoadLayerViewModel}">
+    
     <UserControl.Resources>
         <Style TargetType="{x:Type Custom:PlaceholderTextBox}">
             <Setter Property="Margin" Value="0 0 0 5"/>
@@ -51,22 +52,22 @@
                 Style="{StaticResource ValidatableComboBoxStyle}"
                 ItemsSource="{Binding Materials}"
                 SelectedItem="{Binding Material, ValidatesOnDataErrors=True}"/>
-            
+
             <Custom:PlaceholderTextBox
                 Grid.Row="1"
                 Placeholder="от 700 см"
                 Text="{Binding Width, ValidatesOnDataErrors=True}"/>
-            
+
             <Custom:PlaceholderTextBox
                 Grid.Row="2"
                 Placeholder="От 1 см"
                 Text="{Binding Thickness, ValidatesOnDataErrors=True}"/>
-            
+
             <Custom:PlaceholderTextBox
                 Grid.Row="3"
                 Placeholder="от 0.01 гр/м³"
                 Text="{Binding Humidity, ValidatesOnDataErrors=True}"/>
-            
+
             <Custom:PlaceholderTextBox
                 Grid.Row="4"
                 Placeholder="от -70.00 до +170.00 °С"

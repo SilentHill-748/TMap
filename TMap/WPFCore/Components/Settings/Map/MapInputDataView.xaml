@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TMap.WPFCore.Components.MapSettings.MapSettingsInputView"
+﻿<UserControl x:Class="TMap.WPFCore.Components.Settings.Map.MapInputDataView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,7 +15,7 @@
             <Setter Property="Margin" Value="0 0 0 5"/>
             <Setter Property="BorderBrush" Value="Black"/>
         </Style>
-        
+
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="Margin" Value="0 0 0 5"/>
@@ -36,28 +36,10 @@
                 <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
 
-            <!--<TextBlock Text="Продольная проекция"/>-->
-
-            <!--<TextBlock 
-                Grid.Row="1"
-                Text="Ширина карты"/>-->
-
             <TextBlock 
                 Grid.Row="2"
                 Text="Температура внешней среды"
                 Margin="0"/>
-
-            <!--<CheckBox 
-                Grid.Column="2"
-                VerticalAlignment="Center"
-                Margin="0 0 0 5"
-                IsChecked="{Binding IsFrontView}"/>-->
-
-            <!--<Custom:PlaceholderTextBox 
-                Grid.Row="1"
-                Grid.Column="2"
-                Placeholder="от 1000 см"
-                Text="{Binding MapWidth, ValidatesOnDataErrors=True}"/>-->
 
             <Custom:PlaceholderTextBox
                 Grid.Column="2"

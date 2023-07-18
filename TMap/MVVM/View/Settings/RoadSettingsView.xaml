@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Road"
-             xmlns:MapSettings="clr-namespace:TMap.WPFCore.Components.MapSettings"
-             xmlns:Inputs="clr-namespace:TMap.WPFCore.Components.Inputs"
+             xmlns:RoadSettings="clr-namespace:TMap.WPFCore.Components.Settings.Road"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=ViewModel:RoadSettingsViewModel}">
     <UserControl.Resources>
@@ -39,11 +38,11 @@
                 Text="{Binding ViewTitle}"
                 FontSize="{Binding ViewTitleFontSize}"/>
 
-            <MapSettings:InputRoadSettingsView 
+            <RoadSettings:RoadInputDataView 
                 Grid.Row="2"
                 DataContext="{Binding InputRoadSettingsView}"/>
-            
-            <Inputs:CreateRoadLayerView 
+
+            <RoadSettings:CreateRoadLayerView
                 Grid.Row="2"
                 Grid.Column="2"
                 DataContext="{Binding CreateRoadLayerView}"/>
@@ -131,3 +130,4 @@
         </Grid>
     </ScrollViewer>
 </UserControl>
+    

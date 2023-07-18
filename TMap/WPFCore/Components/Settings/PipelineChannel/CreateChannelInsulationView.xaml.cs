@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace TMap.WPFCore.Components.Inputs;
+namespace TMap.WPFCore.Components.Settings.PipelineChannel;
 
 public partial class CreateChannelInsulationView : UserControl
 {

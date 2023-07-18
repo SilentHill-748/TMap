@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TMap.WPFCore.Components.MapSettings.InputRoadSettingsView"
+﻿<UserControl x:Class="TMap.WPFCore.Components.Settings.Road.RoadInputDataView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,6 +8,7 @@
              mc:Ignorable="d"
              SnapsToDevicePixels="True"
              d:DataContext="{d:DesignInstance Type=ViewModel:InputRoadSettingsViewModel}">
+
     <UserControl.Resources>
         <Style TargetType="{x:Type Custom:PlaceholderTextBox}">
             <Setter Property="Grid.Column" Value="2"/>
@@ -21,7 +22,7 @@
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
         </Style>
     </UserControl.Resources>
-    
+
     <GroupBox Header="Общие настройки дорожной конструкции">
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
@@ -50,29 +51,29 @@
                 x:Name="hasMound"
                 Grid.Column="2"
                 IsChecked="{Binding HasMound, Mode=TwoWay}"/>
-            
+
             <Custom:PlaceholderTextBox 
                 Grid.Row="1"
                 Placeholder="от 50 до 100 см"
                 IsEnabled="{Binding ElementName=hasMound, Path=IsChecked}"
                 Text="{Binding MoundWidth, ValidatesOnDataErrors=True}"/>
-            
+
             <Custom:PlaceholderTextBox 
                 Grid.Row="2" 
                 Placeholder="от 20 до 100 см"
                 IsEnabled="{Binding ElementName=hasMound, Path=IsChecked}"
                 Text="{Binding MoundHeight, ValidatesOnDataErrors=True}"/>
-            
+
             <Custom:PlaceholderTextBox 
                 Grid.Row="3"
                 Placeholder="от 700 см"
                 Text="{Binding Width, ValidatesOnDataErrors=True}"/>
-            
+
             <Custom:PlaceholderTextBox
                 Grid.Row="4" 
                 Placeholder="от 25 до 50 см"
                 Text="{Binding RoadsideWidth, ValidatesOnDataErrors=True}"/>
-            
+
             <Custom:PlaceholderTextBox 
                 Grid.Row="5"
                 Placeholder="от 50 см"

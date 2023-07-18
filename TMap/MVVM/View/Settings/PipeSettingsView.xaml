@@ -6,7 +6,7 @@
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Pipeline"
              xmlns:Models="clr-namespace:TMap.MVVM.Model.Pipeline"
-             xmlns:Inputs="clr-namespace:TMap.WPFCore.Components.Inputs"
+             xmlns:PipelineSettings="clr-namespace:TMap.WPFCore.Components.Settings.Pipeline"
              mc:Ignorable="d"
              Name="self"
              d:DataContext="{d:DesignInstance Type=ViewModel:PipeSettingsViewModel}">
@@ -38,11 +38,11 @@
                 Text="{Binding ViewTitle}"
                 FontSize="{Binding ViewTitleFontSize}"/>
 
-            <Inputs:PipelinePipeInputDataView 
+            <PipelineSettings:PipeInputDataView
                 Grid.Row="2"
                 DataContext="{Binding InputPipeDataView}"/>
 
-            <Inputs:CreatePipeInsulationView
+            <PipelineSettings:CreatePipeInsulationView
                 Grid.Row="2"
                 Grid.Column="2"
                 DataContext="{Binding CreatePipeInsulationView}"/>

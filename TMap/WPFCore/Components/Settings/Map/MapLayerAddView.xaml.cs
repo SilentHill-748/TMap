@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace TMap.WPFCore.Components.MapSettings;
+namespace TMap.WPFCore.Components.Settings.Map;
 
 public partial class MapLayerAddView : UserControl
 {
