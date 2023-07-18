@@ -34,9 +34,10 @@ public class MapSettingsViewModel : ViewModelBase
         TitleFontSize = 22;
 
         _settings.MapSoilLayers.CollectionChanged += MapSoilLayers_CollectionChanged;
-        _createLayerViewModel.LayerCreated += CreateLayerViewModel_LayerCreated;
         _inputMapSettingsViewModel.IsValidChanged += InputMapSettingsViewModel_IsValidChanged;
         _materialStore.StoreChanged += MaterialStore_StoreChanged;
+
+        WeakReferenceMessenger.Default.Register<MapLayerCreateMessage>(this, OnLayerCreated);
 
         InitCommands();
     }
@@ -65,9 +66,11 @@ public class MapSettingsViewModel : ViewModelBase
     #endregion
 
     #region Private methods
-    private void CreateLayerViewModel_LayerCreated(Layer layer)
+    private void OnLayerCreated(object recipient, MapLayerCreateMessage message)
     {
-        Settings.MapSoilLayers.Add(layer);
+        ArgumentNullException.ThrowIfNull(message, nameof(message));
+
+        Settings.MapSoilLayers.Add(message.Value);
     }
 
     private void MaterialStore_StoreChanged()

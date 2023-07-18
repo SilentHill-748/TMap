@@ -1,4 +1,5 @@
 ﻿using WpfApp = System.Windows.Application;
+using Container = SimpleInjector.Container;
 
 namespace TMap;
 

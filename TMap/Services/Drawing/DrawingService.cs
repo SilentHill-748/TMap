@@ -1,4 +1,6 @@
-﻿namespace TMap.Services.Drawing;
+﻿using Point = TMap.MVVM.Model.Drawing.Point;
+
+namespace TMap.Services.Drawing;
 
 public class DrawingService
 {

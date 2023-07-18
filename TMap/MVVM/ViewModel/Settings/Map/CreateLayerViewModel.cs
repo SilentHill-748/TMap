@@ -22,14 +22,12 @@ public class CreateLayerViewModel : ViewModelBase
 
         Materials = new ObservableCollection<MaterialModel>(materialStore.GetMapMaterials());
 
-        AddLayerCommand = new AddMapLayerCommand(this, OnLayerCreated);
+        AddLayerCommand = new AddMapLayerCommand(this);
 
         _materialStore.StoreChanged += MaterialStore_StoreChanged;
 
         InitialValidation();
     }
-
-    public event Action<Layer>? LayerCreated;
 
     public int Thickness
     {
@@ -71,15 +69,6 @@ public class CreateLayerViewModel : ViewModelBase
     public ObservableCollection<MaterialModel> Materials { get; }
 
     public ICommand AddLayerCommand { get; }
-
-    private void OnLayerCreated(Layer layer)
-    {
-        LayerCreated?.Invoke(layer);
-        Material = default;
-        Thickness = default;
-        Humidity = default;
-        InitTemperature = default;
-    }
 
     private bool CheckInitTemp()
         => InitTemperature <= -70 || InitTemperature >= 170;

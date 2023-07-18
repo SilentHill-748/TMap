@@ -24,8 +24,6 @@ global using CommunityToolkit.Mvvm.Messaging.Messages;
 
 global using Microsoft.EntityFrameworkCore;
 
-global using SimpleInjector;
-
 global using TMap.Application.Services.Material;
 global using TMap.Configurations.DI;
 global using TMap.Configurations.DI.Extentions;

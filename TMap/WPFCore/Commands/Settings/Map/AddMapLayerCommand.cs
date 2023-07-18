@@ -3,14 +3,12 @@
 public class AddMapLayerCommand : CommandBase
 {
     private readonly CreateLayerViewModel _viewModel;
-    private readonly Action<Layer>? _callback;
 
-    public AddMapLayerCommand(CreateLayerViewModel viewModel, Action<Layer>? callback)
+    public AddMapLayerCommand(CreateLayerViewModel viewModel)
     {
         ArgumentNullException.ThrowIfNull(viewModel, nameof(viewModel));
 
         _viewModel = viewModel;
-        _callback = callback;
     }
 
     protected override void Execute()
@@ -29,6 +27,14 @@ public class AddMapLayerCommand : CommandBase
             Thickness = _viewModel.Thickness
         };
 
-        _callback?.Invoke(layer);
+        WeakReferenceMessenger.Default.Send(new MapLayerCreateMessage(layer));
+    }
+
+    private void Reset()
+    {
+        _viewModel.Material = default;
+        _viewModel.Thickness = default;
+        _viewModel.Humidity = default;
+        _viewModel.InitTemperature = default;
     }
 }
