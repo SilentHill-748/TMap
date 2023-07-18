@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-
-namespace TMap.MVVM.Model.Pipeline;
+﻿namespace TMap.MVVM.Model.Pipeline;
 
 public class Pipe
 {

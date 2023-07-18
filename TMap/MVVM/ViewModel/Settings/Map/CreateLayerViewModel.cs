@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-
-using TMap.Configurations.Extentions;
-using TMap.MVVM.Stores;
-
-namespace TMap.MVVM.ViewModel.Settings;
+﻿namespace TMap.MVVM.ViewModel.Settings.Map;
 
 public class CreateLayerViewModel : ViewModelBase
 {
@@ -90,7 +83,7 @@ public class CreateLayerViewModel : ViewModelBase
 
     private bool CheckInitTemp()
         => InitTemperature <= -70 || InitTemperature >= 170;
-    
+
     private void InitialValidation()
     {
         ValidateProperty(() => Material is not { }, nameof(Material), MaterialError);

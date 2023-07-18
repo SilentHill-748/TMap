@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using CommunityToolkit.Mvvm.Messaging;
-
-using TMap.Configurations.Extentions;
-using TMap.WPFCore.Commands.Base;
-
-namespace TMap.WPFCore.Commands.Settings;
+﻿namespace TMap.WPFCore.Commands.Settings;
 
 public class CreatePipeCommand : CommandBase
 {

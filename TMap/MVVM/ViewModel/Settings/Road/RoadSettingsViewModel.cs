@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-
-using CommunityToolkit.Mvvm.Messaging;
-
-using TMap.Configurations.Extentions;
-using TMap.MVVM.Stores;
-
-namespace TMap.MVVM.ViewModel.Settings;
+﻿namespace TMap.MVVM.ViewModel.Settings.Road;
 
 public class RoadSettingsViewModel : ViewModelBase
 {
@@ -19,7 +10,7 @@ public class RoadSettingsViewModel : ViewModelBase
     private int _viewTitleFontSize;
 
     public RoadSettingsViewModel(
-        SettingsModel settings, 
+        SettingsModel settings,
         MaterialStore materialStore,
         NavigationService navigationService)
     {
@@ -62,7 +53,7 @@ public class RoadSettingsViewModel : ViewModelBase
         set => Set(ref _viewTitleFontSize, value, nameof(ViewTitleFontSize));
     }
     public bool IsInvalidLayerCount => Settings.Layers.Count < 1;
-    public bool HasNext => (!IsInvalidLayerCount) && InputRoadSettingsView.IsValid;
+    public bool HasNext => !IsInvalidLayerCount && InputRoadSettingsView.IsValid;
     #endregion
 
     public ICommand NavigateNextCommand { get; }

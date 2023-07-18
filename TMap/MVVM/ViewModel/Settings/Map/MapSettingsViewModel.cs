@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-
-using TMap.Configurations.Extentions;
-using TMap.MVVM.Stores;
-
-namespace TMap.MVVM.ViewModel.Settings;
+﻿namespace TMap.MVVM.ViewModel.Settings.Map;
 
 public class MapSettingsViewModel : ViewModelBase
 {
@@ -22,7 +15,7 @@ public class MapSettingsViewModel : ViewModelBase
     #endregion
 
     public MapSettingsViewModel(
-        SettingsModel settings, 
+        SettingsModel settings,
         MaterialStore materialStore,
         NavigationService navigationService)
     {
@@ -104,7 +97,7 @@ public class MapSettingsViewModel : ViewModelBase
     {
         var isValidInput = InputMapSettingsView.IsValid;
 
-        return (!IsInvalidMapHeight) && (isValidInput);
+        return !IsInvalidMapHeight && isValidInput;
     }
     #endregion
 }

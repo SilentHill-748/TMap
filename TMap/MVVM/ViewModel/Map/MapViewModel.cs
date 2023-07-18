@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
-
-using TMap.Configurations.Extentions;
-using TMap.MVVM.Stores;
-using TMap.WPFCore.Commands.Modeling;
-
-namespace TMap.MVVM.ViewModel.Map;
+﻿namespace TMap.MVVM.ViewModel.Map;
 
 public class MapViewModel : ViewModelBase
 {

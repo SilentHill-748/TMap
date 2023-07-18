@@ -1,8 +1,4 @@
-﻿using System;
-
-using AutoMapper;
-
-using SimpleInjector;
+﻿using Container = SimpleInjector.Container;
 
 namespace TMap.Configurations.DI.Extentions;
 

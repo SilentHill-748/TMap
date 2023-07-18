@@ -1,8 +1,4 @@
-﻿using System;
-
-using TMap.WPFCore.Commands.Base;
-
-namespace TMap.WPFCore.Commands.Modeling;
+﻿namespace TMap.WPFCore.Commands.Modeling;
 
 public class RunModelCommand : CommandBase
 {

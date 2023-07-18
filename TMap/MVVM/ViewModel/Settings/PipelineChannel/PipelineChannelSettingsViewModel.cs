@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-
-using CommunityToolkit.Mvvm.Messaging;
-
-using TMap.Configurations.Extentions;
-using TMap.MVVM.Stores;
-
-namespace TMap.MVVM.ViewModel.Settings;
+﻿namespace TMap.MVVM.ViewModel.Settings.PipelineChannel;
 
 public class PipelineChannelSettingsViewModel : ViewModelBase
 {

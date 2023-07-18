@@ -1,7 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Linq;
-
-namespace TMap.MVVM.Model.Settings;
+﻿namespace TMap.MVVM.Model.Settings;
 
 public class MapSettingsModel
 {

@@ -1,19 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Threading;
-
-using SimpleInjector;
-
-using TMap.MVVM.Stores;
-using TMap.MVVM.View.Windows;
-using TMap.Persistence;
+﻿using WpfApp = System.Windows.Application;
 
 namespace TMap;
 
-public partial class App : System.Windows.Application
+public partial class App : WpfApp
 {
     private readonly Container _container = new();
     private readonly string _rootAppPath;

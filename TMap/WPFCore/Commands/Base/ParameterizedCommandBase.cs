@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Input;
-
-namespace TMap.WPFCore.Commands.Base
+﻿namespace TMap.WPFCore.Commands.Base
 {
     public abstract class ParameterizedCommandBase<TParameter> : ICommand
     {

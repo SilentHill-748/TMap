@@ -1,15 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-using AutoMapper;
-
-using TMap.Domain.Abstractions.Services.Material;
-using TMap.Domain.DTO.Material;
-using TMap.Domain.Entities.Material;
-
-namespace TMap.MVVM.Stores;
+﻿namespace TMap.MVVM.Stores;
 
 public class MaterialStore
 {

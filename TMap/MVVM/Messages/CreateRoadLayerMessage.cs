@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Messaging.Messages;
-
-namespace TMap.MVVM.Messages
+﻿namespace TMap.MVVM.Messages
 {
     class CreateRoadLayerMessage : ValueChangedMessage<Layer>
     {

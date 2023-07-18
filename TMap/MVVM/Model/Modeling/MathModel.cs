@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-using MathNet.Numerics.Integration;
-
-using TMap.Services;
-
-namespace TMap.MVVM.Model.Modeling;
+﻿namespace TMap.MVVM.Model.Modeling;
 
 /// <summary>
 ///     Выполняет расчет тепловых характеристик моделируемой области.

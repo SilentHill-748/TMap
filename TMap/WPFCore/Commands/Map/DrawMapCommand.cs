@@ -1,12 +1,4 @@
-﻿using System;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-using TMap.WPFCore.Commands.Base;
-using TMap.Domain.Entities.Material;
-using TMap.MVVM.Stores;
-
-namespace TMap.WPFCore.Commands.Map;
+﻿namespace TMap.WPFCore.Commands.Map;
 
 public class DrawMapCommand : CommandBase
 {

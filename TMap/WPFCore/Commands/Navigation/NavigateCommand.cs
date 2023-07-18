@@ -1,8 +1,4 @@
-﻿using System;
-
-using TMap.WPFCore.Commands.Base;
-
-namespace TMap.WPFCore.Commands.Navigation;
+﻿namespace TMap.WPFCore.Commands.Navigation;
 
 public class NavigateCommand<TViewModel> : CommandBase
     where TViewModel : ViewModelBase

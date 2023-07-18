@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Converters="clr-namespace:TMap.WPFCore.Converters"
-             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Map"
              xmlns:MapSettings="clr-namespace:TMap.WPFCore.Components.MapSettings"
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=ViewModel:MapSettingsViewModel}"

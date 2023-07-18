@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-namespace TMap.Configurations.Extentions;
+﻿namespace TMap.Configurations.Extentions;
 
 public static class ObservableCollectionExtentions
 {

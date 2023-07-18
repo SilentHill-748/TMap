@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Pipeline"
              xmlns:Models="clr-namespace:TMap.MVVM.Model.Pipeline"
              xmlns:Inputs="clr-namespace:TMap.WPFCore.Components.Inputs"
              mc:Ignorable="d"

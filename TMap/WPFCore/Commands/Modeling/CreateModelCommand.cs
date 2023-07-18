@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Media;
-
-using TMap.Domain.Entities.Material;
-using TMap.MVVM.Stores;
-using TMap.WPFCore.Commands.Base;
-
-namespace TMap.WPFCore.Commands.Modeling;
+﻿namespace TMap.WPFCore.Commands.Modeling;
 
 public class CreateModelCommand : CommandBase
 {

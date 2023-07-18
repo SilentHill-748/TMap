@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-
-namespace TMap.MVVM.ViewModel;
+﻿namespace TMap.MVVM.ViewModel;
 
 public class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
 {

@@ -1,8 +1,4 @@
-﻿
-using System;
-using TMap.MVVM.Model.Modeling;
-
-namespace TMap.MVVM.Model.Map;
+﻿namespace TMap.MVVM.Model.Map;
 
 public class TemperatureModel
 {

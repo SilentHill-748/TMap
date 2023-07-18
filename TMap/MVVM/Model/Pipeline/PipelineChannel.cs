@@ -1,8 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-
-namespace TMap.MVVM.Model.Pipeline;
+﻿namespace TMap.MVVM.Model.Pipeline;
 
 public class PipelineChannel
 {

@@ -1,8 +1,4 @@
-﻿using System;
-
-using CommunityToolkit.Mvvm.Messaging;
-
-namespace TMap.MVVM.ViewModel;
+﻿namespace TMap.MVVM.ViewModel;
 
 public class MainViewModel : ViewModelBase
 {

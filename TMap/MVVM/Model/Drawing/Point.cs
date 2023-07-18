@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-
-namespace TMap.MVVM.Model.Drawing;
+﻿namespace TMap.MVVM.Model.Drawing;
 
 public struct Point
 {

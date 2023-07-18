@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TMap.MVVM.ViewModel.Settings;
+﻿namespace TMap.MVVM.ViewModel.Settings.Map;
 
 public class InputMapSettingsViewModel : ViewModelBase
 {

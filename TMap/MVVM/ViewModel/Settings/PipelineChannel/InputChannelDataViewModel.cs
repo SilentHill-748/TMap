@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace TMap.MVVM.ViewModel.Settings;
+﻿namespace TMap.MVVM.ViewModel.Settings.PipelineChannel;
 
 public class InputChannelDataViewModel : ViewModelBase
 {
@@ -139,9 +136,9 @@ public class InputChannelDataViewModel : ViewModelBase
             Set(ref _channelHeight, value, nameof(ChannelHeight));
             UpdateProperties();
             ValidateProperty(
-                () => 
-                    ChannelHeight < MinChannelHeightLayout || ChannelHeight > (3000 - MinChannelHeightLayout), 
-                nameof(ChannelHeight), 
+                () =>
+                    ChannelHeight < MinChannelHeightLayout || ChannelHeight > 3000 - MinChannelHeightLayout,
+                nameof(ChannelHeight),
                 $"Высота коллектора должна быть между {MinChannelHeightLayout} и {3000 - MinChannelHeightLayout} см!");
         }
     }
@@ -213,7 +210,7 @@ public class InputChannelDataViewModel : ViewModelBase
     private void ValidateViewModel()
     {
         ValidateProperty(() => Thickness < 5 || Thickness > 25, nameof(Thickness), ThicknessError);
-        ValidateProperty(() => ChannelHeight < MinChannelHeightLayout || ChannelHeight > (3000 - MinChannelHeightLayout), nameof(ChannelHeight), $"Высота коллектора должна быть между {MinChannelHeightLayout} и {3000 - MinChannelHeightLayout} см!");
+        ValidateProperty(() => ChannelHeight < MinChannelHeightLayout || ChannelHeight > 3000 - MinChannelHeightLayout, nameof(ChannelHeight), $"Высота коллектора должна быть между {MinChannelHeightLayout} и {3000 - MinChannelHeightLayout} см!");
         ValidateProperty(() => ChannelDepth < _roadSettings.MaxDepth, nameof(ChannelDepth), ChannelDepthError);
         ValidateProperty(() => PipeCenterline < MinCenterlinePosition || PipeCenterline > MaxCenterlinePosition, nameof(PipeCenterline), $"Осевая линия труб должна быть между {MinCenterlinePosition} и {MaxCenterlinePosition}");
         ValidateProperty(() => InteraxalWidth < 3 || InteraxalWidth > 10, nameof(InteraxalWidth), InteraxalWidthError);

@@ -1,7 +1,4 @@
-﻿using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-namespace TMap.MVVM.Model;
+﻿namespace TMap.MVVM.Model;
 
 public class ImageModel
 {

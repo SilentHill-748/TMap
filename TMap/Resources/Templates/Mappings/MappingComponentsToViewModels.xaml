@@ -1,37 +1,41 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:SettingsVMs="clr-namespace:TMap.MVVM.ViewModel.Settings"
+                    xmlns:SettingsMap="clr-namespace:TMap.MVVM.ViewModel.Settings.Map"
+                    xmlns:SettingsRoad="clr-namespace:TMap.MVVM.ViewModel.Settings.Road"
+                    xmlns:SettingsPipeline="clr-namespace:TMap.MVVM.ViewModel.Settings.Pipeline"
+                    xmlns:SettingsPipelineSettings="clr-namespace:TMap.MVVM.ViewModel.Settings.PipelineChannel"
                     xmlns:InputComponents="clr-namespace:TMap.WPFCore.Components.Inputs"
                     xmlns:MapSettingsComponents="clr-namespace:TMap.WPFCore.Components.MapSettings">
-    <DataTemplate DataType="{x:Type SettingsVMs:CreateLayerViewModel}">
+    
+    <DataTemplate DataType="{x:Type SettingsMap:CreateLayerViewModel}">
         <MapSettingsComponents:MapLayerAddView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsVMs:InputMapSettingsViewModel}">
+    <DataTemplate DataType="{x:Type SettingsMap:InputMapSettingsViewModel}">
         <MapSettingsComponents:MapSettingsInputView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsVMs:InputRoadSettingsViewModel}">
+    <DataTemplate DataType="{x:Type SettingsRoad:InputRoadSettingsViewModel}">
         <MapSettingsComponents:InputRoadSettingsView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsVMs:CreateRoadLayerViewModel}">
+    <DataTemplate DataType="{x:Type SettingsRoad:CreateRoadLayerViewModel}">
         <InputComponents:CreateRoadLayerView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsVMs:InputChannelDataViewModel}">
-        <InputComponents:PipelineChannelInputDataView/>
-    </DataTemplate>
-
-    <DataTemplate DataType="{x:Type SettingsVMs:InputPipeDataViewModel}">
+    <DataTemplate DataType="{x:Type SettingsPipeline:InputPipeDataViewModel}">
         <InputComponents:PipelinePipeInputDataView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsVMs:CreateChannelInsulationViewModel}">
+    <DataTemplate DataType="{x:Type SettingsPipelineSettings:CreateChannelInsulationViewModel}">
         <InputComponents:CreateChannelInsulationView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsVMs:CreatePipeInsulationVewModel}">
+    <DataTemplate DataType="{x:Type SettingsPipelineSettings:InputChannelDataViewModel}">
+        <InputComponents:PipelineChannelInputDataView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type SettingsPipeline:CreatePipeInsulationVewModel}">
         <InputComponents:CreatePipeInsulationView/>
     </DataTemplate>
 </ResourceDictionary>

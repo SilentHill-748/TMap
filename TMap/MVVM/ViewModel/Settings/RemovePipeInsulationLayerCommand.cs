@@ -1,8 +1,4 @@
-﻿using System;
-
-using TMap.WPFCore.Commands.Base;
-
-namespace TMap.MVVM.ViewModel.Settings;
+﻿namespace TMap.MVVM.ViewModel.Settings;
 
 public class RemovePipeInsulationLayerCommand : ParameterizedCommandBase<RadialInsulation>
 {

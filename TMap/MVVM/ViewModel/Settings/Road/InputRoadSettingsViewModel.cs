@@ -1,4 +1,4 @@
-﻿namespace TMap.MVVM.ViewModel.Settings;
+﻿namespace TMap.MVVM.ViewModel.Settings.Road;
 
 public class InputRoadSettingsViewModel : ViewModelBase
 {
@@ -115,9 +115,9 @@ public class InputRoadSettingsViewModel : ViewModelBase
         ValidateEdgeWidth();
     }
 
-    private void ValidateRoadWidth() 
+    private void ValidateRoadWidth()
         => ValidateProperty(() => Width < 700, nameof(Width), RoadWidthError);
-    private void ValidateMoundWidth() 
+    private void ValidateMoundWidth()
         => ValidateProperty(() => Between(50, 100, MoundWidth), nameof(MoundWidth), MoundWidthError);
     private void ValidateMoundHeight()
         => ValidateProperty(() => Between(20, 100, MoundHeight), nameof(MoundHeight), MoundHeightError);
@@ -126,7 +126,7 @@ public class InputRoadSettingsViewModel : ViewModelBase
     private void ValidateEdgeWidth()
         => ValidateProperty(() => EdgeWidth < 50, nameof(EdgeWidth), EdgeWidthError);
 
-    private static bool Between(int left, int right, int value) 
+    private static bool Between(int left, int right, int value)
         => value < left || value > right;
-    
+
 }

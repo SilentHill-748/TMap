@@ -1,9 +1,4 @@
-﻿using AutoMapper;
-
-using TMap.Domain.DTO.Material;
-using TMap.Domain.Entities.Material;
-
-namespace TMap.MapperProfiles;
+﻿namespace TMap.MapperProfiles;
 
 public class MaterialModelProfile : Profile
 {

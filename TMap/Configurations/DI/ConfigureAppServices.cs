@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using SimpleInjector;
-
-using TMap.Configurations.DI.Extentions;
-using TMap.Domain.Mapper;
-using TMap.MapperProfiles;
-using TMap.Persistence;
+﻿using Container = SimpleInjector.Container;
 
 namespace TMap.Configurations.DI;
 

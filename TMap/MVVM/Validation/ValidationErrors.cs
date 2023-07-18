@@ -1,6 +1,4 @@
-﻿using Microsoft.Xaml.Behaviors.Media;
-
-namespace TMap.MVVM.Validation;
+﻿namespace TMap.MVVM.Validation;
 
 public static class ValidationErrors
 {

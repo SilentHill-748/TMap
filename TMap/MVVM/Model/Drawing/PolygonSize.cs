@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace TMap.MVVM.Model.Drawing;
+﻿namespace TMap.MVVM.Model.Drawing;
 
 public struct PolygonSize
 {

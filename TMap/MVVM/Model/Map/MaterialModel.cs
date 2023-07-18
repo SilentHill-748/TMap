@@ -1,8 +1,4 @@
-﻿using System.Windows.Media;
-
-using TMap.Domain.Entities.Material;
-
-namespace TMap.MVVM.Model.Map;
+﻿namespace TMap.MVVM.Model.Map;
 
 public class MaterialModel
 {

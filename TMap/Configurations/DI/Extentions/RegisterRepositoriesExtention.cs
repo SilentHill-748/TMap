@@ -1,7 +1,4 @@
-﻿using SimpleInjector;
-
-using TMap.Domain.Abstractions.Repositories;
-using TMap.Persistence.Repositories;
+﻿using Container = SimpleInjector.Container;
 
 namespace TMap.Configurations.DI.Extentions;
 

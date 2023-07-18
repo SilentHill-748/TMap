@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Messaging.Messages;
-
-namespace TMap.MVVM.Messages;
+﻿namespace TMap.MVVM.Messages;
 
 internal class NavigationChangedRequestedMessage : ValueChangedMessage<NavigationModel>
 {
