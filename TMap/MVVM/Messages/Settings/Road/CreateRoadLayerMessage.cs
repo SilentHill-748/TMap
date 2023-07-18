@@ -1,4 +1,4 @@
-﻿namespace TMap.MVVM.Messages
+﻿namespace TMap.MVVM.Messages.Settings.Road
 {
     class CreateRoadLayerMessage : ValueChangedMessage<Layer>
     {

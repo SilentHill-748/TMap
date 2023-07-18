@@ -1,4 +1,4 @@
-﻿namespace TMap.MVVM.Messages;
+﻿namespace TMap.MVVM.Messages.Settings.PipelineChannel;
 
 public class CreateChannelInsulationMessage : ValueChangedMessage<ChannelInsulation>
 {

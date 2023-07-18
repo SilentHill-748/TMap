@@ -1,4 +1,4 @@
-﻿namespace TMap.MVVM.Messages;
+﻿namespace TMap.MVVM.Messages.Settings;
 
 public class SettingsDoneMessage : ValueChangedMessage<object>
 {

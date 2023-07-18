@@ -1,4 +1,4 @@
-﻿namespace TMap.MVVM.Messages;
+﻿namespace TMap.MVVM.Messages.Settings.Pipeline;
 
 public class CreatePipeInsulationMessage : ValueChangedMessage<RadialInsulation>
 {
