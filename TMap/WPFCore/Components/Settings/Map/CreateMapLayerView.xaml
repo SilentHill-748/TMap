@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="TMap.WPFCore.Components.Settings.Map.MapLayerAddView"
+﻿<UserControl x:Class="TMap.WPFCore.Components.Settings.Map.CreateMapLayerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
              xmlns:Custom="clr-namespace:TMap.CustomControls.Controls;assembly=TMap.CustomControls"
              mc:Ignorable="d"
              SnapsToDevicePixels="True"
-             d:DataContext="{d:DesignInstance Type=ViewModel:CreateLayerViewModel}">
+             d:DataContext="{d:DesignInstance Type=ViewModel:CreateMapLayerViewModel}">
 
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBlock}">

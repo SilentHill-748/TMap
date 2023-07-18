@@ -8,8 +8,8 @@ public class MapSettingsViewModel : ViewModelBase
     private readonly MapSettingsModel _settings;
     private readonly MaterialStore _materialStore;
 
-    private readonly CreateLayerViewModel _createLayerViewModel;
-    private readonly InputMapSettingsViewModel _inputMapSettingsViewModel;
+    private readonly CreateMapLayerViewModel _createLayerViewModel;
+    private readonly MapInputDataViewModel _inputMapSettingsViewModel;
 
     private int _titleFontSize;
     #endregion
@@ -27,8 +27,8 @@ public class MapSettingsViewModel : ViewModelBase
         _materials = new ObservableCollection<MaterialModel>(materialStore.GetMapMaterials());
         _settings = settings.MapSettings;
         _navigationService = navigationService;
-        _createLayerViewModel = new CreateLayerViewModel(materialStore);
-        _inputMapSettingsViewModel = new InputMapSettingsViewModel(settings.MapSettings);
+        _createLayerViewModel = new CreateMapLayerViewModel(materialStore);
+        _inputMapSettingsViewModel = new MapInputDataViewModel(settings.MapSettings);
 
         WindowTitle = "Настройка карты геологического среза";
         TitleFontSize = 22;
@@ -45,8 +45,8 @@ public class MapSettingsViewModel : ViewModelBase
     #region Public properties
     public ObservableCollection<MaterialModel> Materials => _materials;
     public MapSettingsModel Settings => _settings;
-    public CreateLayerViewModel CreateLayerView => _createLayerViewModel;
-    public InputMapSettingsViewModel InputMapSettingsView => _inputMapSettingsViewModel;
+    public CreateMapLayerViewModel CreateLayerView => _createLayerViewModel;
+    public MapInputDataViewModel InputMapSettingsView => _inputMapSettingsViewModel;
     #endregion
 
     #region Notify properties

@@ -1,6 +1,6 @@
 ﻿namespace TMap.MVVM.ViewModel.Settings.Pipeline;
 
-public class InputPipeDataViewModel : ViewModelBase
+public class PipeInputDataViewModel : ViewModelBase
 {
     private const string RadiusError = ValidationErrors.PipelineSettingsErrors.PipelinePipeErrors.CreatePipeErrors.RadiusError;
     private const string ThicknessError = ValidationErrors.PipelineSettingsErrors.PipelinePipeErrors.CreatePipeErrors.ThicknessError;
@@ -14,7 +14,7 @@ public class InputPipeDataViewModel : ViewModelBase
     private double _coolantTemperature;
     private MaterialModel? _pipeType;
 
-    public InputPipeDataViewModel(ObservableCollection<MaterialModel> pipeMaterials)
+    public PipeInputDataViewModel(ObservableCollection<MaterialModel> pipeMaterials)
     {
         ArgumentNullException.ThrowIfNull(pipeMaterials, nameof(pipeMaterials));
 

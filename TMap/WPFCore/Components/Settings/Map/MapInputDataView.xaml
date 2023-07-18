@@ -6,7 +6,7 @@
              xmlns:Custom="clr-namespace:TMap.CustomControls.Controls;assembly=TMap.CustomControls"
              xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Map"
              mc:Ignorable="d"
-             d:DataContext="{d:DesignInstance Type=ViewModel:InputMapSettingsViewModel}"
+             d:DataContext="{d:DesignInstance Type=ViewModel:MapInputDataViewModel}"
              SnapsToDevicePixels="True">
 
     <UserControl.Resources>

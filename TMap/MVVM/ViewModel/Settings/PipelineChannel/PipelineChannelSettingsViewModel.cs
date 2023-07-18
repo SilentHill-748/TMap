@@ -24,7 +24,7 @@ public class PipelineChannelSettingsViewModel : ViewModelBase
         ViewTitleFontSize = 22;
 
         Settings = settings;
-        InputChannelDataView = new InputChannelDataViewModel(settings);
+        InputChannelDataView = new ChannelInputDataViewModel(settings);
         CreateChannelInsulationView = new CreateChannelInsulationViewModel(ChannelInsulationMaterials, Settings.PipelineSettings.Channel.InsulationLayers);
 
         NavigateBackCommand = new NavigateCommand<PipeSettingsViewModel>(navigationService);
@@ -40,7 +40,7 @@ public class PipelineChannelSettingsViewModel : ViewModelBase
     public SettingsModel Settings { get; }
     public ObservableCollection<MaterialModel> ChannelInsulationMaterials { get; }
     public ObservableCollection<MaterialModel> PipeMaterials { get; }
-    public InputChannelDataViewModel InputChannelDataView { get; }
+    public ChannelInputDataViewModel InputChannelDataView { get; }
     public CreateChannelInsulationViewModel CreateChannelInsulationView { get; }
     public int ViewTitleFontSize
     {

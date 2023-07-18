@@ -2,9 +2,9 @@
 
 public class AddMapLayerCommand : CommandBase
 {
-    private readonly CreateLayerViewModel _viewModel;
+    private readonly CreateMapLayerViewModel _viewModel;
 
-    public AddMapLayerCommand(CreateLayerViewModel viewModel)
+    public AddMapLayerCommand(CreateMapLayerViewModel viewModel)
     {
         ArgumentNullException.ThrowIfNull(viewModel, nameof(viewModel));
 

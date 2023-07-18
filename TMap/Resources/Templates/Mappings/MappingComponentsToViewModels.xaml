@@ -9,15 +9,15 @@
                     xmlns:PipelineComponents="clr-namespace:TMap.WPFCore.Components.Settings.Pipeline"
                     xmlns:PipelineChannelComponents="clr-namespace:TMap.WPFCore.Components.Settings.PipelineChannel">
     
-    <DataTemplate DataType="{x:Type SettingsMap:CreateLayerViewModel}">
-        <MapComponents:MapLayerAddView/>
+    <DataTemplate DataType="{x:Type SettingsMap:CreateMapLayerViewModel}">
+        <MapComponents:CreateMapLayerView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsMap:InputMapSettingsViewModel}">
+    <DataTemplate DataType="{x:Type SettingsMap:MapInputDataViewModel}">
         <MapComponents:MapInputDataView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsRoad:InputRoadSettingsViewModel}">
+    <DataTemplate DataType="{x:Type SettingsRoad:RoadInputDataViewModel}">
         <RoadComponents:RoadInputDataView/>
     </DataTemplate>
 
@@ -25,7 +25,7 @@
         <RoadComponents:CreateRoadLayerView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsPipeline:InputPipeDataViewModel}">
+    <DataTemplate DataType="{x:Type SettingsPipeline:PipeInputDataViewModel}">
         <PipelineComponents:PipeInputDataView/>
     </DataTemplate>
 
@@ -37,7 +37,7 @@
         <PipelineChannelComponents:CreateChannelInsulationView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsPipelineChannel:InputChannelDataViewModel}">
+    <DataTemplate DataType="{x:Type SettingsPipelineChannel:ChannelInputDataViewModel}">
         <PipelineChannelComponents:ChannelInputDataView/>
     </DataTemplate>
 </ResourceDictionary>

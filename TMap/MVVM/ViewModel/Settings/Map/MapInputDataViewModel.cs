@@ -1,13 +1,13 @@
 ﻿namespace TMap.MVVM.ViewModel.Settings.Map;
 
-public class InputMapSettingsViewModel : ViewModelBase
+public class MapInputDataViewModel : ViewModelBase
 {
     private readonly MapSettingsModel _mapSettings;
 
     private bool _isFrontView;
     private double _envTemerature;
 
-    public InputMapSettingsViewModel(MapSettingsModel mapSettings)
+    public MapInputDataViewModel(MapSettingsModel mapSettings)
     {
         ArgumentNullException.ThrowIfNull(mapSettings, nameof(mapSettings));
 

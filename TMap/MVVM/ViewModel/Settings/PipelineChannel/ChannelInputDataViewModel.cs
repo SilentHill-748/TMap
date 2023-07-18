@@ -1,6 +1,6 @@
 ﻿namespace TMap.MVVM.ViewModel.Settings.PipelineChannel;
 
-public class InputChannelDataViewModel : ViewModelBase
+public class ChannelInputDataViewModel : ViewModelBase
 {
     #region Private error fields
     private const string ThicknessError = ValidationErrors.PipelineSettingsErrors.PipelineChannelErrors.ThicknessError;
@@ -30,7 +30,7 @@ public class InputChannelDataViewModel : ViewModelBase
     private string? _pipeCenterlinePlaceholder;
     #endregion
 
-    public InputChannelDataViewModel(SettingsModel settings)
+    public ChannelInputDataViewModel(SettingsModel settings)
     {
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
 

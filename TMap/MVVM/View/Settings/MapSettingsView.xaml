@@ -45,7 +45,7 @@
                 Grid.Row="2" 
                 DataContext="{Binding InputMapSettingsView}"/>
 
-            <MapSettings:MapLayerAddView 
+            <MapSettings:CreateMapLayerView 
                 Grid.Row="2" 
                 Grid.Column="2" 
                 DataContext="{Binding CreateLayerView}"/>

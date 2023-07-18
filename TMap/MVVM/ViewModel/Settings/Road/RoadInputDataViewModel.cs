@@ -1,6 +1,6 @@
 ﻿namespace TMap.MVVM.ViewModel.Settings.Road;
 
-public class InputRoadSettingsViewModel : ViewModelBase
+public class RoadInputDataViewModel : ViewModelBase
 {
     private const string RoadWidthError = ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.RoadWidthError;
     private const string MoundWidthError = ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.MoundWidthError;
@@ -17,7 +17,7 @@ public class InputRoadSettingsViewModel : ViewModelBase
     private int _edgeWidth;
     private int _roadsideWidth;
 
-    public InputRoadSettingsViewModel(SettingsModel roadSettings)
+    public RoadInputDataViewModel(SettingsModel roadSettings)
     {
         InitialValidation();
 

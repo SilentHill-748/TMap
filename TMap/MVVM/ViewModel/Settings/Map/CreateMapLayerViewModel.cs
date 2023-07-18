@@ -1,6 +1,6 @@
 ﻿namespace TMap.MVVM.ViewModel.Settings.Map;
 
-public class CreateLayerViewModel : ViewModelBase
+public class CreateMapLayerViewModel : ViewModelBase
 {
     private const string ThicknessError = ValidationErrors.MaterialErrors.ThicknessError;
     private const string MaterialError = ValidationErrors.MaterialErrors.MaterialError;
@@ -14,7 +14,7 @@ public class CreateLayerViewModel : ViewModelBase
     private double _humidity;
     private double _initTemperature;
 
-    public CreateLayerViewModel(MaterialStore materialStore)
+    public CreateMapLayerViewModel(MaterialStore materialStore)
     {
         ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
 

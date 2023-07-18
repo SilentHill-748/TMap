@@ -4,7 +4,7 @@ public class RoadSettingsViewModel : ViewModelBase
 {
     private readonly SettingsModel _settings;
     private readonly CreateRoadLayerViewModel _createRoadLayerViewModel;
-    private readonly InputRoadSettingsViewModel _inputRoadSettingsViewModel;
+    private readonly RoadInputDataViewModel _inputRoadSettingsViewModel;
     private readonly MaterialStore _materialStore;
 
     private int _viewTitleFontSize;
@@ -22,7 +22,7 @@ public class RoadSettingsViewModel : ViewModelBase
         _materialStore = materialStore;
         Materials = new ObservableCollection<MaterialModel>(materialStore.GetRoadMaterials());
         _createRoadLayerViewModel = new CreateRoadLayerViewModel(Materials);
-        _inputRoadSettingsViewModel = new InputRoadSettingsViewModel(settings);
+        _inputRoadSettingsViewModel = new RoadInputDataViewModel(settings);
 
         WindowTitle = "Настройка гелогоческого среза дорожной конструкции";
         ViewTitleFontSize = 22;
@@ -41,7 +41,7 @@ public class RoadSettingsViewModel : ViewModelBase
     #region Public properties
     public ObservableCollection<MaterialModel> Materials { get; }
     public CreateRoadLayerViewModel CreateRoadLayerView => _createRoadLayerViewModel;
-    public InputRoadSettingsViewModel InputRoadSettingsView => _inputRoadSettingsViewModel;
+    public RoadInputDataViewModel InputRoadSettingsView => _inputRoadSettingsViewModel;
     public RoadSettingsModel Settings => _settings.RoadSettings;
     #endregion
 

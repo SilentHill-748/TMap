@@ -7,7 +7,7 @@
              xmlns:Custom="clr-namespace:TMap.CustomControls.Controls;assembly=TMap.CustomControls"
              mc:Ignorable="d"
              SnapsToDevicePixels="True"
-             d:DataContext="{d:DesignInstance Type=ViewModel:InputChannelDataViewModel}">
+             d:DataContext="{d:DesignInstance Type=ViewModel:ChannelInputDataViewModel}">
 
     <UserControl.Resources>
         <Style TargetType="{x:Type Custom:PlaceholderTextBox}">
