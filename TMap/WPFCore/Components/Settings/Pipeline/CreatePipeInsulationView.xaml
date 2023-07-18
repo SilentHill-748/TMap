@@ -6,7 +6,7 @@
              xmlns:Custom="clr-namespace:TMap.CustomControls.Controls;assembly=TMap.CustomControls"
              xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Pipeline"
              mc:Ignorable="d" 
-             d:DataContext="{d:DesignInstance Type=ViewModel:CreatePipeInsulationVewModel}">
+             d:DataContext="{d:DesignInstance Type=ViewModel:CreatePipeInsulationViewModel}">
 
     <UserControl.Resources>
         <Style TargetType="{x:Type ComboBox}">

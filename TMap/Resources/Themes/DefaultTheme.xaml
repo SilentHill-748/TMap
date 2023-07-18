@@ -9,8 +9,5 @@
         <ResourceDictionary Source="/Resources/Styles/RectangularGroupBoxStyle.xaml"/>
         <ResourceDictionary Source="/Resources/Styles/RemoveLayerBtnStyle.xaml"/>
         <ResourceDictionary Source="/Resources/Styles/ValidatableComboBoxStyle.xaml"/>
-
-        <ResourceDictionary Source="/Resources/Templates/Mappings/MappingViewToViewModels.xaml"/>
-        <ResourceDictionary Source="/Resources/Templates/Mappings/MappingComponentsToViewModels.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

@@ -22,7 +22,7 @@ public class PipeSettingsViewModel : ViewModelBase
         PipeMaterials = new ObservableCollection<MaterialModel>(materialStore.GetPipeMaterials());
 
         InputPipeDataView = new PipeInputDataViewModel(PipeMaterials);
-        CreatePipeInsulationView = new CreatePipeInsulationVewModel(PipeInsulationMaterials, PipeInsulationCollection);
+        CreatePipeInsulationView = new CreatePipeInsulationViewModel(PipeInsulationMaterials, PipeInsulationCollection);
 
         Settings.Channel.Pipes.CollectionChanged += Pipes_CollectionChanged;
         InputPipeDataView.IsValidChanged += PipeSettingsViewModel_IsValidChanged;
@@ -46,7 +46,7 @@ public class PipeSettingsViewModel : ViewModelBase
     public ObservableCollection<MaterialModel> PipeInsulationMaterials { get; }
     public ObservableCollection<MaterialModel> PipeMaterials { get; }
     public PipeInputDataViewModel InputPipeDataView { get; }
-    public CreatePipeInsulationVewModel CreatePipeInsulationView { get; }
+    public CreatePipeInsulationViewModel CreatePipeInsulationView { get; }
 
     public int ViewTitleFontSize
     {

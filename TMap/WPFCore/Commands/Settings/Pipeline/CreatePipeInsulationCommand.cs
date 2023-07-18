@@ -2,9 +2,9 @@
 
 public class CreatePipeInsulationCommand : CommandBase
 {
-    private readonly CreatePipeInsulationVewModel _viewModel;
+    private readonly CreatePipeInsulationViewModel _viewModel;
 
-    public CreatePipeInsulationCommand(CreatePipeInsulationVewModel viewModel)
+    public CreatePipeInsulationCommand(CreatePipeInsulationViewModel viewModel)
     {
         ArgumentNullException.ThrowIfNull(viewModel, nameof(viewModel));
 

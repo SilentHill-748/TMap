@@ -1,6 +1,6 @@
 ﻿namespace TMap.MVVM.ViewModel.Settings.Pipeline;
 
-public class CreatePipeInsulationVewModel : ViewModelBase
+public class CreatePipeInsulationViewModel : ViewModelBase
 {
     private const string ThicknessError = ValidationErrors.PipelineSettingsErrors.InsulationErrors.ThicknessError;
     private const string InitialTemperatureError = ValidationErrors.MaterialErrors.InitTemperatureError;
@@ -10,7 +10,7 @@ public class CreatePipeInsulationVewModel : ViewModelBase
     private MaterialModel? _insulationMaterial;
     private double _initTemperature;
 
-    public CreatePipeInsulationVewModel(
+    public CreatePipeInsulationViewModel(
         ObservableCollection<MaterialModel> pipeInsulationMaterials, 
         ObservableCollection<RadialInsulation> insulationCollection)
     {

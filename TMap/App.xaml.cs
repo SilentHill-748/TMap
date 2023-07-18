@@ -23,8 +23,13 @@ public partial class App : WpfApp
     protected override async void OnStartup(StartupEventArgs e)
     {
         await InitializeServicesAsync();
+        AddAllViewToViewModelDataTemplates();
 
-        MainWindow = _container.GetInstance<MainWindow>();
+        MainWindow = new MainWindow()
+        {
+            DataContext = _container.GetInstance<MainViewModel>()
+        };
+
         MainWindow.Show();
 
         base.OnStartup(e);
@@ -55,5 +60,16 @@ public partial class App : WpfApp
             .GetMaterial("Железобетон");
 
         pipelineSM.Channel.Material = channelMaterial;
+    }
+
+    private void AddAllViewToViewModelDataTemplates()
+    {
+        var templates = new ViewToViewModelDataTemplateGeneratorService()
+            .GenerateTemplates();
+
+        foreach (DataTemplate template in templates)
+        {
+            Resources.Add(template.DataTemplateKey, template);
+        }
     }
 }
