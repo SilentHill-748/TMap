@@ -3,7 +3,7 @@
                     xmlns:SettingsMap="clr-namespace:TMap.MVVM.ViewModel.Settings.Map"
                     xmlns:SettingsRoad="clr-namespace:TMap.MVVM.ViewModel.Settings.Road"
                     xmlns:SettingsPipeline="clr-namespace:TMap.MVVM.ViewModel.Settings.Pipeline"
-                    xmlns:SettingsPipelineSettings="clr-namespace:TMap.MVVM.ViewModel.Settings.PipelineChannel"
+                    xmlns:SettingsPipelineChannel="clr-namespace:TMap.MVVM.ViewModel.Settings.PipelineChannel"
                     xmlns:InputComponents="clr-namespace:TMap.WPFCore.Components.Inputs"
                     xmlns:MapSettingsComponents="clr-namespace:TMap.WPFCore.Components.MapSettings">
     
@@ -27,11 +27,11 @@
         <InputComponents:PipelinePipeInputDataView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsPipelineSettings:CreateChannelInsulationViewModel}">
+    <DataTemplate DataType="{x:Type SettingsPipelineChannel:CreateChannelInsulationViewModel}">
         <InputComponents:CreateChannelInsulationView/>
     </DataTemplate>
 
-    <DataTemplate DataType="{x:Type SettingsPipelineSettings:InputChannelDataViewModel}">
+    <DataTemplate DataType="{x:Type SettingsPipelineChannel:InputChannelDataViewModel}">
         <InputComponents:PipelineChannelInputDataView/>
     </DataTemplate>
 
