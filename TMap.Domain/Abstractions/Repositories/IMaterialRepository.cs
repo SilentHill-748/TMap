@@ -15,7 +15,7 @@ public interface IMaterialRepository
     /// </summary>
     /// <param name="type">Type of material.</param>
     /// <returns>The <see cref="MaterialDTO"/> collection.</returns>
-    IEnumerable<MaterialDTO> GetMaterials(Expression<Func<Material, bool>> condition);
+    IEnumerable<MaterialDTO> GetMaterials(Expression<Func<Material, bool>>? condition = null);
 
     /// <summary>
     ///     Get finded material by specified name.

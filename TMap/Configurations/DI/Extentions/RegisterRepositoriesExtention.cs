@@ -9,7 +9,7 @@ public static class RegisterRepositoriesExtention
 {
     public static Container RegisterRepositories(this Container container)
     {
-        container.Register<IMaterialRepository, MaterialRepository>();
+        container.RegisterSingleton<IMaterialRepository, MaterialRepository>();
 
         return container;
     }

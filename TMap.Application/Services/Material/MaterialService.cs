@@ -16,6 +16,11 @@ public class MaterialService : IMaterialService
         _materialRepository = materialRepository;
     }
 
+    public IEnumerable<MaterialDTO> GetMaterials()
+    {
+        return _materialRepository.GetMaterials();
+    }
+
     public IEnumerable<MaterialDTO> GetMaterialsByType(MaterialType types)
     {
         return _materialRepository.GetMaterials(material => material.Type.HasFlag(types));

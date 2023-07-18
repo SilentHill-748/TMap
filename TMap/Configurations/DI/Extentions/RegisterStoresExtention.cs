@@ -7,7 +7,7 @@ public static class RegisterStoresExtention
 {
     public static Container RegisterStores(this Container container)
     {
-        container.Register<MaterialStore>();
+        container.RegisterSingleton<MaterialStore>();
 
         return container;
     }

@@ -6,5 +6,7 @@ public class Layer
 
     public int Width { get; set; }
 
+    public double InitialTemperature { get; set; }
+
     public MaterialModel Material { get; set; } = new MaterialModel();
 }

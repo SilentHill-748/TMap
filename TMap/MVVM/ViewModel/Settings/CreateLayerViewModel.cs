@@ -2,6 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+using TMap.Configurations.Extentions;
+using TMap.MVVM.Stores;
+
 namespace TMap.MVVM.ViewModel.Settings;
 
 public class CreateLayerViewModel : ViewModelBase
@@ -11,16 +14,24 @@ public class CreateLayerViewModel : ViewModelBase
     private const string HumidityError = ValidationErrors.MaterialErrors.HumidityError;
     private const string InitTemperatureError = ValidationErrors.MaterialErrors.InitTemperatureError;
 
+    private readonly MaterialStore _materialStore;
+
     private int _thickness;
     private MaterialModel? _material;
     private double _humidity;
     private double _initTemperature;
 
-    public CreateLayerViewModel(ObservableCollection<MaterialModel> materials)
+    public CreateLayerViewModel(MaterialStore materialStore)
     {
-        Materials = materials;
+        ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
+
+        _materialStore = materialStore;
+
+        Materials = new ObservableCollection<MaterialModel>(materialStore.GetMapMaterials());
 
         AddLayerCommand = new AddMapLayerCommand(this, OnLayerCreated);
+
+        _materialStore.StoreChanged += MaterialStore_StoreChanged;
 
         InitialValidation();
     }
@@ -86,5 +97,10 @@ public class CreateLayerViewModel : ViewModelBase
         ValidateProperty(() => Thickness < 1, nameof(Thickness), ThicknessError);
         ValidateProperty(() => Humidity < 0.01, nameof(Humidity), HumidityError);
         ValidateProperty(CheckInitTemp, nameof(InitTemperature), InitTemperatureError);
+    }
+
+    private void MaterialStore_StoreChanged()
+    {
+        Materials.UpdateCollection(_materialStore.GetMapMaterials());
     }
 }

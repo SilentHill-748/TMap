@@ -24,10 +24,12 @@ public class CreateChannelInsulationCommand : CommandBase
         if (channelInsulationMaterial is not { })
             throw new Exception("Не удалось создать изоляционный слой коллектора!");
 
-        channelInsulationMaterial.InitialTemperature = _viewModel.InitialTemperature;
-        channelInsulationMaterial.LayerThickness = 1; // Все, что внутри коллектора и его стенки - толщина слоя будет 1 см.
-
-        var insulation = new ChannelInsulation(channelInsulationMaterial) { Thickness = _viewModel.Thickness };
+        var insulation = new ChannelInsulation() 
+        { 
+            Thickness = _viewModel.Thickness,
+            InitialTemperature = _viewModel.InitialTemperature,
+            Material = channelInsulationMaterial
+        };
 
         WeakReferenceMessenger.Default.Send(new CreateChannelInsulationMessage(insulation));
         Reset();

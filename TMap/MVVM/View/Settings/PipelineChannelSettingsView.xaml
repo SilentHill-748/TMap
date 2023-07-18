@@ -6,6 +6,7 @@
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Models="clr-namespace:TMap.MVVM.Model.Pipeline"
              xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             xmlns:Inouts="clr-namespace:TMap.WPFCore.Components.Inputs"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=ViewModel:PipelineChannelSettingsViewModel}">
     
@@ -36,8 +37,14 @@
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Center"/>
 
-            <ContentControl Grid.Row="2" Content="{Binding InputChannelDataView}"/>
-            <ContentControl Grid.Row="2" Grid.Column="2" Content="{Binding CreateChannelInsulationView}"/>
+            <Inouts:PipelineChannelInputDataView
+                Grid.Row="2"
+                DataContext="{Binding InputChannelDataView}"/>
+
+            <Inouts:CreateChannelInsulationView
+                Grid.Row="2"
+                Grid.Column="2"
+                DataContext="{Binding CreateChannelInsulationView}"/>
 
             <GroupBox
                 Grid.Row="4"
@@ -56,21 +63,24 @@
                         HeadersVisibility="Column"
                         ColumnWidth="*">
                         <DataGrid.Columns>
-                            <DataGridComboBoxColumn Header="Материал" SelectedItemBinding="{Binding Material}" DisplayMemberPath="Name">
-                                <DataGridComboBoxColumn.EditingElementStyle>
-                                    <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=insulationGrid, Path=DataContext.Settings.PipelineSettings.ChannelInsulationMaterials}"/>
-                                    </Style>
-                                </DataGridComboBoxColumn.EditingElementStyle>
+                            <DataGridComboBoxColumn 
+                                Header="Материал" 
+                                SelectedItemBinding="{Binding Material}"
+                                DisplayMemberPath="Name">
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=insulationGrid, Path=DataContext.Settings.PipelineSettings.ChannelInsulationMaterials}"/>
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=insulationGrid, Path=DataContext.ChannelInsulationMaterials}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=insulationGrid, Path=DataContext.ChannelInsulationMaterials}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
                             <DataGridTextColumn Header="Плотность" Binding="{Binding Material.Density}" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Толщина" Binding="{Binding Thickness}"/>
-                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding Material.InitialTemperature}"/>
+                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding InitialTemperature}"/>
                             <DataGridTemplateColumn Header="Операции">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -110,18 +120,18 @@
                             <DataGridComboBoxColumn Header="Тип трубы" SelectedItemBinding="{Binding Material}" DisplayMemberPath="Name">
                                 <DataGridComboBoxColumn.EditingElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=pipeGrid, Path=DataContext.Settings.PipelineSettings.PipeMaterials}"/>
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=pipeGrid, Path=DataContext.PipeMaterials}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.EditingElementStyle>
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=pipeGrid, Path=DataContext.Settings.PipelineSettings.PipeMaterials}"/>
+                                        <Setter Property="ItemsSource" Value="{Binding ElementName=pipeGrid, Path=DataContext.PipeMaterials}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
                             </DataGridComboBoxColumn>
                             <DataGridTextColumn Header="Радиус" Binding="{Binding Radius}"/>
                             <DataGridTextColumn Header="Толщина" Binding="{Binding Thickness}"/>
-                            <DataGridTextColumn Header="Температура теплоносителя" Binding="{Binding Temperature}"/>
+                            <DataGridTextColumn Header="Температура теплоносителя" Binding="{Binding CoolantTemperature}"/>
                             <DataGridTemplateColumn Header="Изоляционные слои" IsReadOnly="True">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

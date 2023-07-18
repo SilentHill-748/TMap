@@ -2,30 +2,24 @@
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-using AutoMapper;
-
-using TMap.Domain.Abstractions.Services.Material;
 using TMap.WPFCore.Commands.Base;
 using TMap.Domain.Entities.Material;
-using System.Linq;
+using TMap.MVVM.Stores;
 
 namespace TMap.WPFCore.Commands.Map;
 
 public class DrawMapCommand : CommandBase
 {
     private readonly MapViewModel _viewModel;
-    private readonly IMaterialService _materialService;
-    private readonly IMapper _mapper;
+    private readonly MaterialStore _materialStore;
 
-    public DrawMapCommand(MapViewModel mapViewModel, IMaterialService materialService, IMapper mapper)
+    public DrawMapCommand(MapViewModel mapViewModel, MaterialStore materialStore)
     {
         ArgumentNullException.ThrowIfNull(mapViewModel, nameof(mapViewModel));
-        ArgumentNullException.ThrowIfNull(materialService, nameof(materialService));
-        ArgumentNullException.ThrowIfNull(mapper, nameof(mapper));
+        ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
 
         _viewModel = mapViewModel;
-        _materialService = materialService;
-        _mapper = mapper;
+        _materialStore = materialStore;
     }
 
     protected override void Execute()
@@ -36,9 +30,9 @@ public class DrawMapCommand : CommandBase
         _viewModel.MapBitmap = new WriteableBitmap(width + 2, height + 2, 96, 96, PixelFormats.Bgra32, null);
         _viewModel.MapBitmap.Clear(Colors.White);
 
-        var material = _materialService.GetMaterialsByType(MaterialType.Environment).First();
+        var environmentDefaultMaterial = _materialStore.GetMaterial("Воздух");
 
-        var drawingService = new DrawingService(_viewModel.Settings, _viewModel.MapBitmap, _mapper.Map<MaterialModel>(material));
+        var drawingService = new DrawingService(_viewModel.Settings, _viewModel.MapBitmap, environmentDefaultMaterial);
 
         drawingService.DrawMainMap();
         drawingService.DrawRoadMap();

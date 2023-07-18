@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 
-using AutoMapper;
-
-using TMap.Domain.Abstractions.Services.Material;
-using TMap.Domain.Entities.Material;
+using TMap.Configurations.Extentions;
+using TMap.MVVM.Stores;
 using TMap.WPFCore.Commands.Modeling;
 
 namespace TMap.MVVM.ViewModel.Map;
 
-//TODO: Внедрить рисование температурной карты. Нужны данные с температурами.
 public class MapViewModel : ViewModelBase
 {
     #region Private fields
@@ -22,24 +18,22 @@ public class MapViewModel : ViewModelBase
 
     private readonly ImageModel _imageModel = new();
     private readonly SettingsModel _settings;
-    private readonly IMaterialService _materialService;
-    private readonly IMapper _mapper;
+    private readonly MaterialStore _materialStore;
     #endregion
 
-    public MapViewModel(IMaterialService materialService, IMapper mapper, SettingsModel settings, NavigationService navigationService)
+    public MapViewModel(MaterialStore materialStore, SettingsModel settings, NavigationService navigationService)
     {
+        ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
         ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
 
         _settings = settings;
         _navigationService = navigationService;
-        _materialService = materialService;
-        _mapper = mapper;
+        _materialStore = materialStore;
 
-        MaterialList = new ObservableCollection<MaterialModel>(
-            materialService
-                .GetMaterialsByType(MaterialType.Soil)
-                .Select(mapper.Map<MaterialModel>));
+        MaterialList = new ObservableCollection<MaterialModel>(_materialStore.Materials);
+
+        _materialStore.StoreChanged += MaterialStore_StoreChanged;
 
         InitializeCommands();
     }
@@ -72,11 +66,18 @@ public class MapViewModel : ViewModelBase
     public ICommand? NavigateToSettingsCommand { get; private set; }
     #endregion
 
+    #region Private methods
     private void InitializeCommands()
     {
-        DrawMapCommand = new DrawMapCommand(this, _materialService, _mapper);
-        CreateModelCommand = new CreateModelCommand(this, _materialService, _mapper);
+        DrawMapCommand = new DrawMapCommand(this, _materialStore);
+        CreateModelCommand = new CreateModelCommand(this, _materialStore);
         RunModelCommand = new RunModelCommand(this);
         NavigateToSettingsCommand = new NavigateCommand<MapSettingsViewModel>(_navigationService);
     }
+
+    private void MaterialStore_StoreChanged()
+    {
+        MaterialList.UpdateCollection(_materialStore.Materials);
+    }
+    #endregion
 }

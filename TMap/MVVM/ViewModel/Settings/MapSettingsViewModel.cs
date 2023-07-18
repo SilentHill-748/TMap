@@ -2,6 +2,9 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
+using TMap.Configurations.Extentions;
+using TMap.MVVM.Stores;
+
 namespace TMap.MVVM.ViewModel.Settings;
 
 public class MapSettingsViewModel : ViewModelBase
@@ -10,6 +13,7 @@ public class MapSettingsViewModel : ViewModelBase
     private readonly NavigationService _navigationService;
     private readonly ObservableCollection<MaterialModel> _materials;
     private readonly MapSettingsModel _settings;
+    private readonly MaterialStore _materialStore;
 
     private readonly CreateLayerViewModel _createLayerViewModel;
     private readonly InputMapSettingsViewModel _inputMapSettingsViewModel;
@@ -18,19 +22,20 @@ public class MapSettingsViewModel : ViewModelBase
     #endregion
 
     public MapSettingsViewModel(
-        MapSettingsModel settings, 
-        MaterialHelper materialHelper,
+        SettingsModel settings, 
+        MaterialStore materialStore,
         NavigationService navigationService)
     {
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
-        ArgumentNullException.ThrowIfNull(materialHelper, nameof(materialHelper));
+        ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
         ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
 
-        _materials = materialHelper.GetSoilMaterials();
-        _settings = settings;
+        _materialStore = materialStore;
+        _materials = new ObservableCollection<MaterialModel>(materialStore.GetMapMaterials());
+        _settings = settings.MapSettings;
         _navigationService = navigationService;
-        _createLayerViewModel = new CreateLayerViewModel(_materials);
-        _inputMapSettingsViewModel = new InputMapSettingsViewModel(settings);
+        _createLayerViewModel = new CreateLayerViewModel(materialStore);
+        _inputMapSettingsViewModel = new InputMapSettingsViewModel(settings.MapSettings);
 
         WindowTitle = "Настройка карты геологического среза";
         TitleFontSize = 22;
@@ -38,6 +43,7 @@ public class MapSettingsViewModel : ViewModelBase
         _settings.MapSoilLayers.CollectionChanged += MapSoilLayers_CollectionChanged;
         _createLayerViewModel.LayerCreated += CreateLayerViewModel_LayerCreated;
         _inputMapSettingsViewModel.IsValidChanged += InputMapSettingsViewModel_IsValidChanged;
+        _materialStore.StoreChanged += MaterialStore_StoreChanged;
 
         InitCommands();
     }
@@ -69,6 +75,11 @@ public class MapSettingsViewModel : ViewModelBase
     private void CreateLayerViewModel_LayerCreated(Layer layer)
     {
         Settings.MapSoilLayers.Add(layer);
+    }
+
+    private void MaterialStore_StoreChanged()
+    {
+        Materials.UpdateCollection(_materialStore.GetMapMaterials());
     }
 
     private void MapSoilLayers_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

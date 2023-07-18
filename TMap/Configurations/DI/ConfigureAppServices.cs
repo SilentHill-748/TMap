@@ -11,7 +11,7 @@ namespace TMap.Configurations.DI;
 
 public static class ConfigureAppServices
 {
-    public static Container RegisterAppServices(this Container container, string databasePath)
+    public static Container RegisterAppServices(this Container container)
     {
         container
             .RegisterMapper(config =>
@@ -21,14 +21,17 @@ public static class ConfigureAppServices
             });
 
         container
-            .RegisterDbContext(opt => opt.UseSqlite($"Data Source={databasePath}"))
-            .RegisterRepositories()
-            .RegisterServices()
             .RegisterViewModels()
             .RegisterModels()
+            .RegisterStores()
+            .RegisterServices()
+            .RegisterRepositories()
+            .RegisterDbContext(opt => opt.UseSqlite($"Data Source=tmap.db"))
             .RegisterWPFServices();
 
         container.Register<DataSeed>();
+
+        container.Verify();
 
         return container;
     }

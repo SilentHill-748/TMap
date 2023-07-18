@@ -3,11 +3,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-
-using Microsoft.EntityFrameworkCore;
+using System.Windows.Threading;
 
 using SimpleInjector;
 
+using TMap.MVVM.Stores;
 using TMap.MVVM.View.Windows;
 using TMap.Persistence;
 
@@ -16,31 +16,23 @@ namespace TMap;
 public partial class App : System.Windows.Application
 {
     private readonly Container _container = new();
-    private readonly string _workPath;
     private readonly string _rootAppPath;
-    private readonly string _databasePath;
 
     public App()
     {
-        _workPath = Directory.GetCurrentDirectory();
         _rootAppPath = Path.GetFullPath(@"..\..\..\..\");
-        _databasePath = Path.Combine(_workPath, "tmap.db");
-
-        Environment.CurrentDirectory = _rootAppPath;
 
         DispatcherUnhandledException += App_DispatcherUnhandledException;
     }
 
-    private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+    private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         MessageBox.Show(e.Exception.Message, "Unhandled exception!");
     }
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        _container.RegisterAppServices(_databasePath);
-
-        await SeedDataAsync();
+        await InitializeServicesAsync();
 
         MainWindow = new MainWindow()
         {
@@ -52,16 +44,30 @@ public partial class App : System.Windows.Application
         base.OnStartup(e);
     }
 
+    private async Task InitializeServicesAsync()
+    {
+        _container.RegisterAppServices();
+
+        await SeedDataAsync();
+
+        ConfigurePipelineSettingsModel();
+    }
+
     private async Task SeedDataAsync()
     {
-        var workDir = new DirectoryInfo(_workPath);
+        await _container.GetInstance<DataSeed>().SeedAsync(_rootAppPath);
+        
+        _container.GetInstance<MaterialStore>().Load();
+    }
 
-        var databaseFiles = workDir.GetFiles("*.db");
+    private void ConfigurePipelineSettingsModel()
+    {
+        var pipelineSM = _container.GetInstance<PipelineSettingsModel>();
 
-        if (!databaseFiles.Any())
-        {
-            _container.GetInstance<TMapDbContext>().Database.Migrate();
-            await _container.GetInstance<DataSeed>().SeedAsync();
-        }
+        var channelMaterial = _container
+            .GetInstance<MaterialStore>()
+            .GetMaterial("Железобетон");
+
+        pipelineSM.Channel.Material = channelMaterial;
     }
 }

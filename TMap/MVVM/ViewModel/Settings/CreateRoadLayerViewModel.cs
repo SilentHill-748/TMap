@@ -18,11 +18,11 @@ public class CreateRoadLayerViewModel : ViewModelBase
     private double _initTemp;
     private double _humidity;
 
-    public CreateRoadLayerViewModel(ObservableCollection<MaterialModel> materials)
+    public CreateRoadLayerViewModel(ObservableCollection<MaterialModel> roadMaterials)
     {
-        ArgumentNullException.ThrowIfNull(materials, nameof(materials));
+        ArgumentNullException.ThrowIfNull(roadMaterials, nameof(roadMaterials));
 
-        Materials = materials;
+        Materials = roadMaterials;
 
         AddRoadLayerCommand = new AddRoadLayerCommand(this);
 

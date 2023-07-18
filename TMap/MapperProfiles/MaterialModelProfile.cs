@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 
+using TMap.Domain.DTO.Material;
 using TMap.Domain.Entities.Material;
 
 namespace TMap.MapperProfiles;
@@ -10,5 +11,6 @@ public class MaterialModelProfile : Profile
     {
         CreateMap<Material, MaterialModel>();
         CreateMap<MaterialModel, Material>();
+        CreateMap<MaterialDTO, MaterialModel>();
     }
 }

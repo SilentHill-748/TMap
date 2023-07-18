@@ -17,10 +17,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Configurations\MapSettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
     <PackageReference Include="FluentValidation" Version="11.5.2" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
@@ -33,10 +29,6 @@
     <ProjectReference Include="..\TMap.Application\TMap.Application.csproj" />
     <ProjectReference Include="..\TMap.CustomControls\TMap.CustomControls.csproj" />
     <ProjectReference Include="..\TMap.Persistence\TMap.Persistence.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Configurations\MapSettings.json" />
   </ItemGroup>
 
   <ItemGroup>

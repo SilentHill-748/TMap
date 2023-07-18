@@ -6,6 +6,12 @@ namespace TMap.Domain.Abstractions.Services.Material;
 
 public interface IMaterialService
 {
+    /// <summary>
+    ///     Get all materials.
+    /// </summary>
+    /// <returns>Collection of <see cref="MaterialDTO"/>.</returns>
+    IEnumerable<MaterialDTO> GetMaterials();
+
     /// <inheritdoc cref="IMaterialRepository.GetMaterialByNameAsync(string)"/>
     Task<MaterialDTO> GetMaterialByNameAsync(string name);
 

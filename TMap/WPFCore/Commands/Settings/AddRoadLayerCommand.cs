@@ -23,12 +23,12 @@ public class AddRoadLayerCommand : CommandBase
 
         var material = _viewModel.Material;
        
-        material.InitialTemperature = _viewModel.InitialTemperature;
         material.Humidity = _viewModel.Humidity;
-        material.LayerThickness = _viewModel.Thickness;
 
-        var layer = new RoadLayer(material)
+        var layer = new Layer()
         {
+            Material = material,
+            InitialTemperature = _viewModel.InitialTemperature,
             Thickness = _viewModel.Thickness,
             Width = _viewModel.Width
         };

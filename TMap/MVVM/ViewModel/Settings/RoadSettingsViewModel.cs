@@ -4,6 +4,9 @@ using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.Messaging;
 
+using TMap.Configurations.Extentions;
+using TMap.MVVM.Stores;
+
 namespace TMap.MVVM.ViewModel.Settings;
 
 public class RoadSettingsViewModel : ViewModelBase
@@ -11,21 +14,22 @@ public class RoadSettingsViewModel : ViewModelBase
     private readonly SettingsModel _settings;
     private readonly CreateRoadLayerViewModel _createRoadLayerViewModel;
     private readonly InputRoadSettingsViewModel _inputRoadSettingsViewModel;
+    private readonly MaterialStore _materialStore;
 
     private int _viewTitleFontSize;
 
     public RoadSettingsViewModel(
         SettingsModel settings, 
-        MaterialHelper materialHelper,
+        MaterialStore materialStore,
         NavigationService navigationService)
     {
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
-        ArgumentNullException.ThrowIfNull(materialHelper, nameof(materialHelper));
+        ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
         ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
 
         _settings = settings;
-        Materials = materialHelper.GetSoilMaterials();
-
+        _materialStore = materialStore;
+        Materials = new ObservableCollection<MaterialModel>(materialStore.GetRoadMaterials());
         _createRoadLayerViewModel = new CreateRoadLayerViewModel(Materials);
         _inputRoadSettingsViewModel = new InputRoadSettingsViewModel(settings);
 
@@ -37,7 +41,9 @@ public class RoadSettingsViewModel : ViewModelBase
         RemoveRoadLayerCommand = new RemoveRoadLayerCommand(this);
 
         _inputRoadSettingsViewModel.IsValidChanged += InputRoadSettingsViewModel_IsValidChanged;
+        _materialStore.StoreChanged += MaterialStore_StoreChanged;
         Settings.Layers.CollectionChanged += Layers_CollectionChanged;
+
         WeakReferenceMessenger.Default.Register<CreateRoadLayerMessage>(this, LayerCreated);
     }
 
@@ -55,8 +61,8 @@ public class RoadSettingsViewModel : ViewModelBase
         get => _viewTitleFontSize;
         set => Set(ref _viewTitleFontSize, value, nameof(ViewTitleFontSize));
     }
-    public bool IsValidLayerCount => Settings.Layers.Count > 0;
-    public bool HasNext => IsValidLayerCount && InputRoadSettingsView.IsValid;
+    public bool IsInvalidLayerCount => Settings.Layers.Count < 1;
+    public bool HasNext => (!IsInvalidLayerCount) && InputRoadSettingsView.IsValid;
     #endregion
 
     public ICommand NavigateNextCommand { get; }
@@ -70,18 +76,23 @@ public class RoadSettingsViewModel : ViewModelBase
 
         Settings.Layers.Add(message.Value);
         OnPropertyChanged(nameof(HasNext));
-        OnPropertyChanged(nameof(IsValidLayerCount));
+        OnPropertyChanged(nameof(IsInvalidLayerCount));
+    }
+
+    private void MaterialStore_StoreChanged()
+    {
+        Materials.UpdateCollection(_materialStore.GetRoadMaterials());
     }
 
     private void InputRoadSettingsViewModel_IsValidChanged()
     {
-        OnPropertyChanged(nameof(IsValidLayerCount));
+        OnPropertyChanged(nameof(IsInvalidLayerCount));
         OnPropertyChanged(nameof(HasNext));
     }
 
     private void Layers_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
-        OnPropertyChanged(nameof(IsValidLayerCount));
+        OnPropertyChanged(nameof(IsInvalidLayerCount));
         OnPropertyChanged(nameof(HasNext));
     }
 }

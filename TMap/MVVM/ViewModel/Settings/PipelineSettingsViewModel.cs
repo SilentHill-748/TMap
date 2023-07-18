@@ -4,22 +4,30 @@ using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.Messaging;
 
+using TMap.MVVM.Stores;
+
 namespace TMap.MVVM.ViewModel.Settings;
 
+[Obsolete("На удаление.")]
 public class PipelineSettingsViewModel : ViewModelBase
 {
     private int _titleFontSize;
 
     public PipelineSettingsViewModel(
         SettingsModel settings,
+        MaterialStore materialStore,
         NavigationService navigationService)
     {
+        ArgumentNullException.ThrowIfNull(settings, nameof(settings));
+        ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
+        ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
+
         Settings = settings.PipelineSettings;
         WindowTitle = "Настройка параметров трубопровода";
         _titleFontSize = 22;
 
-        PipelineChannelView = new PipelineChannelSettingsViewModel(settings, navigationService);
-        CreatePipeView = new PipeSettingsViewModel(settings, navigationService);
+        PipelineChannelView = new PipelineChannelSettingsViewModel(settings, materialStore, navigationService);
+        CreatePipeView = new PipeSettingsViewModel(settings, materialStore, navigationService);
 
         ExitFromSettingsCommand = new NavigateCommand<MapViewModel>(navigationService);
 

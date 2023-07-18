@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Media;
 
-using AutoMapper;
-
-using TMap.Domain.Abstractions.Services.Material;
 using TMap.Domain.Entities.Material;
+using TMap.MVVM.Stores;
 using TMap.WPFCore.Commands.Base;
 
 namespace TMap.WPFCore.Commands.Modeling;
@@ -14,18 +12,15 @@ namespace TMap.WPFCore.Commands.Modeling;
 public class CreateModelCommand : CommandBase
 {
     private readonly MapViewModel _viewModel;
-    private readonly IMaterialService _materialService;
-    private readonly IMapper _mapper;
+    private readonly MaterialStore _materialStore;
 
-    public CreateModelCommand(MapViewModel viewModel, IMaterialService materialService, IMapper mapper)
+    public CreateModelCommand(MapViewModel viewModel, MaterialStore materialStore)
     {
         ArgumentNullException.ThrowIfNull(viewModel, nameof(viewModel));
-        ArgumentNullException.ThrowIfNull(materialService, nameof(materialService));
-        ArgumentNullException.ThrowIfNull(mapper, nameof(mapper));
+        ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
 
         _viewModel = viewModel;
-        _materialService = materialService;
-        _mapper = mapper;
+        _materialStore = materialStore;
     }
 
     protected override void Execute()
@@ -53,9 +48,9 @@ public class CreateModelCommand : CommandBase
 
     private Dictionary<Color, MaterialModel> GetMaterialMap(SettingsModel settings)
     {
-        var defaultMaterial = _materialService.GetMaterialsByType(MaterialType.Environment).First();
+        var environmentDefaultMaterial = _materialStore.GetMaterial("Воздух");
 
-        var materials = new List<MaterialModel>() { _mapper.Map<MaterialModel>(defaultMaterial), settings.PipelineSettings.Channel.Material };
+        var materials = new List<MaterialModel>() { environmentDefaultMaterial, settings.PipelineSettings.Channel.Material };
         var map = new Dictionary<Color, MaterialModel>();
 
         materials.AddRange(settings.MapSettings.MapSoilLayers.Select(x => x.Material));

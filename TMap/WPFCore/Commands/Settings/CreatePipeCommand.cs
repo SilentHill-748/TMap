@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 
 using CommunityToolkit.Mvvm.Messaging;
 
+using TMap.Configurations.Extentions;
 using TMap.WPFCore.Commands.Base;
 
 namespace TMap.WPFCore.Commands.Settings;
@@ -27,27 +27,21 @@ public class CreatePipeCommand : CommandBase
         if (pipeType is not { })
             throw new Exception("Ошибка создания трубы, нет материала!");
 
-        pipeType.InitialTemperature = pipeData.CoolantTemperature;
-        pipeType.LayerThickness = 1;
-
-        var pipe = new Pipe(pipeType)
+        var pipe = new Pipe()
         {
+            Material = pipeType,
             Radius = pipeData.Radius,
-            Temperature = pipeData.CoolantTemperature,
+            InitialTemperature = pipeData.MaterialTemperature,
+            CoolantTemperature = pipeData.CoolantTemperature,
             Thickness = pipeData.Thickness
         };
 
-        AddInsolutionLayers(pipe, _viewModel.PipeInsulationCollection);
+        pipe.Insulation.UpdateCollection(_viewModel.PipeInsulationCollection);
+
 
         WeakReferenceMessenger.Default.Send(new CreatePipeMessage(pipe));
 
         Reset();
-    }
-
-    private static void AddInsolutionLayers(Pipe pipe, IEnumerable<RadialInsulation> insulationLayers)
-    {
-        foreach (RadialInsulation insulation in insulationLayers)
-            pipe.Insulation.Add(insulation);
     }
 
     public void Reset()

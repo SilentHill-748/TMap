@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 
 namespace TMap.MVVM.ViewModel.Settings;
 
@@ -18,6 +19,8 @@ public class InputPipeDataViewModel : ViewModelBase
 
     public InputPipeDataViewModel(ObservableCollection<MaterialModel> pipeMaterials)
     {
+        ArgumentNullException.ThrowIfNull(pipeMaterials, nameof(pipeMaterials));
+
         PipeMaterials = pipeMaterials;
 
         ValidateProperty(() => _radius < 6 || _radius > 27, nameof(Radius), RadiusError);

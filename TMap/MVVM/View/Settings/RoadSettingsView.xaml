@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             xmlns:MapSettings="clr-namespace:TMap.WPFCore.Components.MapSettings"
+             xmlns:Inputs="clr-namespace:TMap.WPFCore.Components.Inputs"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=ViewModel:RoadSettingsViewModel}">
     <UserControl.Resources>
@@ -37,10 +39,14 @@
                 Text="{Binding ViewTitle}"
                 FontSize="{Binding ViewTitleFontSize}"/>
 
-            <!--Input settings and input layer settings-->
-            <ContentControl Grid.Row="2" Content="{Binding InputRoadSettingsView}"/>
-
-            <ContentControl Grid.Row="2" Grid.Column="2" Content="{Binding CreateRoadLayerView}"/>
+            <MapSettings:InputRoadSettingsView 
+                Grid.Row="2"
+                DataContext="{Binding InputRoadSettingsView}"/>
+            
+            <Inputs:CreateRoadLayerView 
+                Grid.Row="2"
+                Grid.Column="2"
+                DataContext="{Binding CreateRoadLayerView}"/>
 
             <!--Show created layers-->
             <GroupBox Grid.Row="4" Grid.ColumnSpan="3">
@@ -85,7 +91,7 @@
                             <DataGridTextColumn Header="Ширина" Binding="{Binding Width}"/>
                             <DataGridTextColumn Header="Плотность" IsReadOnly="True" Binding="{Binding Material.Density}"/>
                             <DataGridTextColumn Header="Влажность" Binding="{Binding Material.Humidity}"/>
-                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding Material.InitialTemperature}"/>
+                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding InitialTemperature}"/>
                             <DataGridTemplateColumn Header="Операции">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

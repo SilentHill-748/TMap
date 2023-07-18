@@ -24,11 +24,13 @@ public class CreatePipeInsulationCommand : CommandBase
         if (insulationMaterial is not { })
             throw new Exception("Не удалось создать изоляционный слой трубы!");
 
-        insulationMaterial.InitialTemperature = _viewModel.InitialTemperature;
-        insulationMaterial.Humidity = double.NaN;
-        insulationMaterial.LayerThickness = 1;
+        var insulation = new RadialInsulation() 
+        { 
+            Material = insulationMaterial,
+            InitialTemperature = _viewModel.InitialTemperature,
+            Thickness = _viewModel.Thickness
+        };
 
-        var insulation = new RadialInsulation(insulationMaterial) { Thickness = _viewModel.Thickness };
         WeakReferenceMessenger.Default.Send(new CreatePipeInsulationMessage(insulation));
         Reset();
     }

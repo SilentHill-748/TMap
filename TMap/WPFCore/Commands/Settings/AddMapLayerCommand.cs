@@ -25,11 +25,11 @@ public class AddMapLayerCommand : CommandBase
             throw new Exception("Материал не установлен!");
 
         material.Humidity = _viewModel.Humidity;
-        material.InitialTemperature = _viewModel.InitTemperature;
-        material.LayerThickness = _viewModel.Thickness;
 
-        var layer = new Layer(material)
+        var layer = new Layer()
         {
+            InitialTemperature = _viewModel.InitTemperature,
+            Material = material,
             Thickness = _viewModel.Thickness
         };
 

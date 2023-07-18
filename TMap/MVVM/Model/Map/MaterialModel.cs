@@ -1,5 +1,7 @@
 ﻿using System.Windows.Media;
 
+using TMap.Domain.Entities.Material;
+
 namespace TMap.MVVM.Model.Map;
 
 public class MaterialModel
@@ -11,6 +13,8 @@ public class MaterialModel
     public double Humidity { get; set; }
 
     public string Name { get; set; } = "None";
+
+    public MaterialType Type { get; set; }
 
     public string ColorHexCode { get; set; } = "#FFFFFFFF";
 

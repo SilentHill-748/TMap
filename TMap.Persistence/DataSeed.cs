@@ -23,9 +23,13 @@ public class DataSeed
         _mapper = mapper;
     }
 
-    public async Task SeedAsync()
+    public async Task SeedAsync(string rootPath)
     {
-        var jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "TMap.Persistence\\Seed\\Materials.json");
+        var databaseExists = _dbContext.Database.EnsureCreated();
+
+        if (!databaseExists) return;
+
+        var jsonPath = Path.Combine(rootPath, "TMap.Persistence\\Seed\\Materials.json");
         var json = File.ReadAllText(jsonPath);
         var stringEnumConverter = new StringEnumConverter(new CamelCaseNamingStrategy());
 

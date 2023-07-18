@@ -22,7 +22,8 @@ public class Pipe
 
     public MaterialModel Material { get; set; } = new MaterialModel();
 
-    public double Temperature { get; set; }
+    public double CoolantTemperature { get; set; }
+    public double InitialTemperature { get; set; }
 
     public ObservableCollection<RadialInsulation> Insulation { get; set; }
 

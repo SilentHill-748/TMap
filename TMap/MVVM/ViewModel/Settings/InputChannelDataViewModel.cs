@@ -33,16 +33,15 @@ public class InputChannelDataViewModel : ViewModelBase
     private string? _pipeCenterlinePlaceholder;
     #endregion
 
-    public InputChannelDataViewModel(RoadSettingsModel roadSettings, PipelineSettingsModel pipelineSettings)
+    public InputChannelDataViewModel(SettingsModel settings)
     {
-        ArgumentNullException.ThrowIfNull(roadSettings, nameof(roadSettings));
-        ArgumentNullException.ThrowIfNull(pipelineSettings, nameof(pipelineSettings));
+        ArgumentNullException.ThrowIfNull(settings, nameof(settings));
 
-        _roadSettings = roadSettings;
-        _pipelineSettings = pipelineSettings;
+        _roadSettings = settings.RoadSettings;
+        _pipelineSettings = settings.PipelineSettings;
 
-        pipelineSettings.Channel.InsulationLayers.CollectionChanged += InsulationLayers_CollectionChanged;
-        pipelineSettings.Channel.Pipes.CollectionChanged += Pipes_CollectionChanged;
+        _pipelineSettings.Channel.InsulationLayers.CollectionChanged += InsulationLayers_CollectionChanged;
+        _pipelineSettings.Channel.Pipes.CollectionChanged += Pipes_CollectionChanged;
         IsValidChanged += InputChannelDataViewModel_IsValidChanged;
     }
 
@@ -57,13 +56,15 @@ public class InputChannelDataViewModel : ViewModelBase
 
     private void InputChannelDataViewModel_IsValidChanged()
     {
+        var channel = _pipelineSettings.Channel;
+
         if (IsValid)
         {
-            _pipelineSettings.Channel.ChannelDepth = ChannelDepth;
-            _pipelineSettings.Channel.Thickness = Thickness;
-            _pipelineSettings.Channel.Height = ChannelHeight;
-            _pipelineSettings.Channel.PipesCenterline = PipeCenterline;
-            _pipelineSettings.Channel.InteraxalWidth = InteraxalWidth;
+            channel.ChannelDepth = ChannelDepth;
+            channel.Thickness = Thickness;
+            channel.Height = ChannelHeight;
+            channel.PipesCenterline = PipeCenterline;
+            channel.InteraxalWidth = InteraxalWidth;
         }
     }
 

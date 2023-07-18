@@ -8,9 +8,9 @@
         Title="{Binding WindowTitle}"
         WindowStartupLocation="CenterScreen"
         d:DataContext="{d:DesignInstance Type=ViewModel:MainViewModel}"
-        MinWidth="{Binding MinWidth}"
-        MinHeight="{Binding MinHeight}"
-        FontSize="{Binding FontSize}">
+        MinWidth="1000"
+        MinHeight="600"
+        FontSize="16">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>

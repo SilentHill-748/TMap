@@ -26,7 +26,7 @@ public class MaterialRepository : IMaterialRepository
         _mapper = mapper;
     }
 
-    public IEnumerable<MaterialDTO> GetMaterials(Expression<Func<Material, bool>> condition)
+    public IEnumerable<MaterialDTO> GetMaterials(Expression<Func<Material, bool>>? condition = null)
     {
         IQueryable<Material> materials = _materials;
 

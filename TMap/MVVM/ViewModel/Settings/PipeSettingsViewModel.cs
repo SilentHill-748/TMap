@@ -4,23 +4,34 @@ using System.Windows.Input;
 
 using CommunityToolkit.Mvvm.Messaging;
 
+using TMap.Configurations.Extentions;
+using TMap.MVVM.Stores;
+
 namespace TMap.MVVM.ViewModel.Settings;
 
 public class PipeSettingsViewModel : ViewModelBase
 {
+    private readonly MaterialStore _materialStore;
+
     private int _viewTitleFontSize;
 
-    public PipeSettingsViewModel(SettingsModel settings, NavigationService navigationService)
+    public PipeSettingsViewModel(SettingsModel settings, MaterialStore materialStore, NavigationService navigationService)
     {
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
+        ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
+        ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
+
+        _materialStore = materialStore;
 
         Settings = settings.PipelineSettings;
         WindowTitle = "Настройка труб для коллектора трубопровода";
         ViewTitleFontSize = 22;
         PipeInsulationCollection = new ObservableCollection<RadialInsulation>();
+        PipeInsulationMaterials = new ObservableCollection<MaterialModel>(materialStore.GetInsulationMaterials());
+        PipeMaterials = new ObservableCollection<MaterialModel>(materialStore.GetPipeMaterials());
 
-        InputPipeDataView = new InputPipeDataViewModel(Settings.PipeMaterials);
-        CreatePipeInsulationView = new CreatePipeInsulationVewModel(Settings.PipeInsulationMaterials, PipeInsulationCollection);
+        InputPipeDataView = new InputPipeDataViewModel(PipeMaterials);
+        CreatePipeInsulationView = new CreatePipeInsulationVewModel(PipeInsulationMaterials, PipeInsulationCollection);
 
         Settings.Channel.Pipes.CollectionChanged += Pipes_CollectionChanged;
         InputPipeDataView.IsValidChanged += PipeSettingsViewModel_IsValidChanged;
@@ -32,6 +43,8 @@ public class PipeSettingsViewModel : ViewModelBase
         NavigateNextCommand = new NavigateCommand<PipelineChannelSettingsViewModel>(navigationService);
         SkipPipelineSettingsCommand = new SkipPipelineSettingsCommand(settings, navigationService);
 
+        materialStore.StoreChanged += MaterialStore_StoreChanged;
+
         WeakReferenceMessenger.Default.Register<CreatePipeMessage>(this, OnPipeCreated);
         WeakReferenceMessenger.Default.Register<CreatePipeInsulationMessage>(this, OnPipeInsalutionCreated);
     }
@@ -39,6 +52,8 @@ public class PipeSettingsViewModel : ViewModelBase
     public string ViewTitle => WindowTitle;
     public PipelineSettingsModel Settings { get; }
     public ObservableCollection<RadialInsulation> PipeInsulationCollection { get; }
+    public ObservableCollection<MaterialModel> PipeInsulationMaterials { get; }
+    public ObservableCollection<MaterialModel> PipeMaterials { get; }
     public InputPipeDataViewModel InputPipeDataView { get; }
     public CreatePipeInsulationVewModel CreatePipeInsulationView { get; }
 
@@ -78,5 +93,12 @@ public class PipeSettingsViewModel : ViewModelBase
     private void PipeSettingsViewModel_IsValidChanged()
     {
         OnPropertyChanged(nameof(CanCreatePipe));
+        OnPropertyChanged(nameof(HasNext));
+    }
+
+    private void MaterialStore_StoreChanged()
+    {
+        PipeInsulationMaterials.UpdateCollection(_materialStore.GetInsulationMaterials());
+        PipeMaterials.UpdateCollection(_materialStore.GetPipeMaterials());
     }
 }

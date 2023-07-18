@@ -4,7 +4,7 @@ using TMap.WPFCore.Commands.Base;
 
 namespace TMap.WPFCore.Commands.Settings;
 
-public class RemoveRoadLayerCommand : ParameterizedCommandBase<RoadLayer>
+public class RemoveRoadLayerCommand : ParameterizedCommandBase<Layer>
 {
     private readonly RoadSettingsViewModel _viewModel;
 
@@ -15,7 +15,7 @@ public class RemoveRoadLayerCommand : ParameterizedCommandBase<RoadLayer>
         _viewModel = viewModel;
     }
 
-    protected override void Execute(RoadLayer parameter)
+    protected override void Execute(Layer parameter)
     {
         ArgumentNullException.ThrowIfNull(parameter, nameof(parameter));
 

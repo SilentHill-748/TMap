@@ -1,19 +1,15 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 
 namespace TMap.MVVM.Model.Pipeline;
 
 public class PipelineChannel
 {
-    public PipelineChannel(MaterialModel channelMaterial)
+    public PipelineChannel()
     {
-        ArgumentNullException.ThrowIfNull(channelMaterial, nameof(channelMaterial));
-
         Pipes = new ObservableCollection<Pipe>();
         InsulationLayers = new ObservableCollection<ChannelInsulation>();
-
-        Material = channelMaterial;
 
         InsulationLayers.CollectionChanged += InsulationLayers_CollectionChanged;
     }
@@ -32,7 +28,7 @@ public class PipelineChannel
 
     public int ChannelDepth { get; set; }
 
-    public MaterialModel Material { get; }
+    public MaterialModel Material { get; set; } = new MaterialModel();
 
     public ObservableCollection<ChannelInsulation> InsulationLayers { get; set; }
 
