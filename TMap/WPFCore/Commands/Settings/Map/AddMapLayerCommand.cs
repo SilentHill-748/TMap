@@ -28,6 +28,7 @@ public class AddMapLayerCommand : CommandBase
         };
 
         WeakReferenceMessenger.Default.Send(new MapLayerCreateMessage(layer));
+        Reset();
     }
 
     private void Reset()

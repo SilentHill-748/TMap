@@ -62,7 +62,7 @@
 
                     <DataGrid 
                         x:Name="layerGrid"
-                        ItemsSource="{Binding Settings.MapSoilLayers, ValidatesOnDataErrors=True}"
+                        ItemsSource="{Binding Settings.MapSoilLayers}"
                         AutoGenerateColumns="False"
                         ColumnWidth="*"
                         VerticalScrollBarVisibility="Disabled"
