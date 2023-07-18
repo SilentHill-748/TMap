@@ -116,7 +116,6 @@
                 Grid.Row="6" 
                 Content="Далее"
                 HorizontalAlignment="Center"
-                IsEnabled="{Binding CanNext}"
                 Command="{Binding NavigateNextCommand}"/>
         </Grid>
     </ScrollViewer>

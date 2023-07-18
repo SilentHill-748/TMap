@@ -63,7 +63,7 @@ public class MapSettingsViewModel : ViewModelBase
         get => _titleFontSize;
         set => Set(ref _titleFontSize, value, nameof(_titleFontSize));
     }
-    public bool CanNext => ValidateKeyProperties();
+    public bool HasNext => ValidateKeyProperties();
     #endregion
 
     #region Commands
@@ -85,18 +85,18 @@ public class MapSettingsViewModel : ViewModelBase
     private void MapSoilLayers_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
     {
         OnPropertyChanged(nameof(IsInvalidMapHeight));
-        OnPropertyChanged(nameof(CanNext));
+        OnPropertyChanged(nameof(HasNext));
     }
 
     private void InputMapSettingsViewModel_IsValidChanged()
     {
         OnPropertyChanged(nameof(IsInvalidMapHeight));
-        OnPropertyChanged(nameof(CanNext));
+        OnPropertyChanged(nameof(HasNext));
     }
 
     private void InitCommands()
     {
-        NavigateNextCommand = new NavigateCommand<RoadSettingsViewModel>(_navigationService);
+        NavigateNextCommand = new NavigateCommand<RoadSettingsViewModel>(_navigationService, () => HasNext);
         RemoveLayerCommand = new RemoveMapLayerCommand(this);
     }
 

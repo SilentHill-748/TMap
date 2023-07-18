@@ -40,7 +40,7 @@ public class PipeSettingsViewModel : ViewModelBase
         RemovePipeCommand = new RemovePipeCommand(this);
         RemovePipeInsulationLayerCommand = new RemovePipeInsulationLayerCommand(this);
         NavigateBackCommand = new NavigateCommand<RoadSettingsViewModel>(navigationService);
-        NavigateNextCommand = new NavigateCommand<PipelineChannelSettingsViewModel>(navigationService);
+        NavigateNextCommand = new NavigateCommand<PipelineChannelSettingsViewModel>(navigationService, () => HasNext);
         SkipPipelineSettingsCommand = new SkipPipelineSettingsCommand(settings, navigationService);
 
         materialStore.StoreChanged += MaterialStore_StoreChanged;

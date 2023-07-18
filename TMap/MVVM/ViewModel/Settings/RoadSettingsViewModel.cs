@@ -36,7 +36,7 @@ public class RoadSettingsViewModel : ViewModelBase
         WindowTitle = "Настройка гелогоческого среза дорожной конструкции";
         ViewTitleFontSize = 22;
 
-        NavigateNextCommand = new NavigateCommand<PipeSettingsViewModel>(navigationService);
+        NavigateNextCommand = new NavigateCommand<PipeSettingsViewModel>(navigationService, () => HasNext);
         NavigateBackCommand = new NavigateCommand<MapSettingsViewModel>(navigationService);
         RemoveRoadLayerCommand = new RemoveRoadLayerCommand(this);
 

@@ -196,7 +196,6 @@
 
                 <Button
                     Content="Далее"
-                    IsEnabled="{Binding HasNext}"
                     Command="{Binding NavigateNextCommand}"/>
             </StackPanel>
         </Grid>
