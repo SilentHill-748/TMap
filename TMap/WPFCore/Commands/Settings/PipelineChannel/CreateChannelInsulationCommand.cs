@@ -1,4 +1,4 @@
-﻿namespace TMap.WPFCore.Commands.Settings;
+﻿namespace TMap.WPFCore.Commands.Settings.PipelineChannel;
 
 public class CreateChannelInsulationCommand : CommandBase
 {
@@ -18,8 +18,8 @@ public class CreateChannelInsulationCommand : CommandBase
         if (channelInsulationMaterial is not { })
             throw new Exception("Не удалось создать изоляционный слой коллектора!");
 
-        var insulation = new ChannelInsulation() 
-        { 
+        var insulation = new ChannelInsulation()
+        {
             Thickness = _viewModel.Thickness,
             InitialTemperature = _viewModel.InitialTemperature,
             Material = channelInsulationMaterial

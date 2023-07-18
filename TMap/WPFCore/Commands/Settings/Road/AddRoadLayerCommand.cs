@@ -1,4 +1,4 @@
-﻿namespace TMap.WPFCore.Commands.Settings;
+﻿namespace TMap.WPFCore.Commands.Settings.Road;
 
 public class AddRoadLayerCommand : CommandBase
 {
@@ -16,7 +16,7 @@ public class AddRoadLayerCommand : CommandBase
         if (_viewModel.Material is not { }) return;
 
         var material = _viewModel.Material;
-       
+
         material.Humidity = _viewModel.Humidity;
 
         var layer = new Layer()

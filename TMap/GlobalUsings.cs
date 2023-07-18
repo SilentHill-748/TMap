@@ -62,3 +62,7 @@ global using TMap.WPFCore.Commands.Map;
 global using TMap.WPFCore.Commands.Modeling;
 global using TMap.WPFCore.Commands.Navigation;
 global using TMap.WPFCore.Commands.Settings;
+global using TMap.WPFCore.Commands.Settings.Map;
+global using TMap.WPFCore.Commands.Settings.Pipeline;
+global using TMap.WPFCore.Commands.Settings.PipelineChannel;
+global using TMap.WPFCore.Commands.Settings.Road;

@@ -1,4 +1,4 @@
-﻿namespace TMap.WPFCore.Commands.Settings;
+﻿namespace TMap.WPFCore.Commands.Settings.Pipeline;
 
 public class RemovePipeInsulationLayerCommand : ParameterizedCommandBase<RadialInsulation>
 {

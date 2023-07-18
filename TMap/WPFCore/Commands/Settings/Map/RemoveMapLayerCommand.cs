@@ -1,4 +1,4 @@
-﻿namespace TMap.WPFCore.Commands.Settings
+﻿namespace TMap.WPFCore.Commands.Settings.Map
 {
     public class RemoveMapLayerCommand : ParameterizedCommandBase<Layer>
     {
@@ -6,7 +6,7 @@
 
         public RemoveMapLayerCommand(MapSettingsViewModel mapSettingsViewModel)
         {
-            ArgumentNullException.ThrowIfNull(mapSettingsViewModel, nameof(mapSettingsViewModel));    
+            ArgumentNullException.ThrowIfNull(mapSettingsViewModel, nameof(mapSettingsViewModel));
 
             _viewModel = mapSettingsViewModel;
         }

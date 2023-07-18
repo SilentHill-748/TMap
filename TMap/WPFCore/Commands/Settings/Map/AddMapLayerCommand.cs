@@ -1,4 +1,4 @@
-﻿namespace TMap.WPFCore.Commands.Settings;
+﻿namespace TMap.WPFCore.Commands.Settings.Map;
 
 public class AddMapLayerCommand : CommandBase
 {

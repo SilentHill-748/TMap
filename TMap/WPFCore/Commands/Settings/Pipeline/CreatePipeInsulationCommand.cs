@@ -1,4 +1,4 @@
-﻿namespace TMap.WPFCore.Commands.Settings;
+﻿namespace TMap.WPFCore.Commands.Settings.Pipeline;
 
 public class CreatePipeInsulationCommand : CommandBase
 {
@@ -18,8 +18,8 @@ public class CreatePipeInsulationCommand : CommandBase
         if (insulationMaterial is not { })
             throw new Exception("Не удалось создать изоляционный слой трубы!");
 
-        var insulation = new RadialInsulation() 
-        { 
+        var insulation = new RadialInsulation()
+        {
             Material = insulationMaterial,
             InitialTemperature = _viewModel.InitialTemperature,
             Thickness = _viewModel.Thickness
