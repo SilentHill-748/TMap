@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.PipelineChannel"
              mc:Ignorable="d"
              x:Name="self"
              d:DataContext="{d:DesignInstance Type=ViewModel:PipelineChannelSettingsViewModel}">

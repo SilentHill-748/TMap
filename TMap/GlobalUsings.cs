@@ -35,6 +35,7 @@ global using TMap.Domain.Entities.Material;
 global using TMap.Domain.Mapper;
 global using TMap.MapperProfiles;
 global using TMap.MVVM.Messages.Navigation;
+global using TMap.MVVM.Messages.Settings;
 global using TMap.MVVM.Messages.Settings.Map;
 global using TMap.MVVM.Messages.Settings.Pipeline;
 global using TMap.MVVM.Messages.Settings.PipelineChannel;
