@@ -69,12 +69,16 @@
                                 DisplayMemberPath="Name">
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=insulationGrid, Path=DataContext.ChannelInsulationMaterials}"/>
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.ChannelInsulationMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
                                 <DataGridComboBoxColumn.EditingElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=insulationGrid, Path=DataContext.ChannelInsulationMaterials}"/>
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.ChannelInsulationMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
@@ -88,8 +92,12 @@
                                             <Behaviors:Interaction.Triggers>
                                                 <Behaviors:EventTrigger EventName="Click">
                                                     <Behaviors:InvokeCommandAction
-                                                        Command="{Binding ElementName=insulationGrid, Path=DataContext.RemoveInsulationLayerCommand}"
-                                                        CommandParameter="{Binding ElementName=insulationGrid, Path=SelectedItem}"/>
+                                                        Command="{Binding 
+                                                            DataContext.RemoveInsulationLayerCommand,
+                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding 
+                                                            SelectedItem,
+                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                                 </Behaviors:EventTrigger>
                                             </Behaviors:Interaction.Triggers>
                                         </Button>
@@ -120,12 +128,16 @@
                             <DataGridComboBoxColumn Header="Тип трубы" SelectedItemBinding="{Binding Material}" DisplayMemberPath="Name">
                                 <DataGridComboBoxColumn.EditingElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=pipeGrid, Path=DataContext.PipeMaterials}"/>
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.PipeMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.EditingElementStyle>
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=pipeGrid, Path=DataContext.PipeMaterials}"/>
+                                        <Setter Property="ItemsSource"
+                                                Value="{Binding DataContext.PipeMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
                             </DataGridComboBoxColumn>

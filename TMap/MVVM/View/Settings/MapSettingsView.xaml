@@ -78,12 +78,18 @@
                                 DisplayMemberPath="Name">
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=self, Path=DataContext.Materials}"/>
+                                        <Setter
+                                            Property="ItemsSource"
+                                            Value="{Binding DataContext.Materials, 
+                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
                                 <DataGridComboBoxColumn.EditingElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=self, Path=DataContext.Materials}"/>
+                                        <Setter 
+                                            Property="ItemsSource" 
+                                            Value="{Binding DataContext.Materials, 
+                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
@@ -98,8 +104,10 @@
                                             <Behaviors:Interaction.Triggers>
                                                 <Behaviors:EventTrigger EventName="Click">
                                                     <Behaviors:InvokeCommandAction
-                                                        Command="{Binding ElementName=layerGrid, Path=DataContext.RemoveLayerCommand}"
-                                                        CommandParameter="{Binding ElementName=layerGrid, Path=SelectedItem}"/>
+                                                        Command="{Binding   DataContext.RemoveLayerCommand, 
+                                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding  SelectedItem, 
+                                                                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                                 </Behaviors:EventTrigger>
                                             </Behaviors:Interaction.Triggers>
                                         </Button>
