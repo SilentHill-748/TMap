@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\TemperatureModel\" />
+    <Compile Remove="Entities\TemperatureModel\**" />
+    <EmbeddedResource Remove="Entities\TemperatureModel\**" />
+    <None Remove="Entities\TemperatureModel\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
 </Project>

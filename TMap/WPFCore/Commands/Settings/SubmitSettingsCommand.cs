@@ -1,10 +1,4 @@
-﻿using System;
-
-using CommunityToolkit.Mvvm.Messaging;
-
-using TMap.WPFCore.Commands.Base;
-
-namespace TMap.WPFCore.Commands.Settings;
+﻿namespace TMap.WPFCore.Commands.Settings;
 
 public class SubmitSettingsCommand : CommandBase
 {
@@ -25,11 +19,11 @@ public class SubmitSettingsCommand : CommandBase
     protected override void Execute()
     {
         _viewModel.Settings.PipelineSettings.IsSkiped = false;
-        _viewModel.Settings.IsComplete = true;
-
-        _navigationService.NavigateTo<MapViewModel>();
+        _viewModel.Settings.IsCompleted = true;
 
         WeakReferenceMessenger.Default.Send(new SettingsDoneMessage(null!));
+
+        _navigationService.NavigateTo<MapViewModel>();
     }
 
     public override bool CanExecute()

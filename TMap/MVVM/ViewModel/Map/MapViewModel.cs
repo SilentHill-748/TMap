@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+﻿namespace TMap.MVVM.ViewModel.Map;
 
-using CommunityToolkit.Mvvm.Messaging;
-
-using TMap.MVVM.Messages;
-using TMap.WPFCore.Commands.Modeling;
-
-namespace TMap.MVVM.ViewModel.Map;
-
-//TODO: Внедрить рисование температурной карты. Нужны данные с температурами.
 public class MapViewModel : ViewModelBase
 {
     #region Private fields
@@ -20,31 +7,26 @@ public class MapViewModel : ViewModelBase
     private WriteableBitmap? _mapBitmap;
     private WriteableBitmap? _temperatureSource;
 
-    private readonly MathModel _mathModel;
     private readonly ImageModel _imageModel = new();
     private readonly SettingsModel _settings;
-    private readonly MaterialHelper _materialHelper;
+    private readonly MaterialStore _materialStore;
     #endregion
 
-    public MapViewModel(MaterialHelper materialHelper, SettingsModel settings, NavigationService navigationService)
+    public MapViewModel(MaterialStore materialStore, SettingsModel settings, NavigationService navigationService)
     {
+        ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
         ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
 
         _settings = settings;
         _navigationService = navigationService;
-        _materialHelper = materialHelper;
+        _materialStore = materialStore;
 
-        MaterialList = materialHelper.GetSoilMaterials();
+        MaterialList = new ObservableCollection<MaterialModel>(_materialStore.Materials);
+
+        _materialStore.StoreChanged += MaterialStore_StoreChanged;
 
         InitializeCommands();
-
-        WeakReferenceMessenger.Default.Register<SettingsDoneMessage>(this, OnSettingsCompleted);
-    }
-
-    private void OnSettingsCompleted(object recipient, SettingsDoneMessage message)
-    {
-        _materialHelper.DefaultMaterial.InitialTemperature = Settings.MapSettings.EnvironmentTemperature;
     }
 
     #region Models
@@ -57,7 +39,7 @@ public class MapViewModel : ViewModelBase
         set => Set(ref _temperatureSource, value, nameof(TemperatureSource));
     }
 
-    public ObservableCollection<Material> MaterialList { get; }
+    public ObservableCollection<MaterialModel> MaterialList { get; }
     #endregion
 
     #region Observable properties
@@ -75,31 +57,18 @@ public class MapViewModel : ViewModelBase
     public ICommand? NavigateToSettingsCommand { get; private set; }
     #endregion
 
+    #region Private methods
     private void InitializeCommands()
     {
-        DrawMapCommand = new DrawMapCommand(this, _materialHelper.DefaultMaterial);
-        CreateModelCommand = new CreateModelCommand(this, _materialHelper);
+        DrawMapCommand = new DrawMapCommand(this, _materialStore);
+        CreateModelCommand = new CreateModelCommand(this, _materialStore);
         RunModelCommand = new RunModelCommand(this);
         NavigateToSettingsCommand = new NavigateCommand<MapSettingsViewModel>(_navigationService);
     }
 
-    //private Dictionary<Color, Material> GetMaterialMap(MaterialHelper materialHelper)
-    //{
-    //    var materials = new List<Material>();
-    //    var map = new Dictionary<Color, Material>();
-
-    //    materials.AddRange(materialHelper.GetSoilMaterials());
-    //    materials.AddRange(materialHelper.GetPipeInsulationMaterials());
-    //    materials.AddRange(materialHelper.GetPipeMaterials());
-    //    materials.AddRange(materialHelper.GetChannelInsulationMaterials());
-
-    //    foreach (Material material in materials)
-    //    {
-    //        var color = (Color)ColorConverter.ConvertFromString(material.Color);
-            
-    //        map.Add(color, material);
-    //    }
-
-    //    return map;
-    //}
+    private void MaterialStore_StoreChanged()
+    {
+        MaterialList.UpdateCollection(_materialStore.Materials);
+    }
+    #endregion
 }

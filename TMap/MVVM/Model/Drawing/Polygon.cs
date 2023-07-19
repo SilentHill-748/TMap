@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows.Media;
-
-namespace TMap.MVVM.Model.Drawing;
+﻿namespace TMap.MVVM.Model.Drawing;
 
 public struct Polygon
 {

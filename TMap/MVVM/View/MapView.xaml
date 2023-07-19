@@ -6,7 +6,7 @@
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:MapComponents="clr-namespace:TMap.WPFCore.Components.Map"
              xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Map"
-             xmlns:Models="clr-namespace:TMap.MVVM.Model.Modeling"
+             xmlns:Models="clr-namespace:TMap.MVVM.Model.Map"
              xmlns:Converters="clr-namespace:TMap.WPFCore.Converters"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=ViewModel:MapViewModel}">
@@ -88,7 +88,7 @@
             VerticalScrollBarVisibility="Disabled">
             <ItemsControl FontSize="12" ItemsSource="{Binding MaterialList}">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate DataType="{x:Type Models:Material}">
+                    <DataTemplate DataType="{x:Type Models:MaterialModel}">
                         <Grid Margin="2" SnapsToDevicePixels="True">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
@@ -102,7 +102,7 @@
                                 BorderThickness="1"
                                 MinWidth="20">
                                 <Border.Background>
-                                    <SolidColorBrush Color="{Binding Color}"/>
+                                    <SolidColorBrush Color="{Binding ColorHexCode}"/>
                                 </Border.Background>
                             </Border>
 

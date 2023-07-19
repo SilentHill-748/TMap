@@ -1,8 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Windows.Data;
-
-namespace TMap.WPFCore.Converters;
+﻿namespace TMap.WPFCore.Converters;
 
 internal class MetersToPixelsConverter : IValueConverter
 {

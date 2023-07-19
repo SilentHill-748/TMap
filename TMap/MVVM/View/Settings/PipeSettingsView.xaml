@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Pipeline"
              xmlns:Models="clr-namespace:TMap.MVVM.Model.Pipeline"
+             xmlns:PipelineSettings="clr-namespace:TMap.WPFCore.Components.Settings.Pipeline"
              mc:Ignorable="d"
              Name="self"
              d:DataContext="{d:DesignInstance Type=ViewModel:PipeSettingsViewModel}">
@@ -37,8 +38,14 @@
                 Text="{Binding ViewTitle}"
                 FontSize="{Binding ViewTitleFontSize}"/>
 
-            <ContentControl Grid.Row="2" Content="{Binding InputPipeDataView}"/>
-            <ContentControl Grid.Row="2" Grid.Column="2" Content="{Binding CreatePipeInsulationView}"/>
+            <PipelineSettings:PipeInputDataView
+                Grid.Row="2"
+                DataContext="{Binding InputPipeDataView}"/>
+
+            <PipelineSettings:CreatePipeInsulationView
+                Grid.Row="2"
+                Grid.Column="2"
+                DataContext="{Binding CreatePipeInsulationView}"/>
 
             <GroupBox 
                 Grid.Column="3"
@@ -63,17 +70,21 @@
                                 DisplayMemberPath="Name">
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=self, Path=DataContext.Settings.PipeInsulationMaterials}"/>
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.PipeInsulationMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
                                 <DataGridComboBoxColumn.EditingElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=self, Path=DataContext.Settings.PipeInsulationMaterials}"/>
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.PipeInsulationMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
                             <DataGridTextColumn Header="Толщина изоляции" Binding="{Binding Thickness}"/>
-                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding Material.InitialTemperature}"/>
+                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding InitialTemperature}"/>
                             <DataGridTemplateColumn Header="Операции">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -81,8 +92,12 @@
                                             <Behaviors:Interaction.Triggers>
                                                 <Behaviors:EventTrigger EventName="Click">
                                                     <Behaviors:InvokeCommandAction
-                                                        Command="{Binding ElementName=pipeInsulationGrid, Path=DataContext.RemovePipeInsulationLayerCommand}"
-                                                        CommandParameter="{Binding ElementName=pipeInsulationGrid, Path=SelectedItem}"/>
+                                                        Command="{Binding 
+                                                            DataContext.RemovePipeInsulationLayerCommand,
+                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding 
+                                                            SelectedItem,
+                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                                 </Behaviors:EventTrigger>
                                             </Behaviors:Interaction.Triggers>
                                         </Button>
@@ -113,17 +128,24 @@
                         CanUserAddRows="False"
                         CanUserResizeRows="False">
                         <DataGrid.Columns>
-                            <DataGridComboBoxColumn Header="Тип трубы" SelectedItemBinding="{Binding Material}" DisplayMemberPath="Name">
-                                <DataGridComboBoxColumn.EditingElementStyle>
-                                    <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=self, Path=DataContext.Settings.PipeMaterials}"/>
-                                    </Style>
-                                </DataGridComboBoxColumn.EditingElementStyle>
+                            <DataGridComboBoxColumn 
+                                Header="Тип трубы" 
+                                SelectedItemBinding="{Binding Material}" 
+                                DisplayMemberPath="Name">
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=self, Path=DataContext.Settings.PipeMaterials}"/>
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.PipeMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.PipeMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
                             <DataGridTemplateColumn Header="Изоляция" IsReadOnly="True">
                                 <DataGridTemplateColumn.CellTemplate>
@@ -140,7 +162,7 @@
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Радиус трубы" Binding="{Binding Radius}"/>
                             <DataGridTextColumn Header="Толщина трубы" Binding="{Binding Thickness}"/>
-                            <DataGridTextColumn Header="Температура теплоносителя" Binding="{Binding Temperature}"/>
+                            <DataGridTextColumn Header="Температура теплоносителя" Binding="{Binding CoolantTemperature}"/>
                             <DataGridTemplateColumn Header="Операции">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -148,8 +170,12 @@
                                             <Behaviors:Interaction.Triggers>
                                                 <Behaviors:EventTrigger EventName="Click">
                                                     <Behaviors:InvokeCommandAction
-                                                        Command="{Binding ElementName=pipeGrid, Path=DataContext.RemovePipeCommand}"
-                                                        CommandParameter="{Binding ElementName=pipeGrid, Path=SelectedItem}"/>
+                                                        Command="{Binding 
+                                                            DataContext.RemovePipeCommand,
+                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding 
+                                                            SelectedItem,
+                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                                 </Behaviors:EventTrigger>
                                             </Behaviors:Interaction.Triggers>
                                         </Button>
@@ -186,7 +212,6 @@
 
                 <Button
                     Content="Далее"
-                    IsEnabled="{Binding HasNext}"
                     Command="{Binding NavigateNextCommand}"/>
             </StackPanel>
         </Grid>

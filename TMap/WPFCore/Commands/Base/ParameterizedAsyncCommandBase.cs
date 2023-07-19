@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace TMap.WPFCore.Commands.Base;
+﻿namespace TMap.WPFCore.Commands.Base;
 
 public abstract class ParameterizedAsyncCommandBase<TParameter> : ICommand
 {

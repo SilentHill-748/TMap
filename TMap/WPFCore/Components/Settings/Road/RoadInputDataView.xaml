@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="TMap.WPFCore.Components.Settings.Road.RoadInputDataView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Custom="clr-namespace:TMap.CustomControls.Controls;assembly=TMap.CustomControls"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Road"
+             mc:Ignorable="d"
+             SnapsToDevicePixels="True"
+             d:DataContext="{d:DesignInstance Type=ViewModel:RoadInputDataViewModel}">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Custom:PlaceholderTextBox}">
+            <Setter Property="Grid.Column" Value="2"/>
+            <Setter Property="Margin" Value="0 0 0 5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="0 0 0 5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        </Style>
+    </UserControl.Resources>
+
+    <GroupBox Header="Общие настройки дорожной конструкции">
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Наличие насыпи"/>
+            <TextBlock Grid.Row="1" Text="Ширина насыпи"/>
+            <TextBlock Grid.Row="2" Text="Высота насыпи"/>
+            <TextBlock Grid.Row="3" Text="Ширина проезжей части (общая)"/>
+            <TextBlock Grid.Row="4" Text="Ширина обочины"/>
+            <TextBlock Grid.Row="5" Text="Ширина края дороги"/>
+
+            <CheckBox
+                x:Name="hasMound"
+                Grid.Column="2"
+                IsChecked="{Binding HasMound, Mode=TwoWay}"/>
+
+            <Custom:PlaceholderTextBox 
+                Grid.Row="1"
+                Placeholder="от 50 до 100 см"
+                IsEnabled="{Binding ElementName=hasMound, Path=IsChecked}"
+                Text="{Binding MoundWidth, ValidatesOnDataErrors=True}"/>
+
+            <Custom:PlaceholderTextBox 
+                Grid.Row="2" 
+                Placeholder="от 20 до 100 см"
+                IsEnabled="{Binding ElementName=hasMound, Path=IsChecked}"
+                Text="{Binding MoundHeight, ValidatesOnDataErrors=True}"/>
+
+            <Custom:PlaceholderTextBox 
+                Grid.Row="3"
+                Placeholder="от 700 см"
+                Text="{Binding Width, ValidatesOnDataErrors=True}"/>
+
+            <Custom:PlaceholderTextBox
+                Grid.Row="4" 
+                Placeholder="от 25 до 50 см"
+                Text="{Binding RoadsideWidth, ValidatesOnDataErrors=True}"/>
+
+            <Custom:PlaceholderTextBox 
+                Grid.Row="5"
+                Placeholder="от 50 см"
+                Text="{Binding EdgeWidth, ValidatesOnDataErrors=True}"/>
+        </Grid>
+    </GroupBox>
+</UserControl>

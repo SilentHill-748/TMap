@@ -1,38 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Media;
-
-using TMap.WPFCore.Commands.Base;
-
-namespace TMap.WPFCore.Commands.Modeling;
+﻿namespace TMap.WPFCore.Commands.Modeling;
 
 public class CreateModelCommand : CommandBase
 {
     private readonly MapViewModel _viewModel;
-    private readonly MaterialHelper _materialHelper;
+    private readonly MaterialStore _materialStore;
 
-    public CreateModelCommand(MapViewModel viewModel, MaterialHelper materialHelper)
+    public CreateModelCommand(MapViewModel viewModel, MaterialStore materialStore)
     {
         ArgumentNullException.ThrowIfNull(viewModel, nameof(viewModel));
-        ArgumentNullException.ThrowIfNull(materialHelper, nameof(materialHelper));
+        ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
 
         _viewModel = viewModel;
-        _materialHelper = materialHelper;
+        _materialStore = materialStore;
     }
 
     protected override void Execute()
     {
         var settings = _viewModel.Settings;
         var map = _viewModel.MapBitmap!;
+        var colorMaterialMap = GetMaterialColorsMap();
 
-        _viewModel.MathModel = new MathModel(settings, GetMaterialMap(_viewModel.Settings), map);
+        _viewModel.MathModel = new MathModel(settings, colorMaterialMap, map);
+
         _viewModel.MathModel.ModelStopped += MathModel_ModelStopped;
-    }
-
-    private void MathModel_ModelStopped()
-    {
-        _viewModel.TemperatureSource = _viewModel.MathModel?.GetTemperatureMap();
     }
 
     public override bool CanExecute()
@@ -44,22 +34,19 @@ public class CreateModelCommand : CommandBase
             map.PixelHeight > 0;
     }
 
-    private Dictionary<Color, Material> GetMaterialMap(SettingsModel settings)
+    private void MathModel_ModelStopped()
     {
-        var materials = new List<Material>() { _materialHelper.DefaultMaterial, settings.PipelineSettings.Channel.Material };
-        var map = new Dictionary<Color, Material>();
+        _viewModel.TemperatureSource = _viewModel.MathModel?.GetTemperatureMap();
+    }
 
-        materials.AddRange(settings.MapSettings.MapSoilLayers.Select(x => x.Material));
-        materials.AddRange(settings.RoadSettings.Layers.Select(x => x.Material));
-        materials.AddRange(settings.PipelineSettings.Channel.Pipes.Select(x => x.Material));
-        materials.AddRange(settings.PipelineSettings.Channel.InsulationLayers.Select(x => x.Material));
+    private Dictionary<Color, MaterialModel> GetMaterialColorsMap()
+    {
+        var materials = _materialStore.Materials;
+        var map = new Dictionary<Color, MaterialModel>();
 
-        foreach (Pipe pipe in settings.PipelineSettings.Channel.Pipes)
-            materials.AddRange(pipe.Insulation.Select(x => x.Material));
-
-        foreach (Material material in materials)
+        foreach (MaterialModel material in materials)
         {
-            var color = (Color)ColorConverter.ConvertFromString(material.Color);
+            var color = material.GetColor();
 
             _ = map.TryAdd(color, material);
         }

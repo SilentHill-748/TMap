@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
-             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Road"
+             xmlns:RoadSettings="clr-namespace:TMap.WPFCore.Components.Settings.Road"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=ViewModel:RoadSettingsViewModel}">
     <UserControl.Resources>
@@ -37,10 +38,14 @@
                 Text="{Binding ViewTitle}"
                 FontSize="{Binding ViewTitleFontSize}"/>
 
-            <!--Input settings and input layer settings-->
-            <ContentControl Grid.Row="2" Content="{Binding InputRoadSettingsView}"/>
+            <RoadSettings:RoadInputDataView 
+                Grid.Row="2"
+                DataContext="{Binding InputRoadSettingsView}"/>
 
-            <ContentControl Grid.Row="2" Grid.Column="2" Content="{Binding CreateRoadLayerView}"/>
+            <RoadSettings:CreateRoadLayerView
+                Grid.Row="2"
+                Grid.Column="2"
+                DataContext="{Binding CreateRoadLayerView}"/>
 
             <!--Show created layers-->
             <GroupBox Grid.Row="4" Grid.ColumnSpan="3">
@@ -72,12 +77,16 @@
                                 SelectedItemBinding="{Binding Material}">
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=layerGrid, Path=DataContext.Materials}"/>
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.Materials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
                                 <DataGridComboBoxColumn.EditingElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=layerGrid, Path=DataContext.Materials}"/>
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.Materials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
@@ -85,7 +94,7 @@
                             <DataGridTextColumn Header="Ширина" Binding="{Binding Width}"/>
                             <DataGridTextColumn Header="Плотность" IsReadOnly="True" Binding="{Binding Material.Density}"/>
                             <DataGridTextColumn Header="Влажность" Binding="{Binding Material.Humidity}"/>
-                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding Material.InitialTemperature}"/>
+                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding InitialTemperature}"/>
                             <DataGridTemplateColumn Header="Операции">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -93,8 +102,10 @@
                                             <Behaviors:Interaction.Triggers>
                                                 <Behaviors:EventTrigger EventName="Click">
                                                     <Behaviors:InvokeCommandAction
-                                                        Command="{Binding ElementName=layerGrid, Path=DataContext.RemoveRoadLayerCommand}"
-                                                        CommandParameter="{Binding ElementName=layerGrid, Path=SelectedItem}"/>
+                                                        Command="{Binding   DataContext.RemoveRoadLayerCommand,
+                                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding  SelectedItem, 
+                                                                                    RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                                 </Behaviors:EventTrigger>
                                             </Behaviors:Interaction.Triggers>
                                         </Button>
@@ -120,9 +131,9 @@
 
                 <Button
                     Content="Далее"
-                    IsEnabled="{Binding HasNext}"
                     Command="{Binding NavigateNextCommand}"/>
             </StackPanel>
         </Grid>
     </ScrollViewer>
 </UserControl>
+    

@@ -1,46 +1,32 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-
-namespace TMap.MVVM.Model.Pipeline;
+﻿namespace TMap.MVVM.Model.Pipeline;
 
 public class Pipe
 {
-    public Pipe(Material pipeMaterial)
+    public Pipe()
     {
-        ArgumentNullException.ThrowIfNull(pipeMaterial, nameof(pipeMaterial));
-
         Insulation = new ObservableCollection<RadialInsulation>();
 
-        Material = pipeMaterial;
+        Insulation.CollectionChanged += Insulation_CollectionChanged;
     }
 
-    /// <summary>
-    ///     Радиус трубы.
-    /// </summary>
     public int Radius { get; set; }
 
-    public int InsulationThickness => Insulation.Sum(x => x.Thickness);
-    public int TotalThichness => Radius + InsulationThickness;
+    public int InsulationThickness { get; private set; }
 
-    /// <summary>
-    ///     Толщина трубы.
-    /// </summary>
+    public int TotalThichness { get; private set; }
+
     public int Thickness { get; set; }
 
-    // TODO: Нет материала для трубы.
-    /// <summary>
-    ///     Материал трубы
-    /// </summary>
-    public Material Material { get; set; }
+    public MaterialModel Material { get; set; } = new MaterialModel();
 
-    /// <summary>
-    ///     Температура жидкости. Константа.
-    /// </summary>
-    public double Temperature { get; set; }
+    public double CoolantTemperature { get; set; }
+    public double InitialTemperature { get; set; }
 
-    /// <summary>
-    ///     Изоляционное покрытие трубы.
-    /// </summary>
     public ObservableCollection<RadialInsulation> Insulation { get; set; }
+
+    private void Insulation_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        InsulationThickness = Insulation.Sum(insulation => insulation.Thickness);
+        TotalThichness = Radius + InsulationThickness;
+    }
 }

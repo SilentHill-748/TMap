@@ -1,10 +1,4 @@
-﻿using System;
-
-using CommunityToolkit.Mvvm.Messaging;
-
-using TMap.WPFCore.Commands.Base;
-
-namespace TMap.WPFCore.Commands.Settings;
+﻿namespace TMap.WPFCore.Commands.Settings;
 
 public class SkipPipelineSettingsCommand : CommandBase
 {
@@ -24,10 +18,10 @@ public class SkipPipelineSettingsCommand : CommandBase
     {
         _settings.PipelineSettings.IsSkiped = true;
         _settings.PipelineSettings.Channel.Clear();
-        _settings.IsComplete = true;
-
-        _navigationService.NavigateTo<MapViewModel>();
+        _settings.IsCompleted = true;
 
         WeakReferenceMessenger.Default.Send(new SettingsDoneMessage(null!));
+
+        _navigationService.NavigateTo<MapViewModel>();
     }
 }

@@ -1,8 +1,5 @@
 ﻿namespace TMap.MVVM.Model.Settings;
 
-/// <summary>
-///     Represents global settings for map.
-/// </summary>
 public class SettingsModel
 {
     public SettingsModel(
@@ -15,28 +12,11 @@ public class SettingsModel
         PipelineSettings = pipelineSettings;
     }
 
-    /// <summary>
-    ///     Настройки карты.
-    /// </summary>
     public MapSettingsModel MapSettings { get; }
 
-    /// <summary>
-    ///     Настройки дорожной одежды.
-    /// </summary>
     public RoadSettingsModel RoadSettings { get; }
 
-    /// <summary>
-    ///     Настройки трубопровода.
-    /// </summary>
     public PipelineSettingsModel PipelineSettings { get; }
 
-    public bool IsComplete { get; set; }
-
-    /// <summary>
-    ///     Создает или перезаписывает файл настроек карты.
-    /// </summary>
-    public void ToJson()
-    {
-
-    }
+    public bool IsCompleted { get; set; }
 }

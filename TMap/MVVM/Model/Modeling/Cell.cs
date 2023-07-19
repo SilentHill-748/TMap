@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace TMap.MVVM.Model.Modeling;
+﻿namespace TMap.MVVM.Model.Modeling;
 
 /// <summary>
 ///     Represents a cell on map with size 1x1 cm.
@@ -14,5 +12,5 @@ public class Cell
     /// <summary>
     ///     Тип грунта или материал трубопровода/дороги точки. 
     /// </summary>
-    public Material? Material { get; set; }
+    public MaterialModel? Material { get; set; }
 }

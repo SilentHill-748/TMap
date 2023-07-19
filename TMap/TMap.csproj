@@ -10,7 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Configurations\MapSettings.json" />
+    <Compile Remove="Configurations\Extensions\**" />
+    <EmbeddedResource Remove="Configurations\Extensions\**" />
+    <None Remove="Configurations\Extensions\**" />
+    <Page Remove="Configurations\Extensions\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,17 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Configurations\MapSettings.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update="Resources\Assets\Blocks\air.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Configurations\Extensions\" />
   </ItemGroup>
 
 </Project>

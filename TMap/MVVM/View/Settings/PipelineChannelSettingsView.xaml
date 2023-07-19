@@ -5,7 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Behaviors="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:Models="clr-namespace:TMap.MVVM.Model.Pipeline"
-             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings"
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.PipelineChannel"
+             xmlns:PipelineChannelSettings="clr-namespace:TMap.WPFCore.Components.Settings.PipelineChannel"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=ViewModel:PipelineChannelSettingsViewModel}">
     
@@ -36,8 +37,14 @@
                 VerticalAlignment="Center" 
                 HorizontalAlignment="Center"/>
 
-            <ContentControl Grid.Row="2" Content="{Binding InputChannelDataView}"/>
-            <ContentControl Grid.Row="2" Grid.Column="2" Content="{Binding CreateChannelInsulationView}"/>
+            <PipelineChannelSettings:ChannelInputDataView
+                Grid.Row="2"
+                DataContext="{Binding InputChannelDataView}"/>
+
+            <PipelineChannelSettings:CreateChannelInsulationView
+                Grid.Row="2"
+                Grid.Column="2"
+                DataContext="{Binding CreateChannelInsulationView}"/>
 
             <GroupBox
                 Grid.Row="4"
@@ -56,21 +63,28 @@
                         HeadersVisibility="Column"
                         ColumnWidth="*">
                         <DataGrid.Columns>
-                            <DataGridComboBoxColumn Header="Материал" SelectedItemBinding="{Binding Material}" DisplayMemberPath="Name">
-                                <DataGridComboBoxColumn.EditingElementStyle>
-                                    <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=insulationGrid, Path=DataContext.Settings.PipelineSettings.ChannelInsulationMaterials}"/>
-                                    </Style>
-                                </DataGridComboBoxColumn.EditingElementStyle>
+                            <DataGridComboBoxColumn 
+                                Header="Материал" 
+                                SelectedItemBinding="{Binding Material}"
+                                DisplayMemberPath="Name">
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=insulationGrid, Path=DataContext.Settings.PipelineSettings.ChannelInsulationMaterials}"/>
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.ChannelInsulationMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
+                                <DataGridComboBoxColumn.EditingElementStyle>
+                                    <Style TargetType="{x:Type ComboBox}">
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.ChannelInsulationMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
+                                    </Style>
+                                </DataGridComboBoxColumn.EditingElementStyle>
                             </DataGridComboBoxColumn>
                             <DataGridTextColumn Header="Плотность" Binding="{Binding Material.Density}" IsReadOnly="True"/>
                             <DataGridTextColumn Header="Толщина" Binding="{Binding Thickness}"/>
-                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding Material.InitialTemperature}"/>
+                            <DataGridTextColumn Header="Начальная температура" Binding="{Binding InitialTemperature}"/>
                             <DataGridTemplateColumn Header="Операции">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -78,8 +92,12 @@
                                             <Behaviors:Interaction.Triggers>
                                                 <Behaviors:EventTrigger EventName="Click">
                                                     <Behaviors:InvokeCommandAction
-                                                        Command="{Binding ElementName=insulationGrid, Path=DataContext.RemoveInsulationLayerCommand}"
-                                                        CommandParameter="{Binding ElementName=insulationGrid, Path=SelectedItem}"/>
+                                                        Command="{Binding 
+                                                            DataContext.RemoveInsulationLayerCommand,
+                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"
+                                                        CommandParameter="{Binding 
+                                                            SelectedItem,
+                                                            RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                                 </Behaviors:EventTrigger>
                                             </Behaviors:Interaction.Triggers>
                                         </Button>
@@ -110,18 +128,22 @@
                             <DataGridComboBoxColumn Header="Тип трубы" SelectedItemBinding="{Binding Material}" DisplayMemberPath="Name">
                                 <DataGridComboBoxColumn.EditingElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=pipeGrid, Path=DataContext.Settings.PipelineSettings.PipeMaterials}"/>
+                                        <Setter Property="ItemsSource" 
+                                                Value="{Binding DataContext.PipeMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.EditingElementStyle>
                                 <DataGridComboBoxColumn.ElementStyle>
                                     <Style TargetType="{x:Type ComboBox}">
-                                        <Setter Property="ItemsSource" Value="{Binding ElementName=pipeGrid, Path=DataContext.Settings.PipelineSettings.PipeMaterials}"/>
+                                        <Setter Property="ItemsSource"
+                                                Value="{Binding DataContext.PipeMaterials,
+                                                                RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}"/>
                                     </Style>
                                 </DataGridComboBoxColumn.ElementStyle>
                             </DataGridComboBoxColumn>
                             <DataGridTextColumn Header="Радиус" Binding="{Binding Radius}"/>
                             <DataGridTextColumn Header="Толщина" Binding="{Binding Thickness}"/>
-                            <DataGridTextColumn Header="Температура теплоносителя" Binding="{Binding Temperature}"/>
+                            <DataGridTextColumn Header="Температура теплоносителя" Binding="{Binding CoolantTemperature}"/>
                             <DataGridTemplateColumn Header="Изоляционные слои" IsReadOnly="True">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>

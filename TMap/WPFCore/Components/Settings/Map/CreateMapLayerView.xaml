@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="TMap.WPFCore.Components.Settings.Map.CreateMapLayerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ViewModel="clr-namespace:TMap.MVVM.ViewModel.Settings.Map"
+             xmlns:Custom="clr-namespace:TMap.CustomControls.Controls;assembly=TMap.CustomControls"
+             mc:Ignorable="d"
+             SnapsToDevicePixels="True"
+             d:DataContext="{d:DesignInstance Type=ViewModel:CreateMapLayerViewModel}">
+
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="0 0 0 5"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="{x:Type Custom:PlaceholderTextBox}">
+            <Setter Property="Margin" Value="0 0 0 5"/>
+            <Setter Property="Grid.Column" Value="2"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+
+    <GroupBox Header="Настройки слоя">
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Материал слоя"/>
+            <TextBlock Grid.Row="1" Text="Толщина слоя"/>
+            <TextBlock Grid.Row="2" Text="Влажность слоя"/>
+            <TextBlock  Grid.Row="3" Text="Начальная температура" Margin="0"/>
+
+            <ComboBox 
+                Grid.Column="2"
+                Margin="0 0 0 5"
+                VerticalAlignment="Center"
+                Style="{StaticResource ValidatableComboBoxStyle}"
+                ItemsSource="{Binding Materials}"
+                SelectedItem="{Binding Material, ValidatesOnDataErrors=True}"
+                DisplayMemberPath="Name"/>
+
+            <Custom:PlaceholderTextBox
+                Grid.Row="1"
+                Placeholder="от 1 см"
+                Text="{Binding Thickness, ValidatesOnDataErrors=True}"/>
+
+            <Custom:PlaceholderTextBox
+                Grid.Row="2"
+                Placeholder="от 0.01 гр/м³"
+                Text="{Binding Humidity, ValidatesOnDataErrors=True}"/>
+
+            <Custom:PlaceholderTextBox
+                Grid.Row="3"
+                Placeholder="от -70.00 до +170.00 °С"
+                Margin="0"
+                Text="{Binding InitTemperature, ValidatesOnDataErrors=True}"/>
+
+            <Button
+                Grid.ColumnSpan="3"
+                Grid.Row="4"
+                Content="Добавить"
+                Margin="0 10 0 0"
+                HorizontalAlignment="Left"
+                Padding="10 5"
+                IsEnabled="{Binding IsValid}"
+                Command="{Binding AddLayerCommand}"/>
+        </Grid>
+    </GroupBox>
+</UserControl>

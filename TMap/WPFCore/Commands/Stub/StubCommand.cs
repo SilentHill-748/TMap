@@ -1,8 +1,4 @@
-﻿using System.Diagnostics;
-
-using TMap.WPFCore.Commands.Base;
-
-namespace TMap.WPFCore.Commands.Stub;
+﻿namespace TMap.WPFCore.Commands.Stub;
 
 public class StubCommand : CommandBase
 {

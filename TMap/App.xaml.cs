@@ -1,33 +1,29 @@
-﻿using System.Diagnostics;
-using System.IO;
-using System.Windows;
-
-using SimpleInjector;
-
-using TMap.MVVM.Model.Settings;
-using TMap.MVVM.View.Windows;
+﻿using WpfApp = System.Windows.Application;
+using Container = SimpleInjector.Container;
 
 namespace TMap;
 
-public partial class App : System.Windows.Application
+public partial class App : WpfApp
 {
     private readonly Container _container = new();
+    private readonly string _rootAppPath;
 
     public App()
     {
+        _rootAppPath = Path.GetFullPath(@"..\..\..\..\");
+
         DispatcherUnhandledException += App_DispatcherUnhandledException;
     }
 
-    private void App_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+    private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
     {
         MessageBox.Show(e.Exception.Message, "Unhandled exception!");
     }
 
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
-        SetNewCurrentDirectory();
-
-        _container.RegisterServices();
+        await InitializeServicesAsync();
+        AddAllViewToViewModelDataTemplates();
 
         MainWindow = new MainWindow()
         {
@@ -39,10 +35,48 @@ public partial class App : System.Windows.Application
         base.OnStartup(e);
     }
 
-    private static void SetNewCurrentDirectory()
+    protected override async void OnExit(ExitEventArgs e)
     {
-        string rootPath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent!.Parent!.Parent!.FullName;
+        await _container.DisposeAsync();
 
-        Directory.SetCurrentDirectory(rootPath);
+        base.OnExit(e);
+    }
+
+    private async Task InitializeServicesAsync()
+    {
+        _container.RegisterAppServices();
+
+        await SeedDataAsync();
+
+        ConfigurePipelineSettingsModel();
+    }
+
+    private async Task SeedDataAsync()
+    {
+        await _container.GetInstance<DataSeed>().SeedAsync(_rootAppPath);
+        
+        _container.GetInstance<MaterialStore>().Load();
+    }
+
+    private void ConfigurePipelineSettingsModel()
+    {
+        var pipelineSM = _container.GetInstance<PipelineSettingsModel>();
+
+        var channelMaterial = _container
+            .GetInstance<MaterialStore>()
+            .GetMaterial("Железобетон");
+
+        pipelineSM.Channel.Material = channelMaterial;
+    }
+
+    private void AddAllViewToViewModelDataTemplates()
+    {
+        var templates = new ViewToViewModelDataTemplateGeneratorService()
+            .GenerateTemplates();
+
+        foreach (DataTemplate template in templates)
+        {
+            Resources.Add(template.DataTemplateKey, template);
+        }
     }
 }

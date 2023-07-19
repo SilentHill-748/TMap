@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-
-using SimpleInjector;
+﻿using Container = SimpleInjector.Container;
 
 namespace TMap.Services;
 

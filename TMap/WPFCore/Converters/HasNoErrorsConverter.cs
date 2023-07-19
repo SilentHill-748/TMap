@@ -1,9 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
-
-namespace TMap.WPFCore.Converters;
+﻿namespace TMap.WPFCore.Converters;
 
 public class HasNoErrorsConverter : IValueConverter
 {
