@@ -21,9 +21,9 @@ public class SubmitSettingsCommand : CommandBase
         _viewModel.Settings.PipelineSettings.IsSkiped = false;
         _viewModel.Settings.IsCompleted = true;
 
-        _navigationService.NavigateTo<MapViewModel>();
-
         WeakReferenceMessenger.Default.Send(new SettingsDoneMessage(null!));
+
+        _navigationService.NavigateTo<MapViewModel>();
     }
 
     public override bool CanExecute()

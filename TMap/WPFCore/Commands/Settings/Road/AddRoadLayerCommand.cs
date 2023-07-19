@@ -27,7 +27,6 @@ public class AddRoadLayerCommand : CommandBase
             Width = _viewModel.Width
         };
 
-        //TODO: Не весь код переписан под использование шины сообщенй!
         WeakReferenceMessenger.Default.Send(new CreateRoadLayerMessage(layer));
 
         ResetInputs();

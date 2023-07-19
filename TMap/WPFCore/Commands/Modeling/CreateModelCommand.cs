@@ -18,8 +18,10 @@ public class CreateModelCommand : CommandBase
     {
         var settings = _viewModel.Settings;
         var map = _viewModel.MapBitmap!;
+        var colorMaterialMap = GetMaterialColorsMap();
 
-        _viewModel.MathModel = new MathModel(settings, GetMaterialMap(_viewModel.Settings), map);
+        _viewModel.MathModel = new MathModel(settings, colorMaterialMap, map);
+
         _viewModel.MathModel.ModelStopped += MathModel_ModelStopped;
     }
 
@@ -37,24 +39,14 @@ public class CreateModelCommand : CommandBase
         _viewModel.TemperatureSource = _viewModel.MathModel?.GetTemperatureMap();
     }
 
-    private Dictionary<Color, MaterialModel> GetMaterialMap(SettingsModel settings)
+    private Dictionary<Color, MaterialModel> GetMaterialColorsMap()
     {
-        var environmentDefaultMaterial = _materialStore.GetMaterial("Воздух");
-
-        var materials = new List<MaterialModel>() { environmentDefaultMaterial, settings.PipelineSettings.Channel.Material };
+        var materials = _materialStore.Materials;
         var map = new Dictionary<Color, MaterialModel>();
-
-        materials.AddRange(settings.MapSettings.MapSoilLayers.Select(x => x.Material));
-        materials.AddRange(settings.RoadSettings.Layers.Select(x => x.Material));
-        materials.AddRange(settings.PipelineSettings.Channel.Pipes.Select(x => x.Material));
-        materials.AddRange(settings.PipelineSettings.Channel.InsulationLayers.Select(x => x.Material));
-
-        foreach (Pipe pipe in settings.PipelineSettings.Channel.Pipes)
-            materials.AddRange(pipe.Insulation.Select(x => x.Material));
 
         foreach (MaterialModel material in materials)
         {
-            var color = (Color)ColorConverter.ConvertFromString(material.ColorHexCode);
+            var color = material.GetColor();
 
             _ = map.TryAdd(color, material);
         }

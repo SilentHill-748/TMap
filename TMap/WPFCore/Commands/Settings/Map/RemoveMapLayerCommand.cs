@@ -13,6 +13,8 @@
 
         protected override void Execute(Layer parameter)
         {
+            ArgumentNullException.ThrowIfNull(parameter, nameof(parameter));
+
             _viewModel.Settings.MapSoilLayers.Remove(parameter);
         }
     }

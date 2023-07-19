@@ -13,6 +13,8 @@ public class RemoveChannelInsulationLayerCommand : ParameterizedCommandBase<Chan
 
     protected override void Execute(ChannelInsulation parameter)
     {
+        ArgumentNullException.ThrowIfNull(parameter, nameof(parameter));
+
         _viewModel.Settings.PipelineSettings.Channel.InsulationLayers.Remove(parameter);
     }
 }

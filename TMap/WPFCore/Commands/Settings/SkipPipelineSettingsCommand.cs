@@ -20,8 +20,8 @@ public class SkipPipelineSettingsCommand : CommandBase
         _settings.PipelineSettings.Channel.Clear();
         _settings.IsCompleted = true;
 
-        _navigationService.NavigateTo<MapViewModel>();
-
         WeakReferenceMessenger.Default.Send(new SettingsDoneMessage(null!));
+
+        _navigationService.NavigateTo<MapViewModel>();
     }
 }
