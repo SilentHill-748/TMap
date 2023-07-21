@@ -1,8 +1,8 @@
 ﻿namespace TMap.MVVM.Validation.Validators;
 
-public class CreateRoadlayerValidator : AbstractValidator<CreateRoadLayerViewModel>
+public class CreateRoadLayerValidator : AbstractValidator<CreateRoadLayerViewModel>
 {
-    public CreateRoadlayerValidator()
+    public CreateRoadLayerValidator()
     {
         RuleFor(viewModel => viewModel.Thickness)
             .GreaterThanOrEqualTo(1)
