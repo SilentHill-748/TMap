@@ -61,7 +61,7 @@ public static class ValidationErrors
                 public const string RadiusError = "Радиус трубы должен быть между 6 и 27 см!";
                 public const string PipeMaterialError = "Не выбран тип трубы!";
                 public const string ThicknessError = "Толщина трубы должна быть между 1 и 3 см!";
-                public const string TemperatureError = "Температура теплоносителя должна быть между -10.00 и +170.00 °С";
+                public const string TemperatureError = "Температура теплоносителя должна быть между -10.00 и +400.00 °С";
             }
         }
     } 

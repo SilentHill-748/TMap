@@ -34,6 +34,7 @@ public class ChannelInputDataViewModel : ViewModelBase
     {
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
 
+        Settings = settings;
         _roadSettings = settings.RoadSettings;
         _pipelineSettings = settings.PipelineSettings;
 
@@ -71,6 +72,7 @@ public class ChannelInputDataViewModel : ViewModelBase
         ValidateViewModel();
     }
 
+    public SettingsModel Settings { get; }
     public int ChannelInsulationThickness
     {
         get => _insulationThickness;
