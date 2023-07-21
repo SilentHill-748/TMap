@@ -1,6 +1,6 @@
 ﻿namespace TMap.MVVM.Validation.Validators;
 
-internal sealed class CreateMapLayerValidator : AbstractValidator<CreateMapLayerViewModel>
+public sealed class CreateMapLayerValidator : AbstractValidator<CreateMapLayerViewModel>
 {
     public CreateMapLayerValidator()
     {

@@ -17,7 +17,8 @@ public class MapSettingsViewModel : ViewModelBase
     public MapSettingsViewModel(
         SettingsModel settings,
         MaterialStore materialStore,
-        NavigationService navigationService)
+        NavigationService navigationService,
+        CreateMapLayerValidator createMapLayerValidator)
     {
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
         ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
@@ -27,7 +28,7 @@ public class MapSettingsViewModel : ViewModelBase
         _materials = new ObservableCollection<MaterialModel>(materialStore.GetMapMaterials());
         _settings = settings.MapSettings;
         _navigationService = navigationService;
-        _createLayerViewModel = new CreateMapLayerViewModel(materialStore);
+        _createLayerViewModel = new CreateMapLayerViewModel(materialStore, createMapLayerValidator);
         _inputMapSettingsViewModel = new MapInputDataViewModel(settings.MapSettings);
 
         WindowTitle = "Настройка карты геологического среза";

@@ -52,6 +52,7 @@ global using TMap.MVVM.Model.Pipeline;
 global using TMap.MVVM.Model.Settings;
 global using TMap.MVVM.Stores;
 global using TMap.MVVM.Validation;
+global using TMap.MVVM.Validation.Validators;
 global using TMap.MVVM.View.Windows;
 global using TMap.MVVM.ViewModel;
 global using TMap.MVVM.ViewModel.Map;
