@@ -23,6 +23,8 @@ global using AutoMapper;
 global using CommunityToolkit.Mvvm.Messaging;
 global using CommunityToolkit.Mvvm.Messaging.Messages;
 
+global using FluentValidation;
+
 global using Microsoft.EntityFrameworkCore;
 
 global using TMap.Application.Services.Material;

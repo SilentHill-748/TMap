@@ -20,7 +20,8 @@ public static class ConfigureAppServices
             .RegisterServices()
             .RegisterRepositories()
             .RegisterDbContext(opt => opt.UseSqlite($"Data Source=tmap.db"))
-            .RegisterWPFServices();
+            .RegisterWPFServices()
+            .RegisterAllValidators();
 
         container.Register<DataSeed>();
 
