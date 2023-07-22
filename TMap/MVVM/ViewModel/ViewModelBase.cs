@@ -56,6 +56,21 @@ public class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
         IsValid = !HasErrors;
     }
 
+    protected void ClearErrors()
+    {
+        _propertyNameToErrorsDictionary.Clear();
+
+        OnErrorsChanged();
+    }
+
+    protected void ClearErrors(string propertyName)
+    {
+        if (_propertyNameToErrorsDictionary.Remove(propertyName))
+        {
+            OnErrorsChanged(propertyName);
+        }
+    }
+
     private void AddErrors(ValidationResult validationResult)
     {
         var errors = validationResult.Errors;
@@ -74,13 +89,6 @@ public class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
         _propertyNameToErrorsDictionary[propertyName].Add(errorMessage);
 
         OnErrorsChanged(propertyName);
-    }
-
-    private void ClearErrors()
-    {
-        _propertyNameToErrorsDictionary.Clear();
-
-        OnErrorsChanged();
     }
 
     protected virtual void Set<T>(ref T field, T value, string propertyName = "")

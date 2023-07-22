@@ -9,7 +9,7 @@ public class ChannelInputDataValidator : AbstractValidator<ChannelInputDataViewM
             .WithMessage(ValidationErrors.PipelineSettingsErrors.PipelineChannelErrors.ThicknessError);
 
         RuleFor(viewModel => viewModel.ChannelDepth)
-            .Must((viewModel, depth) => depth < viewModel.Settings.RoadSettings.MaxDepth)
+            .Must((viewModel, depth) => depth >= viewModel.Settings.RoadSettings.MaxDepth)
             .WithMessage(ValidationErrors.PipelineSettingsErrors.PipelineChannelErrors.ChannelDepthError);
 
         RuleFor(viewModel => viewModel.ChannelHeight)
@@ -17,7 +17,7 @@ public class ChannelInputDataValidator : AbstractValidator<ChannelInputDataViewM
             .WithMessage(viewModel => $"Высота коллектора должна быть между {viewModel.MinChannelHeightLayout} и {3000 - viewModel.MinChannelHeightLayout} см!");
 
         RuleFor(viewModel => viewModel.PipeCenterline)
-            .Must((viewModel, value) => value < viewModel.MinCenterlinePosition || value > viewModel.MaxCenterlinePosition)
+            .Must((viewModel, value) => value > viewModel.MinCenterlinePosition && value < viewModel.MaxCenterlinePosition)
             .WithMessage(viewModel => $"Осевая линия труб должна быть между {viewModel.MinCenterlinePosition} и {viewModel.MaxCenterlinePosition} см!");
 
         RuleFor(viewModel => viewModel.InteraxalWidth)
@@ -27,7 +27,7 @@ public class ChannelInputDataValidator : AbstractValidator<ChannelInputDataViewM
 
     private bool ChannelHeightPredicate(ChannelInputDataViewModel viewModel, int value)
     {
-        return  (value < viewModel.MinChannelHeightLayout) || 
-                (value > 3000 - viewModel.MinChannelHeightLayout);
+        return  (value > viewModel.MinChannelHeightLayout) && 
+                (value < 3000 - viewModel.MinChannelHeightLayout);
     }
 }

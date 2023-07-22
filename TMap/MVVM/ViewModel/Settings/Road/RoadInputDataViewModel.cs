@@ -60,7 +60,13 @@ public class RoadInputDataViewModel : ViewModelBase
     public bool HasMound
     {
         get => _hasMound;
-        set => Set(ref _hasMound, value, nameof(HasMound));
+        set
+        {
+            ClearErrors(nameof(MoundHeight));
+            ClearErrors(nameof(MoundWidth));
+
+            Set(ref _hasMound, value, nameof(HasMound));
+        }
     }
     #endregion
 

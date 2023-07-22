@@ -8,6 +8,10 @@ public class CreateRoadLayerValidator : AbstractValidator<CreateRoadLayerViewMod
             .GreaterThanOrEqualTo(1)
             .WithMessage(ValidationErrors.MaterialErrors.ThicknessError);
 
+        RuleFor(viewModel => viewModel.Width)
+            .GreaterThanOrEqualTo(700)
+            .WithMessage(ValidationErrors.RoadSettingsErrors.CreateRoadLayerErrors.WidthError);
+
         RuleFor(viewModel => viewModel.Humidity)
             .GreaterThanOrEqualTo(0.00)
             .WithMessage(ValidationErrors.MaterialErrors.HumidityError);

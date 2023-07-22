@@ -9,11 +9,11 @@ public class PipeInputDataValidator : AbstractValidator<PipeInputDataViewModel>
             .WithMessage(ValidationErrors.PipelineSettingsErrors.PipelinePipeErrors.CreatePipeErrors.RadiusError);
 
         RuleFor(viewModel => viewModel.MaterialTemperature)
-            .InclusiveBetween(-70.00, 170.00)
+            .InclusiveBetween(-10.00, 170.00)
             .WithMessage(ValidationErrors.PipelineSettingsErrors.PipelinePipeErrors.CreatePipeErrors.PipeMaterialTemperatureError);
 
         RuleFor(viewModel => viewModel.CoolantTemperature)
-            .InclusiveBetween(-10.00, 400.00)
+            .InclusiveBetween(1.00, 400.00)
             .WithMessage(ValidationErrors.PipelineSettingsErrors.PipelinePipeErrors.CreatePipeErrors.TemperatureError);
 
         RuleFor(viewModel => viewModel.Thickness)
