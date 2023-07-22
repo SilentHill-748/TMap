@@ -6,14 +6,14 @@ public class CreatePipeInsulationValidator : AbstractValidator<CreatePipeInsulat
     {
         RuleFor(viewModel => viewModel.Thickness)
             .GreaterThanOrEqualTo(1)
-            .WithMessage(ValidationErrors.PipelineSettingsErrors.InsulationErrors.ThicknessError);
+            .WithMessage("Толщина слоя изоляции трубы должна быть между 1 и 50 см!");
 
         RuleFor(viewModel => viewModel.InitialTemperature)
             .InclusiveBetween(-70.00, 170.00)
-            .WithMessage(ValidationErrors.MaterialErrors.InitTemperatureError);
+            .WithMessage("Начальная температура изоляционного материала должна быть между -70.00 и +170.00 °С!");
         
         RuleFor(viewModel => viewModel.InsulationMaterial)
             .NotNull()
-            .WithMessage(ValidationErrors.MaterialErrors.MaterialError);
+            .WithMessage("Не выбран материал изоляции!");
     }
 }

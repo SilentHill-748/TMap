@@ -28,11 +28,11 @@ public class PipelineChannelInputDataModel
 
     public int MaxCenterlinePosition { get; set; }
 
-    public string? ChannelHeightPlaceholder { get; set; }
+    public string ChannelHeightPlaceholder { get; set; } = string.Empty;
 
-    public string? ChannelDepthPlaceholder { get; set; }
+    public string ChannelDepthPlaceholder { get; set; } = string.Empty;
 
-    public string? PipeCenterlinePlaceholder { get; set; }
+    public string PipeCenterlinePlaceholder { get; set; } = string.Empty;
 
     public void SetProperties()
     {

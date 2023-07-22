@@ -6,6 +6,6 @@ public class MapInputDataValidator : AbstractValidator<MapInputDataViewModel>
     {
         RuleFor(viewModel => viewModel.EnvTemperature)
             .InclusiveBetween(-70.00, 170.00)
-            .WithMessage(ValidationErrors.MapSettingsErrors.EnvironmentTemperatureError);
+            .WithMessage("Начальная температура материала внешней среды должна быть между -70.00 и +170.00 °С!");
     }
 }

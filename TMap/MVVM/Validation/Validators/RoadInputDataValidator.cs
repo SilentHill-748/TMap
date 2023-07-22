@@ -6,24 +6,24 @@ public class RoadInputDataValidator : AbstractValidator<RoadInputDataViewModel>
     {
         RuleFor(viewModel => viewModel.Width)
             .GreaterThanOrEqualTo(700)
-            .WithMessage(ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.RoadWidthError);
+            .WithMessage("Ширина проезжей части должна быть больше 700 см!");
 
         RuleFor(viewModel => viewModel.MoundWidth)
             .InclusiveBetween(50, 100)
             .When(viewModel => viewModel.HasMound)
-            .WithMessage(ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.MoundWidthError);
+            .WithMessage("Ширина насыпи должна быть между 50 и 100 см!");
 
         RuleFor(viewModel => viewModel.MoundHeight)
             .InclusiveBetween(20, 100)
             .When(viewModel => viewModel.HasMound)
-            .WithMessage(ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.MoundHeightError);
+            .WithMessage("Высота насыпи должна быть между 20 и 100 см!");
 
         RuleFor(viewModel => viewModel.RoadsideWidth)
             .InclusiveBetween(25, 50)
-            .WithMessage(ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.RoadsideWidthError);
+            .WithMessage("Ширина обочины должна быть между 25 и 50 см!");
 
         RuleFor(viewModel => viewModel.EdgeWidth)
             .GreaterThanOrEqualTo(50)
-            .WithMessage(ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.EdgeWidthError);
+            .WithMessage("Край дороги должен быть не менее 50 см!");
     }
 }

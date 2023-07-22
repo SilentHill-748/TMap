@@ -6,22 +6,22 @@ public class PipeInputDataValidator : AbstractValidator<PipeInputDataViewModel>
     {
         RuleFor(viewModel => viewModel.Radius)
             .InclusiveBetween(6, 27)
-            .WithMessage(ValidationErrors.PipelineSettingsErrors.PipelinePipeErrors.CreatePipeErrors.RadiusError);
+            .WithMessage("Радиус трубы должен быть между 6 и 27 см!");
 
         RuleFor(viewModel => viewModel.MaterialTemperature)
             .InclusiveBetween(-10.00, 170.00)
-            .WithMessage(ValidationErrors.PipelineSettingsErrors.PipelinePipeErrors.CreatePipeErrors.PipeMaterialTemperatureError);
+            .WithMessage("Температура материала трубы должна быть между -10.00 и +170.00 °С!");
 
         RuleFor(viewModel => viewModel.CoolantTemperature)
             .InclusiveBetween(1.00, 400.00)
-            .WithMessage(ValidationErrors.PipelineSettingsErrors.PipelinePipeErrors.CreatePipeErrors.TemperatureError);
+            .WithMessage("Температура теплоносителя трубы должна быть между +1.00 и +400.00 °С");
 
         RuleFor(viewModel => viewModel.Thickness)
             .InclusiveBetween(1, 3)
-            .WithMessage(ValidationErrors.PipelineSettingsErrors.PipelinePipeErrors.CreatePipeErrors.ThicknessError);
+            .WithMessage("Толщина трубы должна быть между 1 и 3 см!");
 
         RuleFor(viewModel => viewModel.PipeType)
             .NotNull()
-            .WithMessage(ValidationErrors.PipelineSettingsErrors.PipelinePipeErrors.CreatePipeErrors.PipeMaterialError);
+            .WithMessage("Не выбран тип трубы!");
     }
 }

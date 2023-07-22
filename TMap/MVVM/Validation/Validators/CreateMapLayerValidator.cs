@@ -6,18 +6,18 @@ public sealed class CreateMapLayerValidator : AbstractValidator<CreateMapLayerVi
     {
         RuleFor(viewModel => viewModel.Thickness)
             .GreaterThanOrEqualTo(1)
-            .WithMessage(ValidationErrors.MaterialErrors.ThicknessError);
+            .WithMessage("Толщина слоя должна быть не меньше 1 см!");
 
         RuleFor(viewModel => viewModel.Humidity)
             .GreaterThanOrEqualTo(0.00)
-            .WithMessage(ValidationErrors.MaterialErrors.HumidityError);
+            .WithMessage("Влажность должна быть не ниже 0 гр/м³!");
 
         RuleFor(viewModel => viewModel.InitTemperature)
             .InclusiveBetween(-70.00, 170.00)
-            .WithMessage(ValidationErrors.MaterialErrors.InitTemperatureError);
+            .WithMessage("Начальная температура материала грунта должна быть между -70.00 и +170.00 °С!");
 
         RuleFor(viewModel => viewModel.Material)
             .NotNull()
-            .WithMessage(ValidationErrors.MaterialErrors.MaterialError);
+            .WithMessage("Не выбран материал грунта!");
     }
 }
