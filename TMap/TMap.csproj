@@ -31,10 +31,4 @@
     <ProjectReference Include="..\TMap.Persistence\TMap.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="Resources\Assets\Blocks\air.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
 </Project>
