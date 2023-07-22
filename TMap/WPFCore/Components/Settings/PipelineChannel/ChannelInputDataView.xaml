@@ -46,17 +46,17 @@
 
             <Custom:PlaceholderTextBox
                 Text="{Binding ChannelHeight, ValidatesOnDataErrors=True}" 
-                Placeholder="{Binding ChannelHeightPlaceholder}"/>
+                Placeholder="{Binding Data.ChannelHeightPlaceholder}"/>
 
             <Custom:PlaceholderTextBox
                 Grid.Row="1" 
                 Text="{Binding ChannelDepth, ValidatesOnDataErrors=True}" 
-                Placeholder="{Binding ChannelDepthPlaceholder}"/>
+                Placeholder="{Binding Data.ChannelDepthPlaceholder}"/>
 
             <Custom:PlaceholderTextBox 
                 Grid.Row="2" 
                 Text="{Binding PipeCenterline, ValidatesOnDataErrors=True}" 
-                Placeholder="{Binding PipeCenterlinePlaceholder}"/>
+                Placeholder="{Binding Data.PipeCenterlinePlaceholder}"/>
 
             <Custom:PlaceholderTextBox 
                 Grid.Row="3" 

@@ -2,6 +2,7 @@
 global using System.Collections;
 global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
+global using System.Collections.Specialized;
 global using System.ComponentModel;
 global using System.Diagnostics;
 global using System.Diagnostics.CodeAnalysis;
@@ -51,7 +52,6 @@ global using TMap.MVVM.Model.Navigation;
 global using TMap.MVVM.Model.Pipeline;
 global using TMap.MVVM.Model.Settings;
 global using TMap.MVVM.Stores;
-global using TMap.MVVM.Validation;
 global using TMap.MVVM.Validation.Validators;
 global using TMap.MVVM.View.Windows;
 global using TMap.MVVM.ViewModel;

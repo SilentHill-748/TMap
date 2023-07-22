@@ -4,7 +4,6 @@ public class ChannelInputDataViewModel : ViewModelBase
 {
     #region Dependencies
     private readonly ChannelInputDataValidator _validator;
-    private readonly RoadSettingsModel _roadSettings;
     private readonly PipelineSettingsModel _pipelineSettings;
     #endregion
 
@@ -14,17 +13,6 @@ public class ChannelInputDataViewModel : ViewModelBase
     private int _channelDepth;
     private int _pipeCenterline;
     private int _interaxalWidth;
-
-    private int _insulationThickness;
-    private int _totalThickness;
-    private int _minChannelHeightLayout;
-    private int _maxChannelHeightLayout;
-    private int _minCenterlinePosition;
-    private int _maxCenterlinePosition;
-
-    private string? _channelHeightPlaceholder;
-    private string? _channelDepthPlaceholder;
-    private string? _pipeCenterlinePlaceholder;
     #endregion
 
     public ChannelInputDataViewModel(SettingsModel settings, ChannelInputDataValidator validator)
@@ -34,8 +22,9 @@ public class ChannelInputDataViewModel : ViewModelBase
 
         Settings = settings;
         _validator = validator;
-        _roadSettings = settings.RoadSettings;
         _pipelineSettings = settings.PipelineSettings;
+
+        Data = new PipelineChannelInputDataModel(settings, this);
 
         _pipelineSettings.Channel.InsulationLayers.CollectionChanged += InsulationLayers_CollectionChanged;
         _pipelineSettings.Channel.Pipes.CollectionChanged += Pipes_CollectionChanged;
@@ -47,54 +36,7 @@ public class ChannelInputDataViewModel : ViewModelBase
 
     #region Public properties
     public SettingsModel Settings { get; }
-    #endregion
-
-    #region Notify second properties
-    public int ChannelInsulationThickness
-    {
-        get => _insulationThickness;
-        set => Set(ref _insulationThickness, value, nameof(ChannelInsulationThickness));
-    }
-    public int TotalThickness
-    {
-        get => _totalThickness;
-        set => Set(ref _totalThickness, value, nameof(TotalThickness));
-    }
-    public int MinChannelHeightLayout
-    {
-        get => _minChannelHeightLayout;
-        set => Set(ref _minChannelHeightLayout, value, nameof(MinChannelHeightLayout));
-    }
-    public int MaxChannelHeightLayout
-    {
-        get => _maxChannelHeightLayout;
-        set => Set(ref _maxChannelHeightLayout, value, nameof(MaxChannelHeightLayout));
-    }
-    public int MinCenterlinePosition
-    {
-        get => _minCenterlinePosition;
-        set => Set(ref _minCenterlinePosition, value, nameof(MinCenterlinePosition));
-    }
-    public int MaxCenterlinePosition
-    {
-        get => _maxCenterlinePosition;
-        set => Set(ref _maxCenterlinePosition, value, nameof(MaxCenterlinePosition));
-    }
-    public string? ChannelHeightPlaceholder
-    {
-        get => _channelHeightPlaceholder;
-        set => Set(ref _channelHeightPlaceholder, value, nameof(ChannelHeightPlaceholder));
-    }
-    public string? ChannelDepthPlaceholder
-    {
-        get => _channelDepthPlaceholder;
-        set => Set(ref _channelDepthPlaceholder, value, nameof(ChannelDepthPlaceholder));
-    }
-    public string? PipeCenterlinePlaceholder
-    {
-        get => _pipeCenterlinePlaceholder;
-        set => Set(ref _pipeCenterlinePlaceholder, value, nameof(PipeCenterlinePlaceholder));
-    }
+    public PipelineChannelInputDataModel Data { get; }
     #endregion
 
     #region Notify properties
@@ -104,7 +46,7 @@ public class ChannelInputDataViewModel : ViewModelBase
         set
         {
             Set(ref _thickness, value, nameof(Thickness));
-            UpdateProperties();
+            UpdateData();
         }
     }
     public int ChannelHeight
@@ -113,7 +55,7 @@ public class ChannelInputDataViewModel : ViewModelBase
         set
         {
             Set(ref _channelHeight, value, nameof(ChannelHeight));
-            UpdateProperties();
+            UpdateData();
         }
     }
     public int ChannelDepth
@@ -122,18 +64,26 @@ public class ChannelInputDataViewModel : ViewModelBase
         set
         {
             Set(ref _channelDepth, value, nameof(ChannelDepth));
-            UpdateProperties();
+            UpdateData();
         }
     }
     public int PipeCenterline
     {
         get => _pipeCenterline;
-        set => Set(ref _pipeCenterline, value, nameof(PipeCenterline));
+        set
+        {
+            Set(ref _pipeCenterline, value, nameof(PipeCenterline));
+            UpdateData();
+        }
     }
     public int InteraxalWidth
     {
         get => _interaxalWidth;
-        set => Set(ref _interaxalWidth, value, nameof(InteraxalWidth));
+        set
+        {
+            Set(ref _interaxalWidth, value, nameof(InteraxalWidth));
+            UpdateData();
+        }
     }
     #endregion
 
@@ -143,12 +93,19 @@ public class ChannelInputDataViewModel : ViewModelBase
         Validate(_validator, this);
     }
 
-    private void InsulationLayers_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    private void Pipes_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        if (e.Action is System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
+        Data.SetProperties();
+
+        UpdateData();
+    }
+
+    private void InsulationLayers_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    {
+        if (e.Action is NotifyCollectionChangedAction.Reset)
             return;
 
-        SetProperties();
+        UpdateData();
     }
 
     private void InputChannelDataViewModel_IsValidChanged()
@@ -164,43 +121,14 @@ public class ChannelInputDataViewModel : ViewModelBase
             channel.InteraxalWidth = InteraxalWidth;
         }
     }
-
-    private void Pipes_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-    {
-        SetProperties();
-        Validate(_validator, this);
-    }
     #endregion
 
     #region Private methods
-    private void SetProperties()
+    private void UpdateData()
     {
-        ChannelDepth = ChannelDepth > _roadSettings.MaxDepth ? ChannelDepth : _roadSettings.MaxDepth;
-        UpdateProperties();
-        ChannelHeight = MinChannelHeightLayout;
-    }
+        Data.UpdateProperties();
 
-    private void UpdateProperties()
-    {
-        ChannelInsulationThickness = _pipelineSettings.Channel.InsulationThickness;
-        TotalThickness = Thickness + ChannelInsulationThickness;
-
-        var maxDiameterPipe = _pipelineSettings.Channel.Pipes.MaxBy(x => x.Radius + x.InsulationThickness);
-
-        if (maxDiameterPipe is not { })
-            return;
-
-        var pipeFullDiameter = (maxDiameterPipe.Radius + maxDiameterPipe.InsulationThickness) * 2;
-
-        MinChannelHeightLayout = 2 * TotalThickness + pipeFullDiameter + InteraxalWidth * 2;
-        MaxChannelHeightLayout = 3000 - MinChannelHeightLayout;
-
-        MinCenterlinePosition = ChannelDepth + MinChannelHeightLayout / 2;
-        MaxCenterlinePosition = ChannelDepth + MinChannelHeightLayout / 2 + (ChannelHeight < MinChannelHeightLayout ? MinChannelHeightLayout : ChannelHeight - MinChannelHeightLayout);
-
-        ChannelDepthPlaceholder = $"от {_roadSettings.MaxDepth} см";
-        ChannelHeightPlaceholder = $"от {MinChannelHeightLayout} до {3000 - MinChannelHeightLayout} см";
-        PipeCenterlinePlaceholder = $"от {MinCenterlinePosition} до {MaxCenterlinePosition} см";
+        OnPropertyChanged(nameof(Data));
     }
     #endregion
 }
