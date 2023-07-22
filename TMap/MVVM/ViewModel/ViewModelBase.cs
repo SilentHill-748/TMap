@@ -83,31 +83,6 @@ public class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
         OnErrorsChanged();
     }
 
-    [Obsolete("Use Validate<TViewModel> method.")]
-    protected void ValidateProperty(Func<bool> predicate, string propertyName, string errorMessage)
-    {
-        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
-        ArgumentNullException.ThrowIfNull(propertyName, nameof(propertyName));
-        ArgumentNullException.ThrowIfNull(errorMessage, nameof(errorMessage));
-
-        _propertyNameToErrorsDictionary.Remove(propertyName);
-
-        if (predicate())
-        {
-            _propertyNameToErrorsDictionary.Add(propertyName, new List<string>() { errorMessage });
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-        }
-
-        IsValid = !HasErrors;
-    }
-
-    [Obsolete("Use ClearErrors() method.")]
-    protected void ClearErrors(string propertyName)
-    {
-        _propertyNameToErrorsDictionary.Remove(propertyName);
-        ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-    }
-
     protected virtual void Set<T>(ref T field, T value, string propertyName = "")
     {
         if (field is not null && field.Equals(value))
