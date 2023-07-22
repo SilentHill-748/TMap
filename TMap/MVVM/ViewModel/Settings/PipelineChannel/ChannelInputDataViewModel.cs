@@ -2,16 +2,13 @@
 
 public class ChannelInputDataViewModel : ViewModelBase
 {
-    #region Private error fields
-    private const string ThicknessError = ValidationErrors.PipelineSettingsErrors.PipelineChannelErrors.ThicknessError;
-    private const string ChannelDepthError = ValidationErrors.PipelineSettingsErrors.PipelineChannelErrors.ChannelDepthError;
-    private const string InteraxalWidthError = ValidationErrors.PipelineSettingsErrors.PipelineChannelErrors.InteraxalWidthError;
+    #region Dependencies
+    private readonly ChannelInputDataValidator _validator;
+    private readonly RoadSettingsModel _roadSettings;
+    private readonly PipelineSettingsModel _pipelineSettings;
     #endregion
 
     #region Private fields
-    private readonly RoadSettingsModel _roadSettings;
-    private readonly PipelineSettingsModel _pipelineSettings;
-
     private int _thickness;
     private int _channelHeight;
     private int _channelDepth;
@@ -30,49 +27,29 @@ public class ChannelInputDataViewModel : ViewModelBase
     private string? _pipeCenterlinePlaceholder;
     #endregion
 
-    public ChannelInputDataViewModel(SettingsModel settings)
+    public ChannelInputDataViewModel(SettingsModel settings, ChannelInputDataValidator validator)
     {
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
+        ArgumentNullException.ThrowIfNull(validator, nameof(validator));
 
         Settings = settings;
+        _validator = validator;
         _roadSettings = settings.RoadSettings;
         _pipelineSettings = settings.PipelineSettings;
 
         _pipelineSettings.Channel.InsulationLayers.CollectionChanged += InsulationLayers_CollectionChanged;
         _pipelineSettings.Channel.Pipes.CollectionChanged += Pipes_CollectionChanged;
         IsValidChanged += InputChannelDataViewModel_IsValidChanged;
+        PropertyChanged += ChannelInputDataViewModel_PropertyChanged;
+
+        Validate(validator, this);
     }
 
-    private void InsulationLayers_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-    {
-        if (e.Action is System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
-            return;
-
-        SetProperties();
-        //ValidateViewModel();
-    }
-
-    private void InputChannelDataViewModel_IsValidChanged()
-    {
-        var channel = _pipelineSettings.Channel;
-
-        if (IsValid)
-        {
-            channel.ChannelDepth = ChannelDepth;
-            channel.Thickness = Thickness;
-            channel.Height = ChannelHeight;
-            channel.PipesCenterline = PipeCenterline;
-            channel.InteraxalWidth = InteraxalWidth;
-        }
-    }
-
-    private void Pipes_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-    {
-        SetProperties();
-        ValidateViewModel();
-    }
-
+    #region Public properties
     public SettingsModel Settings { get; }
+    #endregion
+
+    #region Notify second properties
     public int ChannelInsulationThickness
     {
         get => _insulationThickness;
@@ -103,7 +80,6 @@ public class ChannelInputDataViewModel : ViewModelBase
         get => _maxCenterlinePosition;
         set => Set(ref _maxCenterlinePosition, value, nameof(MaxCenterlinePosition));
     }
-
     public string? ChannelHeightPlaceholder
     {
         get => _channelHeightPlaceholder;
@@ -119,7 +95,9 @@ public class ChannelInputDataViewModel : ViewModelBase
         get => _pipeCenterlinePlaceholder;
         set => Set(ref _pipeCenterlinePlaceholder, value, nameof(PipeCenterlinePlaceholder));
     }
+    #endregion
 
+    #region Notify properties
     public int Thickness
     {
         get => _thickness;
@@ -127,7 +105,6 @@ public class ChannelInputDataViewModel : ViewModelBase
         {
             Set(ref _thickness, value, nameof(Thickness));
             UpdateProperties();
-            ValidateProperty(() => Thickness < 5 || Thickness > 25, nameof(Thickness), ThicknessError);
         }
     }
     public int ChannelHeight
@@ -137,11 +114,6 @@ public class ChannelInputDataViewModel : ViewModelBase
         {
             Set(ref _channelHeight, value, nameof(ChannelHeight));
             UpdateProperties();
-            ValidateProperty(
-                () =>
-                    ChannelHeight < MinChannelHeightLayout || ChannelHeight > 3000 - MinChannelHeightLayout,
-                nameof(ChannelHeight),
-                $"Высота коллектора должна быть между {MinChannelHeightLayout} и {3000 - MinChannelHeightLayout} см!");
         }
     }
     public int ChannelDepth
@@ -151,32 +123,56 @@ public class ChannelInputDataViewModel : ViewModelBase
         {
             Set(ref _channelDepth, value, nameof(ChannelDepth));
             UpdateProperties();
-            ValidateProperty(() => ChannelDepth < _roadSettings.MaxDepth, nameof(ChannelDepth), ChannelDepthError);
         }
     }
     public int PipeCenterline
     {
         get => _pipeCenterline;
-        set
-        {
-            Set(ref _pipeCenterline, value, nameof(PipeCenterline));
-            ValidateProperty(
-                () =>
-                    PipeCenterline < MinCenterlinePosition || PipeCenterline > MaxCenterlinePosition,
-                nameof(PipeCenterline),
-                $"Осевая линия труб должна быть между {MinCenterlinePosition} и {MaxCenterlinePosition}");
-        }
+        set => Set(ref _pipeCenterline, value, nameof(PipeCenterline));
     }
     public int InteraxalWidth
     {
         get => _interaxalWidth;
-        set
+        set => Set(ref _interaxalWidth, value, nameof(InteraxalWidth));
+    }
+    #endregion
+
+    #region Event handlers
+    private void ChannelInputDataViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        Validate(_validator, this);
+    }
+
+    private void InsulationLayers_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        if (e.Action is System.Collections.Specialized.NotifyCollectionChangedAction.Reset)
+            return;
+
+        SetProperties();
+    }
+
+    private void InputChannelDataViewModel_IsValidChanged()
+    {
+        var channel = _pipelineSettings.Channel;
+
+        if (IsValid)
         {
-            Set(ref _interaxalWidth, value, nameof(InteraxalWidth));
-            ValidateProperty(() => InteraxalWidth < 3 || InteraxalWidth > 10, nameof(InteraxalWidth), InteraxalWidthError);
+            channel.ChannelDepth = ChannelDepth;
+            channel.Thickness = Thickness;
+            channel.Height = ChannelHeight;
+            channel.PipesCenterline = PipeCenterline;
+            channel.InteraxalWidth = InteraxalWidth;
         }
     }
 
+    private void Pipes_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    {
+        SetProperties();
+        Validate(_validator, this);
+    }
+    #endregion
+
+    #region Private methods
     private void SetProperties()
     {
         ChannelDepth = ChannelDepth > _roadSettings.MaxDepth ? ChannelDepth : _roadSettings.MaxDepth;
@@ -205,16 +201,6 @@ public class ChannelInputDataViewModel : ViewModelBase
         ChannelDepthPlaceholder = $"от {_roadSettings.MaxDepth} см";
         ChannelHeightPlaceholder = $"от {MinChannelHeightLayout} до {3000 - MinChannelHeightLayout} см";
         PipeCenterlinePlaceholder = $"от {MinCenterlinePosition} до {MaxCenterlinePosition} см";
-
-        ValidateViewModel();
     }
-
-    private void ValidateViewModel()
-    {
-        ValidateProperty(() => Thickness < 5 || Thickness > 25, nameof(Thickness), ThicknessError);
-        ValidateProperty(() => ChannelHeight < MinChannelHeightLayout || ChannelHeight > 3000 - MinChannelHeightLayout, nameof(ChannelHeight), $"Высота коллектора должна быть между {MinChannelHeightLayout} и {3000 - MinChannelHeightLayout} см!");
-        ValidateProperty(() => ChannelDepth < _roadSettings.MaxDepth, nameof(ChannelDepth), ChannelDepthError);
-        ValidateProperty(() => PipeCenterline < MinCenterlinePosition || PipeCenterline > MaxCenterlinePosition, nameof(PipeCenterline), $"Осевая линия труб должна быть между {MinCenterlinePosition} и {MaxCenterlinePosition}");
-        ValidateProperty(() => InteraxalWidth < 3 || InteraxalWidth > 10, nameof(InteraxalWidth), InteraxalWidthError);
-    }
+    #endregion
 }

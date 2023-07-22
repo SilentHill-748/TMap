@@ -2,22 +2,44 @@
 
 public class MapInputDataViewModel : ViewModelBase
 {
+    #region Dependencies
     private readonly MapSettingsModel _mapSettings;
+    private readonly MapInputDataValidator _validator;
+    #endregion
 
+    #region Private fields
     private bool _isFrontView;
     private double _envTemerature;
+    #endregion
 
-    public MapInputDataViewModel(MapSettingsModel mapSettings)
+    public MapInputDataViewModel(MapSettingsModel mapSettings, MapInputDataValidator validator)
     {
         ArgumentNullException.ThrowIfNull(mapSettings, nameof(mapSettings));
+        ArgumentNullException.ThrowIfNull(validator, nameof(validator));
 
         _mapSettings = mapSettings;
-
-        InitialValidation();
+        _validator = validator;
 
         IsValidChanged += InputMapSettingsViewModel_IsValidChanged;
+        PropertyChanged += MapInputDataViewModel_PropertyChanged;
+
+        Validate(validator, this);
     }
 
+    #region Notify properties
+    public bool IsFrontView
+    {
+        get => _isFrontView;
+        set => Set(ref _isFrontView, value, nameof(IsFrontView));
+    }
+    public double EnvTemperature
+    {
+        get => _envTemerature;
+        set => Set(ref _envTemerature, value, nameof(EnvTemperature));
+    }
+    #endregion
+
+    #region Event handlers
     private void InputMapSettingsViewModel_IsValidChanged()
     {
         if (IsValid)
@@ -27,31 +49,9 @@ public class MapInputDataViewModel : ViewModelBase
         }
     }
 
-    public bool IsFrontView
+    private void MapInputDataViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        get => _isFrontView;
-        set
-        {
-            _mapSettings.IsFrontView = value;
-            Set(ref _isFrontView, value, nameof(IsFrontView));
-        }
+        Validate(_validator, this);
     }
-    public double EnvTemperature
-    {
-        get => _envTemerature;
-        set
-        {
-            _mapSettings.EnvironmentTemperature = value;
-            Set(ref _envTemerature, value, nameof(EnvTemperature));
-            ValidateProperty(CheckEnvTemp, nameof(EnvTemperature), ValidationErrors.MapSettingsErrors.EnvironmentTemperatureError);
-        }
-    }
-
-    private void InitialValidation()
-    {
-        ValidateProperty(CheckEnvTemp, nameof(EnvTemperature), ValidationErrors.MapSettingsErrors.EnvironmentTemperatureError);
-    }
-
-    private bool CheckEnvTemp()
-        => EnvTemperature <= -70 || EnvTemperature >= 170;
+    #endregion
 }

@@ -2,30 +2,69 @@
 
 public class RoadInputDataViewModel : ViewModelBase
 {
-    private const string RoadWidthError = ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.RoadWidthError;
-    private const string MoundWidthError = ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.MoundWidthError;
-    private const string MoundHeightError = ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.MoundHeightError;
-    private const string RoadsideWidthError = ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.RoadsideWidthError;
-    private const string EdgeWidthError = ValidationErrors.RoadSettingsErrors.InputRoadSettingsErrors.EdgeWidthError;
-
+    #region Dependencies
     private readonly SettingsModel _settings;
+    private readonly RoadInputDataValidator _validator;
+    #endregion
 
+    #region Private fields
     private int _width;
     private int _moundWidth;
     private int _moundHeight;
     private bool _hasMound;
     private int _edgeWidth;
     private int _roadsideWidth;
+    #endregion
 
-    public RoadInputDataViewModel(SettingsModel roadSettings)
+    public RoadInputDataViewModel(SettingsModel roadSettings, RoadInputDataValidator validator)
     {
-        InitialValidation();
+        ArgumentNullException.ThrowIfNull(roadSettings, nameof(roadSettings));
+        ArgumentNullException.ThrowIfNull(validator, nameof(validator));
 
         _settings = roadSettings;
+        _validator = validator;
+
+        Validate(validator, this);
 
         IsValidChanged += InputRoadSettingsViewModel_IsValidChanged;
+        PropertyChanged += RoadInputDataViewModel_PropertyChanged;
     }
 
+    #region Notify properties
+    public int Width
+    {
+        get => _width;
+        set => Set(ref _width, value, nameof(Width));
+        
+    }
+    public int MoundWidth
+    {
+        get => _moundWidth;
+        set => Set(ref _moundWidth, value, nameof(MoundWidth));
+    }
+    public int MoundHeight
+    {
+        get => _moundHeight;
+        set => Set(ref _moundHeight, value, nameof(MoundHeight));
+    }
+    public int RoadsideWidth
+    {
+        get => _roadsideWidth;
+        set => Set(ref _roadsideWidth, value, nameof(RoadsideWidth));
+    }
+    public int EdgeWidth
+    {
+        get => _edgeWidth;
+        set => Set(ref _edgeWidth, value, nameof(EdgeWidth));
+    }
+    public bool HasMound
+    {
+        get => _hasMound;
+        set => Set(ref _hasMound, value, nameof(HasMound));
+    }
+    #endregion
+
+    #region Event handlers
     private void InputRoadSettingsViewModel_IsValidChanged()
     {
         var roadSettings = _settings.RoadSettings;
@@ -43,90 +82,9 @@ public class RoadInputDataViewModel : ViewModelBase
         }
     }
 
-    #region Notify properties
-    public int Width
+    private void RoadInputDataViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        get => _width;
-        set
-        {
-            Set(ref _width, value, nameof(Width));
-            ValidateRoadWidth();
-        }
-    }
-    public int MoundWidth
-    {
-        get => _moundWidth;
-        set
-        {
-            Set(ref _moundWidth, value, nameof(MoundWidth));
-            if (HasMound) ValidateMoundWidth();
-        }
-    }
-    public int MoundHeight
-    {
-        get => _moundHeight;
-        set
-        {
-            Set(ref _moundHeight, value, nameof(MoundHeight));
-            if (HasMound) ValidateMoundHeight();
-        }
-    }
-    public int RoadsideWidth
-    {
-        get => _roadsideWidth;
-        set
-        {
-            Set(ref _roadsideWidth, value, nameof(RoadsideWidth));
-            ValidateRoadsideWidth();
-        }
-    }
-    public int EdgeWidth
-    {
-        get => _edgeWidth;
-        set
-        {
-            Set(ref _edgeWidth, value, nameof(EdgeWidth));
-            ValidateEdgeWidth();
-        }
-    }
-    public bool HasMound
-    {
-        get => _hasMound;
-        set
-        {
-            Set(ref _hasMound, value, nameof(HasMound));
-
-            ClearErrors(nameof(MoundWidth));
-            ClearErrors(nameof(MoundHeight));
-
-            if (value)
-            {
-                ValidateMoundWidth();
-                ValidateMoundHeight();
-            }
-        }
+        Validate(_validator, this);
     }
     #endregion
-
-    private void InitialValidation()
-    {
-        ValidateRoadWidth();
-        ValidateRoadsideWidth();
-        ValidateEdgeWidth();
-    }
-
-    private void ValidateRoadWidth()
-        => ValidateProperty(() => Width < 700, nameof(Width), RoadWidthError);
-    private void ValidateMoundWidth()
-        => ValidateProperty(() => Between(50, 100, MoundWidth), nameof(MoundWidth), MoundWidthError);
-    private void ValidateMoundHeight()
-        => ValidateProperty(() => Between(20, 100, MoundHeight), nameof(MoundHeight), MoundHeightError);
-    private void ValidateRoadsideWidth()
-        => ValidateProperty(() => Between(25, 50, RoadsideWidth), nameof(RoadsideWidth), RoadsideWidthError);
-    private void ValidateEdgeWidth()
-        => ValidateProperty(() => EdgeWidth < 50, nameof(EdgeWidth), EdgeWidthError);
-
-    private static bool Between(int left, int right, int value)
-        => value < left || value > right;
-
 }

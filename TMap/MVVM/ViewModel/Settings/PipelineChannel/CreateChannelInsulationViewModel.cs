@@ -2,69 +2,66 @@
 
 public class CreateChannelInsulationViewModel : ViewModelBase
 {
-    private const string ThicknessError = ValidationErrors.PipelineSettingsErrors.InsulationErrors.ThicknessError;
-    private const string MaterialError = ValidationErrors.MaterialErrors.MaterialError;
-    private const string InitialTemperatureError = ValidationErrors.MaterialErrors.InitTemperatureError;
+    #region Dependencies
+    private readonly CreateChannelInsulationValidator _validator;
+    #endregion
 
+    #region Private fields
     private int _thickness;
     private double _initTemperature;
     private MaterialModel? _material;
+    #endregion
 
     public CreateChannelInsulationViewModel(
         ObservableCollection<MaterialModel> channelInsulationMaterials,
-        ObservableCollection<ChannelInsulation> insulationCollection)
+        ObservableCollection<ChannelInsulation> insulationCollection,
+        CreateChannelInsulationValidator validator)
     {
         ArgumentNullException.ThrowIfNull(channelInsulationMaterials, nameof(channelInsulationMaterials));
         ArgumentNullException.ThrowIfNull(insulationCollection, nameof(insulationCollection));
 
         ChannelInsulationMaterials = channelInsulationMaterials;
         ChannelInsulationCollection = insulationCollection;
+        _validator = validator;
 
         CreateChannelInsulationCommand = new CreateChannelInsulationCommand(this);
 
-        InitialValidation();
+        PropertyChanged += CreateChannelInsulationViewModel_PropertyChanged;
+
+        Validate(validator, this);
     }
 
+    #region Public properties
     public ObservableCollection<MaterialModel> ChannelInsulationMaterials { get; }
     public ObservableCollection<ChannelInsulation> ChannelInsulationCollection { get; }
+    #endregion
 
     #region Notify properties
     public MaterialModel? Material
     {
         get => _material;
-        set
-        {
-            Set(ref _material, value, nameof(Material));
-            ValidateProperty(() => _material is not { }, nameof(Material), MaterialError);
-        }
+        set => Set(ref _material, value, nameof(Material));
     }
     public int Thickness
     {
         get => _thickness;
-        set
-        {
-            Set(ref _thickness, value, nameof(Thickness));
-            ValidateProperty(() => _thickness < 1 || _thickness > 50, nameof(Thickness), ThicknessError);
-        }
+        set => Set(ref _thickness, value, nameof(Thickness));
     }
     public double InitialTemperature
     {
         get => _initTemperature;
-        set
-        {
-            var temp = value;
-            Set(ref _initTemperature, value, nameof(InitialTemperature));
-            ValidateProperty(() => temp < -70 || temp > 170, nameof(InitialTemperature), InitialTemperatureError);
-        }
+        set => Set(ref _initTemperature, value, nameof(InitialTemperature));
     }
     #endregion
 
+    #region Commands
     public ICommand CreateChannelInsulationCommand { get; }
+    #endregion
 
-    private void InitialValidation()
+    #region Event handlers
+    private void CreateChannelInsulationViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        ValidateProperty(() => _material is not { }, nameof(Material), MaterialError);
-        ValidateProperty(() => _thickness < 1 || _thickness > 500, nameof(Thickness), ThicknessError);
-        ValidateProperty(() => InitialTemperature < -70 || InitialTemperature > 170, nameof(InitialTemperature), InitialTemperatureError);
+        Validate(_validator, this);
     }
+    #endregion
 }
