@@ -17,18 +17,22 @@ public class MapSettingsViewModel : ViewModelBase
     public MapSettingsViewModel(
         SettingsModel settings,
         MaterialStore materialStore,
-        NavigationService navigationService)
+        NavigationService navigationService,
+        CreateMapLayerValidator createMapLayerValidator,
+        MapInputDataValidator mapInputDataValidator)
     {
         ArgumentNullException.ThrowIfNull(settings, nameof(settings));
         ArgumentNullException.ThrowIfNull(materialStore, nameof(materialStore));
         ArgumentNullException.ThrowIfNull(navigationService, nameof(navigationService));
+        ArgumentNullException.ThrowIfNull(createMapLayerValidator, nameof(createMapLayerValidator));
+        ArgumentNullException.ThrowIfNull(mapInputDataValidator, nameof(mapInputDataValidator));
 
         _materialStore = materialStore;
         _materials = new ObservableCollection<MaterialModel>(materialStore.GetMapMaterials());
         _settings = settings.MapSettings;
         _navigationService = navigationService;
-        _createLayerViewModel = new CreateMapLayerViewModel(materialStore);
-        _inputMapSettingsViewModel = new MapInputDataViewModel(settings.MapSettings);
+        _createLayerViewModel = new CreateMapLayerViewModel(materialStore, createMapLayerValidator);
+        _inputMapSettingsViewModel = new MapInputDataViewModel(settings.MapSettings, mapInputDataValidator);
 
         WindowTitle = "Настройка карты геологического среза";
         TitleFontSize = 22;

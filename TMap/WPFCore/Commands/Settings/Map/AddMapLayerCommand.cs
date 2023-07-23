@@ -31,6 +31,11 @@ public class AddMapLayerCommand : CommandBase
         Reset();
     }
 
+    public override bool CanExecute()
+    {
+        return _viewModel.IsValid;
+    }
+
     private void Reset()
     {
         _viewModel.Material = default;

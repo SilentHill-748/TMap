@@ -1,4 +1,6 @@
-﻿namespace TMap.MVVM.ViewModel;
+﻿using FluentValidation.Results;
+
+namespace TMap.MVVM.ViewModel;
 
 public class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
 {
@@ -21,7 +23,7 @@ public class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
         get => _windowTitle;
         set => Set(ref _windowTitle, value.ToUpper(), nameof(WindowTitle));
     }
-    public virtual bool IsValid 
+    public virtual bool IsValid
     {
         get => _isValid;
         set 
@@ -40,27 +42,53 @@ public class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
         return _propertyNameToErrorsDictionary.GetValueOrDefault(propertyName, new List<string>());
     }
 
-    protected void ValidateProperty(Func<bool> predicate, string propertyName, string errorMessage)
+    protected void Validate<TViewMdoel>(AbstractValidator<TViewMdoel> validator, TViewMdoel instance)
     {
-        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
-        ArgumentNullException.ThrowIfNull(propertyName, nameof(propertyName));
-        ArgumentNullException.ThrowIfNull(errorMessage, nameof(errorMessage));
+        ArgumentNullException.ThrowIfNull(validator, nameof(validator));
+        ArgumentNullException.ThrowIfNull(instance, nameof(instance));
 
-        _propertyNameToErrorsDictionary.Remove(propertyName);
+        ValidationResult result = validator.Validate(instance);
 
-        if (predicate())
-        {
-            _propertyNameToErrorsDictionary.Add(propertyName, new List<string>() { errorMessage });
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-        }
+        ClearErrors();
+
+        AddErrors(result);
 
         IsValid = !HasErrors;
     }
 
+    protected void ClearErrors()
+    {
+        _propertyNameToErrorsDictionary.Clear();
+
+        OnErrorsChanged();
+    }
+
     protected void ClearErrors(string propertyName)
     {
-        _propertyNameToErrorsDictionary.Remove(propertyName);
-        ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+        if (_propertyNameToErrorsDictionary.Remove(propertyName))
+        {
+            OnErrorsChanged(propertyName);
+        }
+    }
+
+    private void AddErrors(ValidationResult validationResult)
+    {
+        var errors = validationResult.Errors;
+
+        foreach (ValidationFailure failure in errors)
+        {
+            AddError(failure.PropertyName, failure.ErrorMessage);
+        }
+    }
+
+    private void AddError(string propertyName, string errorMessage)
+    {
+        if (!_propertyNameToErrorsDictionary.ContainsKey(propertyName))
+            _propertyNameToErrorsDictionary[propertyName] = new List<string>();
+
+        _propertyNameToErrorsDictionary[propertyName].Add(errorMessage);
+
+        OnErrorsChanged(propertyName);
     }
 
     protected virtual void Set<T>(ref T field, T value, string propertyName = "")
@@ -75,5 +103,10 @@ public class ViewModelBase : INotifyPropertyChanged, INotifyDataErrorInfo
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
+    protected void OnErrorsChanged(string? propertyName = null)
+    {
+        ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
     }
 }

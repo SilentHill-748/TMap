@@ -2,66 +2,67 @@
 
 public class CreatePipeInsulationViewModel : ViewModelBase
 {
-    private const string ThicknessError = ValidationErrors.PipelineSettingsErrors.InsulationErrors.ThicknessError;
-    private const string InitialTemperatureError = ValidationErrors.MaterialErrors.InitTemperatureError;
-    private const string InsulationMaterialError = ValidationErrors.MaterialErrors.MaterialError;
+    #region Dependencies
+    private readonly CreatePipeInsulationValidator _validator;
+    #endregion
 
+    #region Private fields
     private int _thickness;
     private MaterialModel? _insulationMaterial;
     private double _initTemperature;
+    #endregion
 
     public CreatePipeInsulationViewModel(
         ObservableCollection<MaterialModel> pipeInsulationMaterials, 
-        ObservableCollection<RadialInsulation> insulationCollection)
+        ObservableCollection<RadialInsulation> insulationCollection,
+        CreatePipeInsulationValidator validator)
     {
         ArgumentNullException.ThrowIfNull(insulationCollection, nameof(insulationCollection));
         ArgumentNullException.ThrowIfNull(pipeInsulationMaterials, nameof(pipeInsulationMaterials));
+        ArgumentNullException.ThrowIfNull(validator, nameof(validator));
 
         PipeInsulationMaterials = pipeInsulationMaterials;
         PipeInsulationLayers = insulationCollection;
+        _validator = validator;
 
         CreateInsulationCommand = new CreatePipeInsulationCommand(this);
 
-        InitialValidation();
+        PropertyChanged += CreatePipeInsulationViewModel_PropertyChanged;
+
+        Validate(validator, this);
     }
 
+    #region Public properties
     public ObservableCollection<MaterialModel> PipeInsulationMaterials { get; }
     public ObservableCollection<RadialInsulation> PipeInsulationLayers { get; }
+    #endregion
 
+    #region Notify properties
     public int Thickness
     {
         get => _thickness;
-        set
-        {
-            Set(ref _thickness, value, nameof(Thickness));
-            ValidateProperty(() => _thickness < 1 || _thickness > 50, nameof(Thickness), ThicknessError);
-        }
+        set => Set(ref _thickness, value, nameof(Thickness));
     }
     public double InitialTemperature
     {
         get => _initTemperature;
-        set
-        {
-            Set(ref _initTemperature, value, nameof(InitialTemperature));
-            ValidateProperty(() => _initTemperature < -70 || _initTemperature > 170, nameof(InitialTemperature), InitialTemperatureError);
-        }
+        set => Set(ref _initTemperature, value, nameof(InitialTemperature));
     }
     public MaterialModel? InsulationMaterial
     {
         get => _insulationMaterial;
-        set
-        {
-            Set(ref _insulationMaterial, value, nameof(InsulationMaterial));
-            ValidateProperty(() => _insulationMaterial is not { }, nameof(InsulationMaterial), InsulationMaterialError);
-        }
+        set => Set(ref _insulationMaterial, value, nameof(InsulationMaterial));
     }
+    #endregion
 
+    #region Commands
     public ICommand CreateInsulationCommand { get; }
+    #endregion
 
-    private void InitialValidation()
+    #region Event handlers
+    private void CreatePipeInsulationViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        ValidateProperty(() => _thickness < 1 || _thickness > 50, nameof(Thickness), ThicknessError);
-        ValidateProperty(() => _initTemperature <= -70 || _initTemperature >= 170, nameof(InitialTemperature), InitialTemperatureError);
-        ValidateProperty(() => _insulationMaterial is not { }, nameof(InsulationMaterial), InsulationMaterialError);
+        Validate(_validator, this);
     }
+    #endregion
 }

@@ -2,99 +2,73 @@
 
 public class CreateRoadLayerViewModel : ViewModelBase
 {
-    private const string WidthError = ValidationErrors.RoadSettingsErrors.CreateRoadLayerErrors.WidthError;
-    private const string ThicknessError = ValidationErrors.MaterialErrors.ThicknessError;
-    private const string MaterialError = ValidationErrors.MaterialErrors.MaterialError;
-    private const string InitTemperatureError = ValidationErrors.MaterialErrors.InitTemperatureError;
-    private const string HumidityError = ValidationErrors.MaterialErrors.HumidityError;
+    #region Dependencies
+    private readonly CreateRoadLayerValidator _validator;
+    #endregion
 
+    #region private fields
     private int _width;
     private int _thickness;
     private MaterialModel? _material;
     private double _initTemp;
     private double _humidity;
+    #endregion
 
-    public CreateRoadLayerViewModel(ObservableCollection<MaterialModel> roadMaterials)
+    public CreateRoadLayerViewModel(ObservableCollection<MaterialModel> roadMaterials, CreateRoadLayerValidator validator)
     {
         ArgumentNullException.ThrowIfNull(roadMaterials, nameof(roadMaterials));
+        ArgumentNullException.ThrowIfNull(validator, nameof(validator));
 
         Materials = roadMaterials;
+        _validator = validator;
 
         AddRoadLayerCommand = new AddRoadLayerCommand(this);
 
-        InitialValidation();
+        PropertyChanged += CreateRoadLayerViewModel_PropertyChanged;
+
+        Validate(validator, this);
     }
+
+    #region Public properties
+    public ObservableCollection<MaterialModel> Materials { get; }
+    #endregion
 
     #region Notify properties
     public int Width
     {
         get => _width;
-        set
-        {
-            Set(ref _width, value, nameof(Width));
-            ValidateWidth();
-        }
+        set => Set(ref _width, value, nameof(Width));
     }
     public int Thickness
     {
         get => _thickness;
-        set
-        {
-            Set(ref _thickness, value, nameof(Thickness));
-            ValidateThickness();
-        }
+        set => Set(ref _thickness, value, nameof(Thickness));
     }
     public MaterialModel? Material
     {
         get => _material;
-        set
-        {
-            Set(ref _material, value, nameof(Material));
-            ValidateMaterial();
-        }
+        set => Set(ref _material, value, nameof(Material));
     }
     public double InitialTemperature
     {
         get => _initTemp;
-        set
-        {
-            Set(ref _initTemp, value, nameof(InitialTemperature));
-            ValidateTemperature(value);
-        }
+        set => Set(ref _initTemp, value, nameof(InitialTemperature));
     }
     public double Humidity
     {
         get => _humidity;
-        set
-        {
-            Set(ref _humidity, value, nameof(Humidity));
-            ValidateHumidity();
-        }
+        set => Set(ref _humidity, value, nameof(Humidity));
     }
     #endregion
 
-    public ObservableCollection<MaterialModel> Materials { get; }
-
+    #region Commands
     public ICommand AddRoadLayerCommand { get; }
+    #endregion
 
-    private void InitialValidation()
+    #region Event handlers
+    private void CreateRoadLayerViewModel_PropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        // TODO: Рефакторинг валидации.
-        ValidateWidth();
-        ValidateThickness();
-        ValidateMaterial();
-        ValidateTemperature(InitialTemperature);
-        ValidateHumidity();
+        Validate(_validator, this);
     }
-
-    private void ValidateWidth()
-        => ValidateProperty(() => Width < 700, nameof(Width), WidthError);
-    private void ValidateThickness()
-        => ValidateProperty(() => Thickness < 1, nameof(Thickness), ThicknessError);
-    private void ValidateHumidity()
-        => ValidateProperty(() => Humidity < 0.01, nameof(Humidity), HumidityError);
-    private void ValidateMaterial()
-        => ValidateProperty(() => Material is not { }, nameof(Material), MaterialError);
-    private void ValidateTemperature(double val)
-        => ValidateProperty(() => val <= -70 || val >= 170, nameof(InitialTemperature), InitTemperatureError);
+    #endregion
 }
