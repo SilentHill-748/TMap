@@ -36,7 +36,10 @@ public class PipelineChannelInputDataModel
 
     public void SetProperties()
     {
-        _viewModel.ChannelDepth = _viewModel.ChannelDepth > _roadSettings.MaxDepth ? _viewModel.ChannelDepth : _roadSettings.MaxDepth;
+        _viewModel.ChannelDepth = _viewModel.ChannelDepth > _roadSettings.MaxDepth 
+            ? _viewModel.ChannelDepth 
+            : _roadSettings.MaxDepth;
+
         _viewModel.ChannelHeight = MinChannelHeightLayout;
     }
 
@@ -68,7 +71,9 @@ public class PipelineChannelInputDataModel
     private void SetPipeCenterlinePositions()
     {
         var lowPosition = _viewModel.ChannelDepth + MinChannelHeightLayout / 2;
-        var highPosition = _viewModel.ChannelHeight < MinChannelHeightLayout ? MinChannelHeightLayout : _viewModel.ChannelHeight - MinChannelHeightLayout;
+        var highPosition = _viewModel.ChannelHeight < MinChannelHeightLayout 
+            ? MinChannelHeightLayout 
+            : _viewModel.ChannelHeight - MinChannelHeightLayout;
 
         MinCenterlinePosition = lowPosition;
         MaxCenterlinePosition = lowPosition + highPosition;
