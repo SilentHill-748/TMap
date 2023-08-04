@@ -6,6 +6,7 @@ using Newtonsoft.Json.Serialization;
 
 using TMap.Domain.DAO.Material;
 using TMap.Domain.Entities.Material;
+using TMap.Persistence.Exceptions;
 
 namespace TMap.Persistence;
 
@@ -34,7 +35,7 @@ public class DataSeed
         var stringEnumConverter = new StringEnumConverter(new CamelCaseNamingStrategy());
 
         var materialDAOs = JsonConvert.DeserializeObject<List<MaterialDAO>>(json, stringEnumConverter) ?? 
-            throw new Exception("Не удалось загрузить данные по базовым материалам!");
+            throw new MaterialsNotLoadedException(jsonPath, true);
 
         var materials = materialDAOs.Select(_mapper.Map<MaterialDAO, Material>);
 
