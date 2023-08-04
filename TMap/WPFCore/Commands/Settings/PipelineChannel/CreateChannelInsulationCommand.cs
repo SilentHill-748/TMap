@@ -1,4 +1,6 @@
-﻿namespace TMap.WPFCore.Commands.Settings.PipelineChannel;
+﻿using TMap.Exceptions;
+
+namespace TMap.WPFCore.Commands.Settings.PipelineChannel;
 
 public class CreateChannelInsulationCommand : CommandBase
 {
@@ -16,7 +18,7 @@ public class CreateChannelInsulationCommand : CommandBase
         var channelInsulationMaterial = _viewModel.Material;
 
         if (channelInsulationMaterial is not { })
-            throw new Exception("Не удалось создать изоляционный слой коллектора!");
+            throw new MaterialException("Не удалось создать изоляционный слой коллектора! Не выбран материал изоляционного слоя!");
 
         var insulation = new ChannelInsulation()
         {
