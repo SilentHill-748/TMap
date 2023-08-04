@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using TMap.Domain.Abstractions.Repositories;
 using TMap.Domain.DTO.Material;
 using TMap.Domain.Entities.Material;
+using TMap.Domain.Exceptions;
 
 namespace TMap.Persistence.Repositories;
 
@@ -72,7 +73,7 @@ public class MaterialRepository : IMaterialRepository
     public async Task<MaterialDTO> GetMaterialByNameAsync(string materialName)
     {
         var material = await _materials.FirstOrDefaultAsync(material => material.Name.Equals(materialName))
-            ?? throw new Exception("Материал с указанным именем не найден!");
+            ?? throw new MaterialNotFoundByNameException(materialName);
 
         return _mapper.Map<Material, MaterialDTO>(material);
     }

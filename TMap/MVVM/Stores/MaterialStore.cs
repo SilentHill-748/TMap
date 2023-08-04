@@ -1,4 +1,6 @@
-﻿namespace TMap.MVVM.Stores;
+﻿using TMap.Domain.Exceptions;
+
+namespace TMap.MVVM.Stores;
 
 public class MaterialStore
 {
@@ -36,7 +38,7 @@ public class MaterialStore
         ArgumentException.ThrowIfNullOrEmpty(name, nameof(name));
 
         return Materials.FirstOrDefault(material => material.Name == name) 
-            ?? throw new Exception($"Нет материала с названием \'{name}\'!");
+            ?? throw new MaterialNotFoundByNameException(name);
     }
 
     public IEnumerable<MaterialModel> GetMapMaterials()
