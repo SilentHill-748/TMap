@@ -1,4 +1,6 @@
-﻿namespace TMap.MVVM.ViewModel.Settings.Map;
+﻿using TMap.Exceptions;
+
+namespace TMap.MVVM.ViewModel.Settings.Map;
 
 public class MapSettingsViewModel : ViewModelBase
 {
@@ -72,8 +74,6 @@ public class MapSettingsViewModel : ViewModelBase
     #region Private methods
     private void OnLayerCreated(object recipient, MapLayerCreateMessage message)
     {
-        ArgumentNullException.ThrowIfNull(message, nameof(message));
-
         Settings.MapSoilLayers.Add(message.Value);
     }
 
