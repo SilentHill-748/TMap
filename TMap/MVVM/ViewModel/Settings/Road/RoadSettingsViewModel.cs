@@ -1,6 +1,4 @@
-﻿using TMap.Exceptions;
-
-namespace TMap.MVVM.ViewModel.Settings.Road;
+﻿namespace TMap.MVVM.ViewModel.Settings.Road;
 
 public class RoadSettingsViewModel : ViewModelBase
 {

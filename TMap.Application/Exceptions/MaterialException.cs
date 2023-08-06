@@ -1,6 +1,6 @@
-﻿namespace TMap.Exceptions;
+﻿namespace TMap.Application.Exceptions;
 
-internal class MaterialException : Exception
+public class MaterialException : Exception
 {
     private readonly string _message;
 

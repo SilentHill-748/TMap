@@ -1,6 +1,4 @@
-﻿using TMap.Exceptions;
-
-namespace TMap.WPFCore.Commands.Settings.Pipeline;
+﻿namespace TMap.WPFCore.Commands.Settings.Pipeline;
 
 public class CreatePipeCommand : CommandBase
 {

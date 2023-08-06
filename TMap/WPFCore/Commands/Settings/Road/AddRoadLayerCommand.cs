@@ -1,6 +1,4 @@
-﻿using TMap.Exceptions;
-
-namespace TMap.WPFCore.Commands.Settings.Road;
+﻿namespace TMap.WPFCore.Commands.Settings.Road;
 
 public class AddRoadLayerCommand : CommandBase
 {
