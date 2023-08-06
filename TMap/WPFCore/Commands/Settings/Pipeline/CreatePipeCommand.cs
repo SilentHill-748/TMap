@@ -1,4 +1,6 @@
-﻿namespace TMap.WPFCore.Commands.Settings.Pipeline;
+﻿using TMap.Exceptions;
+
+namespace TMap.WPFCore.Commands.Settings.Pipeline;
 
 public class CreatePipeCommand : CommandBase
 {
@@ -17,7 +19,7 @@ public class CreatePipeCommand : CommandBase
         var pipeType = pipeData.PipeType;
 
         if (pipeType is not { })
-            throw new Exception("Ошибка создания трубы, нет материала!");
+            throw new MaterialException("Ошибка создания трубы! Не выбран материал трубы!");
 
         var pipe = new Pipe()
         {
@@ -29,7 +31,6 @@ public class CreatePipeCommand : CommandBase
         };
 
         pipe.Insulation.UpdateCollection(_viewModel.PipeInsulationCollection);
-
 
         WeakReferenceMessenger.Default.Send(new CreatePipeMessage(pipe));
 

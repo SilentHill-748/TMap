@@ -1,4 +1,6 @@
-﻿namespace TMap.WPFCore.Commands.Settings.Map;
+﻿using TMap.Exceptions;
+
+namespace TMap.WPFCore.Commands.Settings.Map;
 
 public class AddMapLayerCommand : CommandBase
 {
@@ -16,7 +18,7 @@ public class AddMapLayerCommand : CommandBase
         var material = _viewModel.Material;
 
         if (material is not { })
-            throw new Exception("Материал не установлен!");
+            throw new MaterialException("Ошибка создания слоя! Не выбран материал слоя!");
 
         material.Humidity = _viewModel.Humidity;
 

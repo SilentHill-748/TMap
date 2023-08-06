@@ -88,14 +88,10 @@ public class PipeSettingsViewModel : ViewModelBase
     }
     private void OnPipeInsalutionCreated(object recipient, CreatePipeInsulationMessage message)
     {
-        ArgumentNullException.ThrowIfNull(message, nameof(message));
-
         PipeInsulationCollection.Add(message.Value);
     }
     private void OnPipeCreated(object recipient, CreatePipeMessage message)
     {
-        ArgumentNullException.ThrowIfNull(message, nameof(message));
-
         Settings.Channel.Pipes.Add(message.Value);
         PipeInsulationCollection.Clear();
     }

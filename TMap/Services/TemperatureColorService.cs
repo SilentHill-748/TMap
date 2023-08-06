@@ -12,7 +12,7 @@ public class TemperatureColorService
         ArgumentException.ThrowIfNullOrEmpty(filename, nameof(filename));
 
         if (!File.Exists(filename))
-            throw new Exception("Файл градиента не существует или неверный путь к нему!");
+            throw new FileNotFoundException(filename);
 
         _colorMap = CreateColorMap(BitmapFactory.FromStream(File.Open(filename, FileMode.Open)));
     }
