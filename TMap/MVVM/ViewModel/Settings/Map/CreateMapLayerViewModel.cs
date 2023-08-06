@@ -9,7 +9,7 @@ public class CreateMapLayerViewModel : ViewModelBase
 
     #region Private fields
     private int _thickness;
-    private MaterialModel? _material;
+    private MaterialModel _material;
     private double _humidity;
     private double _initTemperature;
     #endregion
@@ -21,6 +21,7 @@ public class CreateMapLayerViewModel : ViewModelBase
 
         _materialStore = materialStore;
         _validator = validator;
+        _material = new MaterialModel();
 
         Materials = new ObservableCollection<MaterialModel>(materialStore.GetMapMaterials());
 
@@ -42,7 +43,7 @@ public class CreateMapLayerViewModel : ViewModelBase
         get => _thickness;
         set => Set(ref _thickness, value, nameof(Thickness));
     }
-    public MaterialModel? Material
+    public MaterialModel Material
     {
         get => _material;
         set => Set(ref _material, value, nameof(Material));
