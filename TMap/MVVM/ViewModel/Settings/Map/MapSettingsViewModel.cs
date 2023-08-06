@@ -1,6 +1,4 @@
-﻿using TMap.Exceptions;
-
-namespace TMap.MVVM.ViewModel.Settings.Map;
+﻿namespace TMap.MVVM.ViewModel.Settings.Map;
 
 public class MapSettingsViewModel : ViewModelBase
 {

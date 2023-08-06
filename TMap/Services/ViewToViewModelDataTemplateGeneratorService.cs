@@ -1,6 +1,4 @@
-﻿using TMap.Exceptions;
-
-namespace TMap.Services;
+﻿namespace TMap.Services;
 
 internal sealed class ViewToViewModelDataTemplateGeneratorService
 {
