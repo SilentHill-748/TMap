@@ -18,9 +18,6 @@ public class CreatePipeCommand : CommandBase
         var pipeData = _viewModel.InputPipeDataView;
         var pipeType = pipeData.PipeType;
 
-        if (pipeType is not { })
-            throw new MaterialException("Ошибка создания трубы! Не выбран материал трубы!");
-
         var pipe = new Pipe()
         {
             Material = pipeType,

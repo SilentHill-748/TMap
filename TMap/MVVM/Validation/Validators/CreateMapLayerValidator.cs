@@ -17,7 +17,7 @@ public sealed class CreateMapLayerValidator : AbstractValidator<CreateMapLayerVi
             .WithMessage("Начальная температура материала грунта должна быть между -70.00 и +170.00 °С!");
 
         RuleFor(viewModel => viewModel.Material)
-            .NotNull()
+            .Must(material => !material.Name.Equals("None"))
             .WithMessage("Не выбран материал грунта!");
     }
 }

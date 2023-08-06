@@ -17,9 +17,6 @@ public class CreatePipeInsulationCommand : CommandBase
     {
         var insulationMaterial = _viewModel.InsulationMaterial;
 
-        if (insulationMaterial is not { })
-            throw new MaterialException("Не удалось создать изоляционный слой трубы! Не выбран изоляционный материал!");
-
         var insulation = new RadialInsulation()
         {
             Material = insulationMaterial,

@@ -13,7 +13,7 @@ public class CreateChannelInsulationValidator : AbstractValidator<CreateChannelI
             .WithMessage("Начальная температура изоляционного материала должна быть между -70.00 и +170.00 °С!");
 
         RuleFor(viewModel => viewModel.Material)
-            .NotNull()
+            .Must(material => !material.Name.Equals("None"))
             .WithMessage("Не выбран материал изоляции!");
     }
 }
