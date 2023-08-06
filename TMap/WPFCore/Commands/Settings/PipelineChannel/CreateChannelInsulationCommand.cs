@@ -1,6 +1,4 @@
-﻿using TMap.Exceptions;
-
-namespace TMap.WPFCore.Commands.Settings.PipelineChannel;
+﻿namespace TMap.WPFCore.Commands.Settings.PipelineChannel;
 
 public class CreateChannelInsulationCommand : CommandBase
 {

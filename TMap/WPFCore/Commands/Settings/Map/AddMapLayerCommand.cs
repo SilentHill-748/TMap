@@ -1,6 +1,4 @@
-﻿using TMap.Exceptions;
-
-namespace TMap.WPFCore.Commands.Settings.Map;
+﻿namespace TMap.WPFCore.Commands.Settings.Map;
 
 public class AddMapLayerCommand : CommandBase
 {

@@ -1,4 +1,4 @@
-﻿namespace TMap.Exceptions;
+﻿namespace TMap.Application.Exceptions;
 
 public class NotFoundViewTypeByViewModelException : Exception
 {

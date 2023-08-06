@@ -28,6 +28,7 @@ global using FluentValidation;
 
 global using Microsoft.EntityFrameworkCore;
 
+global using TMap.Application.Exceptions;
 global using TMap.Application.Services.Material;
 global using TMap.Configurations.DI;
 global using TMap.Configurations.DI.Extentions;
