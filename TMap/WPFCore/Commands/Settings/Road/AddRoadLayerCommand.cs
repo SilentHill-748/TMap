@@ -15,9 +15,6 @@ public class AddRoadLayerCommand : CommandBase
 
     protected override void Execute()
     {
-        if (_viewModel.Material is not { })
-            throw new MaterialException("Не создан слой дорожной конструкции! Не выбран материал слоя!");
-
         var material = _viewModel.Material;
 
         material.Humidity = _viewModel.Humidity;
