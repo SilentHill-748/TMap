@@ -11,6 +11,8 @@ public class MaterialDAO
 
     [JsonProperty("ThermalConductivity")]
     public double ThermalConductivity { get; set; }
+    [JsonProperty("SpecificHeat")]
+    public double SpecificHeat { get; set; }
 
     [JsonProperty("Density")]
     public double Density { get; set; }
