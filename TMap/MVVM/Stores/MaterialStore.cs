@@ -56,7 +56,7 @@ public class MaterialStore
     public IEnumerable<MaterialModel> GetChannelInsulationMaterials()
         => GetMaterialsByType(MaterialType.Insulation | MaterialType.ChannelInsulation);
 
-    public async Task CreateMaterial(MaterialModel materialModel)
+    public async Task CreateMaterialAsync(MaterialModel materialModel)
     {
         var dto = _mapper.Map<MaterialDTO>(materialModel);
 
@@ -65,7 +65,7 @@ public class MaterialStore
         StoreChanged?.Invoke();
     }
 
-    public async Task UpdateMaterial(MaterialModel materialModel)
+    public async Task UpdateMaterialAsync(MaterialModel materialModel)
     {
         var dto = _mapper.Map<MaterialDTO>(materialModel);
 
@@ -74,7 +74,7 @@ public class MaterialStore
         StoreChanged?.Invoke();
     }
 
-    public async Task DeleteMaterial(MaterialModel materialModel)
+    public async Task DeleteMaterialAsync(MaterialModel materialModel)
     {
         var dto = _mapper.Map<MaterialDTO>(materialModel);
 
