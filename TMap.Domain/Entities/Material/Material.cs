@@ -23,6 +23,7 @@ public class Material
     public int MaterialId { get; set; }
     public string Name { get; set; }
     public double ThermalConductivity { get; set; }
+    public double SpecificHeat { get; set; }
     public double Density { get; set; }
     public double Humidity { get; set; }
     public MaterialType Type { get; set; }

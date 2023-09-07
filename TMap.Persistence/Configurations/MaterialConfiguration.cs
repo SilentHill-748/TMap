@@ -34,6 +34,10 @@ internal class MaterialConfiguration : IEntityTypeConfiguration<Material>
             .HasColumnName("density");
 
         builder
+            .Property(x => x.SpecificHeat)
+            .HasColumnName("specific_heat");
+
+        builder
             .Property(x => x.Type)
             .HasMaxLength(30)
             .HasColumnName("type")
