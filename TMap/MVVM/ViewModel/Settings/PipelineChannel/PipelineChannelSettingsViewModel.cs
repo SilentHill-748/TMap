@@ -72,8 +72,6 @@ public class PipelineChannelSettingsViewModel : ViewModelBase
     #region Event handlers
     private void OnInsulationCreated(object recipient, CreateChannelInsulationMessage message)
     {
-        ArgumentNullException.ThrowIfNull(message, nameof(message));
-
         Settings.PipelineSettings.Channel.InsulationLayers.Add(message.Value);
     }
 

@@ -1,9 +1,10 @@
 [
   {
     "Name": "Воздух",
-    "Density": 1.2473,
-    "ThermalConductivity": 0.0244,
-    "Humidity": 0.01,
+    "Density": 1.2255,
+    "ThermalConductivity": 0.024,
+    "SpecificHeat": 1.05,
+    "Humidity": 0,
     "Type": "Environment",
     "Color": "#ffffff"
   },
@@ -11,7 +12,8 @@
     "Name": "Суглинок легкий",
     "Density": 1700,
     "ThermalConductivity": 0.3,
-    "Humidity": 0.01,
+    "SpecificHeat": 0.8,
+    "Humidity": 0,
     "Type": "Soil",
     "Color": "#d9a35d"
   },
@@ -19,15 +21,17 @@
     "Name": "Супесь легкая",
     "Density": 1680,
     "ThermalConductivity": 0.025,
-    "Humidity": 0.01,
+    "SpecificHeat": 0.08,
+    "Humidity": 0,
     "Type": "Soil",
     "Color": "#c1cc5e"
   },
   {
     "Name": "Глина",
-    "Density": 100,
+    "Density": 1500,
     "ThermalConductivity": 1.74,
-    "Humidity": 0.01,
+    "SpecificHeat": 1.1,
+    "Humidity": 0,
     "Type": "Soil",
     "Color": "#824f01"
   },
@@ -35,7 +39,8 @@
     "Name": "Суглинок легкий пылеватый",
     "Density": 1200,
     "ThermalConductivity": 0.2,
-    "Humidity": 0.01,
+    "SpecificHeat": 0.8,
+    "Humidity": 0,
     "Type": "Soil",
     "Color": "#ffcd8c"
   },
@@ -43,7 +48,8 @@
     "Name": "Супесь тяжелая пылеватая",
     "Density": 1500,
     "ThermalConductivity": 0.015,
-    "Humidity": 0.01,
+    "SpecificHeat": 0.8,
+    "Humidity": 0,
     "Type": "Soil",
     "Color": "#ffa621"
   },
@@ -51,7 +57,8 @@
     "Name": "Суглинок тяжелый",
     "Density": 2200,
     "ThermalConductivity": 0.6,
-    "Humidity": 0.01,
+    "SpecificHeat": 0.8,
+    "Humidity": 0,
     "Type": "Soil",
     "Color": "#5e4629"
   },
@@ -59,6 +66,7 @@
     "Name": "Суглинок тяжелый пылеватый",
     "Density": 1380,
     "ThermalConductivity": 1.7,
+    "SpecificHeat": 0.8,
     "Humidity": 0,
     "Type": "Soil",
     "Color": "#6b4516"
@@ -67,6 +75,7 @@
     "Name": "Супесь пылеватая",
     "Density": 1600,
     "ThermalConductivity": 0.19,
+    "SpecificHeat": 0.8,
     "Humidity": 0,
     "Type": "Soil",
     "Color": "#ffbc57"
@@ -75,6 +84,7 @@
     "Name": "Песок мелкий",
     "Density": 1600,
     "ThermalConductivity": 0.32,
+    "SpecificHeat": 0.8,
     "Humidity": 0,
     "Type": "RoadAndSoil",
     "Color": "#fff175"
@@ -83,6 +93,7 @@
     "Name": "Песок крупный",
     "Density": 1600,
     "ThermalConductivity": 0.32,
+    "SpecificHeat": 0.8,
     "Humidity": 0,
     "Type": "RoadAndSoil",
     "Color": "#dbc92a"
@@ -91,6 +102,7 @@
     "Name": "Песок пылеватый",
     "Density": 1700,
     "ThermalConductivity": 0.19,
+    "SpecificHeat": 0.8,
     "Humidity": 0,
     "Type": "RoadAndSoil",
     "Color": "#fff494"
@@ -99,6 +111,7 @@
     "Name": "Асфальтобетон крупнозернистый",
     "Density": 2350,
     "ThermalConductivity": 0.68,
+    "SpecificHeat": 1.7,
     "Humidity": 0,
     "Type": "Road",
     "Color": "#1a1840"
@@ -107,6 +120,7 @@
     "Name": "Асфальтобетон мелкозернистый",
     "Density": 2400,
     "ThermalConductivity": 0.75,
+    "SpecificHeat": 1.7,
     "Humidity": 0,
     "Type": "Road",
     "Color": "#2b2952"
@@ -115,6 +129,7 @@
     "Name": "Асфальтобетон песчаный",
     "Density": 2320,
     "ThermalConductivity": 1.0,
+    "SpecificHeat": 1.7,
     "Humidity": 0,
     "Type": "Road",
     "Color": "#313040"
@@ -123,6 +138,7 @@
     "Name": "Щебеночные (гравийные) материалы обработанные органическим вяжущим",
     "Density": 2500,
     "ThermalConductivity": 1.86,
+    "SpecificHeat": 0.9,
     "Humidity": 0,
     "Type": "Road",
     "Color": "#a69a8a"
@@ -131,6 +147,7 @@
     "Name": "Щебень, обработанный органическим вяжущим по способу пропитки",
     "Density": 2700,
     "ThermalConductivity": 2.15,
+    "SpecificHeat": 0.9,
     "Humidity": 0,
     "Type": "Road",
     "Color": "#6e665b"
@@ -139,6 +156,7 @@
     "Name": "Щебеночные и гравийные материалы, не обработанные вяжущим",
     "Density": 2800,
     "ThermalConductivity": 1.37,
+    "SpecificHeat": 0.84,
     "Humidity": 0,
     "Type": "Road",
     "Color": "#7d7870"
@@ -147,6 +165,7 @@
     "Name": "Каменные материалы",
     "Density": 2200,
     "ThermalConductivity": 1.4,
+    "SpecificHeat": 0.92,
     "Humidity": 0,
     "Type": "Soil",
     "Color": "#bfbfbf"
@@ -155,6 +174,7 @@
     "Name": "Геотекстиль",
     "Density": 300,
     "ThermalConductivity": 0.4,
+    "SpecificHeat": 1.42,
     "Humidity": 0,
     "Type": "Road",
     "Color": "#7a009c"
@@ -163,6 +183,7 @@
     "Name": "Армирующая прослойка",
     "Density": 200,
     "ThermalConductivity": 0.04,
+    "SpecificHeat": 1.1,
     "Humidity": 0,
     "Type": "Road",
     "Color": "#a5a5a8"
@@ -171,6 +192,7 @@
     "Name": "Травосмесь",
     "Density": 400,
     "ThermalConductivity": 0.2,
+    "SpecificHeat": 1.1,
     "Humidity": 0,
     "Type": "Soil",
     "Color": "#466b3d"
@@ -179,6 +201,7 @@
     "Name": "Железобетон",
     "Density": 2500,
     "ThermalConductivity": 1.69,
+    "SpecificHeat": 0.84,
     "Humidity": 0,
     "Type": "Channel",
     "Color": "#5c533e"
@@ -186,7 +209,8 @@
   {
     "Name": "Керамзит",
     "Density": 800,
-    "ThermalConductivity": 0.23,
+    "ThermalConductivity": 0.12,
+    "SpecificHeat": 0.75,
     "Humidity": 0,
     "Type": "ChannelInsulation",
     "Color": "#6b82A0"
@@ -195,6 +219,7 @@
     "Name": "Минеральная вата",
     "Density": 100,
     "ThermalConductivity": 0.055,
+    "SpecificHeat": 0.84,
     "Humidity": 0,
     "Type": "Insulation",
     "Color": "#6b8299"
@@ -202,7 +227,8 @@
   {
     "Name": "Стекловата",
     "Density": 155,
-    "ThermalConductivity": 0.03,
+    "ThermalConductivity": 0.4,
+    "SpecificHeat": 0.8,
     "Humidity": 0,
     "Type": "Insulation",
     "Color": "#6b8298"
@@ -211,6 +237,7 @@
     "Name": "Пеностекло",
     "Density": 100,
     "ThermalConductivity": 0.045,
+    "SpecificHeat": 1,
     "Humidity": 0,
     "Type": "Insulation",
     "Color": "#6b8297"
@@ -219,6 +246,7 @@
     "Name": "Циллюлоза",
     "Density": 35,
     "ThermalConductivity": 0.043,
+    "SpecificHeat": 2.3,
     "Humidity": 0,
     "Type": "Insulation",
     "Color": "#6b8296"
@@ -227,22 +255,25 @@
     "Name": "Вата",
     "Density": 50,
     "ThermalConductivity": 0.042,
+    "SpecificHeat": 0.9,
     "Humidity": 0,
     "Type": "Insulation",
     "Color": "#6b8295"
   },
   {
-    "Name": "Пенопласт",
-    "Density": 100,
+    "Name": "Пенополистирол",
+    "Density": 35,
     "ThermalConductivity": 0.037,
+    "SpecificHeat": 1.34,
     "Humidity": 0,
     "Type": "Insulation",
     "Color": "#6b8294"
   },
   {
     "Name": "Пенополиуретан",
-    "Density": 60,
-    "ThermalConductivity": 0.032,
+    "Density": 30,
+    "ThermalConductivity": 0.025,
+    "SpecificHeat": 1.26,
     "Humidity": 0,
     "Type": "Insulation",
     "Color": "#6b8293"
@@ -251,6 +282,7 @@
     "Name": "Каучук",
     "Density": 910,
     "ThermalConductivity": 0.18,
+    "SpecificHeat": 1.4,
     "Humidity": 0,
     "Type": "Insulation",
     "Color": "#6b8292"
@@ -259,6 +291,7 @@
     "Name": "Керамическая канализационная труба",
     "Density": 2000,
     "ThermalConductivity": 1.5,
+    "SpecificHeat": 1.1,
     "Humidity": 0,
     "Type": "Pipeline",
     "Color": "#2a3e6e"
@@ -266,7 +299,8 @@
   {
     "Name": "Труба из высокопрочного чугунного материала с шаровидным графитом",
     "Density": 7500,
-    "ThermalConductivity": 0.029,
+    "ThermalConductivity": 55,
+    "SpecificHeat": 0.54,
     "Humidity": 0,
     "Type": "Pipeline",
     "Color": "#2a3e6d"
@@ -275,6 +309,7 @@
     "Name": "Железобетонная безнапорная труба",
     "Density": 2500,
     "ThermalConductivity": 1.7,
+    "SpecificHeat": 0.84,
     "Humidity": 0,
     "Type": "Pipeline",
     "Color": "#2a3e6c"
@@ -282,7 +317,8 @@
   {
     "Name": "Асбестоцементная безнапорная труба",
     "Density": 1700,
-    "ThermalConductivity": 1.76,
+    "ThermalConductivity": 0.15,
+    "SpecificHeat": 1.05,
     "Humidity": 0,
     "Type": "Pipeline",
     "Color": "#2a3e6b"
@@ -291,6 +327,7 @@
     "Name": "Поливинилхлоридная труба",
     "Density": 1400,
     "ThermalConductivity": 0.15,
+    "SpecificHeat": 1,
     "Humidity": 0,
     "Type": "Pipeline",
     "Color": "#2a3e6a"
@@ -299,6 +336,7 @@
     "Name": "Полиэтиленовая труба",
     "Density": 955,
     "ThermalConductivity": 0.35,
+    "SpecificHeat": 0.002,
     "Humidity": 0,
     "Type": "Pipeline",
     "Color": "#2a3e69"
@@ -306,7 +344,8 @@
   {
     "Name": "Гофрированная полипропиленовая труба",
     "Density": 900,
-    "ThermalConductivity": 0.16,
+    "ThermalConductivity": 0.24,
+    "SpecificHeat": 0.002,
     "Humidity": 0,
     "Type": "Pipeline",
     "Color": "#2a3e68"
@@ -314,9 +353,19 @@
   {
     "Name": "Стеклопластиковая труба",
     "Density": 1800,
-    "ThermalConductivity": 0.23,
+    "ThermalConductivity": 0.75,
+    "SpecificHeat": 0.8,
     "Humidity": 0,
     "Type": "Pipeline",
     "Color": "#2a3e67"
+  },
+  {
+    "Name": "Стальная труба",
+    "Density": 7800,
+    "ThermalConductivity": 55,
+    "SpecificHeat": 0.48,
+    "Humidity": 0,
+    "Type": "Pipeline",
+    "Color": "#2a3e66"
   }
 ]

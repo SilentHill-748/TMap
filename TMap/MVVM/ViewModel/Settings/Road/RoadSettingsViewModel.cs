@@ -73,10 +73,8 @@ public class RoadSettingsViewModel : ViewModelBase
     #region Event handlers
     private void LayerCreated(object recipient, CreateRoadLayerMessage message)
     {
-        if (message is not { })
-            throw new Exception("Ошибка сохранения созданного слоя дорожной конструкции!");
-
         Settings.Layers.Add(message.Value);
+
         OnPropertyChanged(nameof(HasNext));
         OnPropertyChanged(nameof(IsInvalidLayerCount));
     }
@@ -92,7 +90,7 @@ public class RoadSettingsViewModel : ViewModelBase
         OnPropertyChanged(nameof(HasNext));
     }
 
-    private void Layers_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+    private void Layers_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
         OnPropertyChanged(nameof(IsInvalidLayerCount));
         OnPropertyChanged(nameof(HasNext));

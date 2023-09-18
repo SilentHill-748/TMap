@@ -1,4 +1,4 @@
-﻿namespace TMap.MVVM.Model.Modeling;
+﻿namespace TMap.MathModel;
 
 /// <summary>
 ///     Represents a cell on map with size 1x1 cm.

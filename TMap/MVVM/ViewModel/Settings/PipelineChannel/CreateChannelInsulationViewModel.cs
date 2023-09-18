@@ -9,7 +9,7 @@ public class CreateChannelInsulationViewModel : ViewModelBase
     #region Private fields
     private int _thickness;
     private double _initTemperature;
-    private MaterialModel? _material;
+    private MaterialModel _material;
     #endregion
 
     public CreateChannelInsulationViewModel(
@@ -23,6 +23,7 @@ public class CreateChannelInsulationViewModel : ViewModelBase
         ChannelInsulationMaterials = channelInsulationMaterials;
         ChannelInsulationCollection = insulationCollection;
         _validator = validator;
+        _material = new MaterialModel();
 
         CreateChannelInsulationCommand = new CreateChannelInsulationCommand(this);
 
@@ -37,7 +38,7 @@ public class CreateChannelInsulationViewModel : ViewModelBase
     #endregion
 
     #region Notify properties
-    public MaterialModel? Material
+    public MaterialModel Material
     {
         get => _material;
         set => Set(ref _material, value, nameof(Material));

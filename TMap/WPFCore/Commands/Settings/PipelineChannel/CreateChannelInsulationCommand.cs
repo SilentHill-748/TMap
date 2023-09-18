@@ -15,9 +15,6 @@ public class CreateChannelInsulationCommand : CommandBase
     {
         var channelInsulationMaterial = _viewModel.Material;
 
-        if (channelInsulationMaterial is not { })
-            throw new Exception("Не удалось создать изоляционный слой коллектора!");
-
         var insulation = new ChannelInsulation()
         {
             Thickness = _viewModel.Thickness,

@@ -1,9 +1,9 @@
-﻿namespace TMap.MVVM.Model.Modeling;
+﻿namespace TMap.MathModel;
 
 /// <summary>
 ///     Выполняет расчет тепловых характеристик моделируемой области.
 /// </summary>
-public class MathModel
+public class AppMathModel
 {
     private readonly Dictionary<Color, MaterialModel> _materialMap;
     private readonly SettingsModel _settingsModel;
@@ -16,7 +16,7 @@ public class MathModel
     private readonly double _maxIntervalX;
     private readonly double _maxIntervalY;
 
-    public MathModel(SettingsModel settingsModel, Dictionary<Color, MaterialModel> materialMap, WriteableBitmap map)
+    public AppMathModel(SettingsModel settingsModel, Dictionary<Color, MaterialModel> materialMap, WriteableBitmap map)
     {
         ArgumentNullException.ThrowIfNull(settingsModel, nameof(settingsModel));
         ArgumentNullException.ThrowIfNull(materialMap, nameof(materialMap));

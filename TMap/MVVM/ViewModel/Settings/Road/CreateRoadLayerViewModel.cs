@@ -9,7 +9,7 @@ public class CreateRoadLayerViewModel : ViewModelBase
     #region private fields
     private int _width;
     private int _thickness;
-    private MaterialModel? _material;
+    private MaterialModel _material;
     private double _initTemp;
     private double _humidity;
     #endregion
@@ -21,6 +21,7 @@ public class CreateRoadLayerViewModel : ViewModelBase
 
         Materials = roadMaterials;
         _validator = validator;
+        _material = new MaterialModel();
 
         AddRoadLayerCommand = new AddRoadLayerCommand(this);
 
@@ -44,7 +45,7 @@ public class CreateRoadLayerViewModel : ViewModelBase
         get => _thickness;
         set => Set(ref _thickness, value, nameof(Thickness));
     }
-    public MaterialModel? Material
+    public MaterialModel Material
     {
         get => _material;
         set => Set(ref _material, value, nameof(Material));

@@ -15,9 +15,6 @@ public class AddMapLayerCommand : CommandBase
     {
         var material = _viewModel.Material;
 
-        if (material is not { })
-            throw new Exception("Материал не установлен!");
-
         material.Humidity = _viewModel.Humidity;
 
         var layer = new Layer()

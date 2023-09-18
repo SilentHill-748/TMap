@@ -13,8 +13,6 @@ public class AddRoadLayerCommand : CommandBase
 
     protected override void Execute()
     {
-        if (_viewModel.Material is not { }) return;
-
         var material = _viewModel.Material;
 
         material.Humidity = _viewModel.Humidity;

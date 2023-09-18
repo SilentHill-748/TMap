@@ -16,9 +16,6 @@ public class CreatePipeCommand : CommandBase
         var pipeData = _viewModel.InputPipeDataView;
         var pipeType = pipeData.PipeType;
 
-        if (pipeType is not { })
-            throw new Exception("Ошибка создания трубы, нет материала!");
-
         var pipe = new Pipe()
         {
             Material = pipeType,
@@ -29,7 +26,6 @@ public class CreatePipeCommand : CommandBase
         };
 
         pipe.Insulation.UpdateCollection(_viewModel.PipeInsulationCollection);
-
 
         WeakReferenceMessenger.Default.Send(new CreatePipeMessage(pipe));
 

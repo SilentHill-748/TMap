@@ -31,7 +31,7 @@ internal sealed class ViewToViewModelDataTemplateGeneratorService
     private DataTemplate GenerateTemplate(Type viewModelType)
     {
         Type viewType = GetViewTypeByViewModelType(viewModelType)
-            ?? throw new Exception("");
+            ?? throw new NotFoundViewTypeByViewModelException(viewModelType);
 
         return new DataTemplate(viewModelType)
         {
