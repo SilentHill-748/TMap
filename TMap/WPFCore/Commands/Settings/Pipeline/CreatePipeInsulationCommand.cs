@@ -13,7 +13,7 @@ public class CreatePipeInsulationCommand : CommandBase
 
     protected override void Execute()
     {
-        var insulationMaterial = _viewModel.InsulationMaterial;
+        var insulationMaterial = _viewModel.InsulationMaterial!;
 
         var insulation = new RadialInsulation()
         {

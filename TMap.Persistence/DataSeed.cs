@@ -30,17 +30,25 @@ public class DataSeed
 
         if (!databaseExists) return;
 
-        var jsonPath = Path.Combine(rootPath, "TMap.Persistence\\Seed\\Materials.json");
-        var json = File.ReadAllText(jsonPath);
-        var stringEnumConverter = new StringEnumConverter(new CamelCaseNamingStrategy());
+        try
+        {
+            var jsonPath = Path.Combine(rootPath, "Materials.json");
+            var json = File.ReadAllText(jsonPath);
+            var stringEnumConverter = new StringEnumConverter(new CamelCaseNamingStrategy());
 
-        var materialDAOs = JsonConvert.DeserializeObject<List<MaterialDAO>>(json, stringEnumConverter) ?? 
-            throw new MaterialsNotLoadedException(jsonPath, true);
+            var materialDAOs = JsonConvert.DeserializeObject<List<MaterialDAO>>(json, stringEnumConverter) ??
+                throw new MaterialsNotLoadedException(jsonPath, true);
 
-        var materials = materialDAOs.Select(_mapper.Map<MaterialDAO, Material>);
+            var materials = materialDAOs.Select(_mapper.Map<MaterialDAO, Material>);
 
-        await _dbContext.Materials.AddRangeAsync(materials);
-        
-        _ = await _dbContext.SaveChangesAsync();
+            await _dbContext.Materials.AddRangeAsync(materials);
+
+            _ = await _dbContext.SaveChangesAsync();
+        }
+        catch
+        {
+            await _dbContext.Database.EnsureDeletedAsync();
+            throw;
+        }
     }
 }

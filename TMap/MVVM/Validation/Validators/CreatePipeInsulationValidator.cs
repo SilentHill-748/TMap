@@ -13,7 +13,7 @@ public class CreatePipeInsulationValidator : AbstractValidator<CreatePipeInsulat
             .WithMessage("Начальная температура изоляционного материала должна быть между -70.00 и +170.00 °С!");
         
         RuleFor(viewModel => viewModel.InsulationMaterial)
-            .Must(material => !material.Name.Equals("None"))
+            .Must(material => material is not null && !material.Name.Equals("None"))
             .WithMessage("Не выбран материал изоляции!");
     }
 }

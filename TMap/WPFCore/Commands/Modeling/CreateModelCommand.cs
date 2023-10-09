@@ -20,7 +20,7 @@ public class CreateModelCommand : CommandBase
         var map = _viewModel.MapBitmap!;
         var colorMaterialMap = GetMaterialColorsMap();
 
-        _viewModel.MathModel = new MathModel(settings, colorMaterialMap, map);
+        _viewModel.MathModel = new AppMathModel(settings, colorMaterialMap, map);
 
         _viewModel.MathModel.ModelStopped += MathModel_ModelStopped;
     }

@@ -35,19 +35,19 @@
                 Command="{Binding NavigateToSettingsCommand}"/>
             
             <Button 
-                Content="Загрузить карту" 
+                Content="Создать карту" 
                 Command="{Binding DrawMapCommand}"/>
             
-            <Button 
+            <!--<Button 
                 Content="Создать модель" 
                 Margin="10 0" 
-                Command="{Binding CreateModelCommand}"/>
+                Command="{Binding CreateModelCommand}"/>-->
 
-            <Button 
+            <!--<Button 
                 Content="Запустить моделирование"
-                Command="{Binding RunModelCommand}"/>
+                Command="{Binding RunModelCommand}"/>-->
 
-            <StackPanel Margin="10 0">
+            <!--<StackPanel Margin="10 0">
                 <TextBlock Text="Видимость температурной карты"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -67,7 +67,7 @@
                         TickFrequency="0.01" 
                         Value="0"/>
                 </Grid>
-            </StackPanel>
+            </StackPanel>-->
 
             <!--<CheckBox 
                 x:Name="visibilityBorders"

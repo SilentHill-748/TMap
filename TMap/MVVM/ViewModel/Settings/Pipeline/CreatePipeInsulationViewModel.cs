@@ -8,7 +8,7 @@ public class CreatePipeInsulationViewModel : ViewModelBase
 
     #region Private fields
     private int _thickness;
-    private MaterialModel _insulationMaterial;
+    private MaterialModel? _insulationMaterial;
     private double _initTemperature;
     #endregion
 
@@ -24,7 +24,6 @@ public class CreatePipeInsulationViewModel : ViewModelBase
         PipeInsulationMaterials = pipeInsulationMaterials;
         PipeInsulationLayers = insulationCollection;
         _validator = validator;
-        _insulationMaterial = new MaterialModel();
 
         CreateInsulationCommand = new CreatePipeInsulationCommand(this);
 
@@ -49,7 +48,7 @@ public class CreatePipeInsulationViewModel : ViewModelBase
         get => _initTemperature;
         set => Set(ref _initTemperature, value, nameof(InitialTemperature));
     }
-    public MaterialModel InsulationMaterial
+    public MaterialModel? InsulationMaterial
     {
         get => _insulationMaterial;
         set => Set(ref _insulationMaterial, value, nameof(InsulationMaterial));

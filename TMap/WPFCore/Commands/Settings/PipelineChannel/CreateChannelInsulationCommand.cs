@@ -13,7 +13,7 @@ public class CreateChannelInsulationCommand : CommandBase
 
     protected override void Execute()
     {
-        var channelInsulationMaterial = _viewModel.Material;
+        var channelInsulationMaterial = _viewModel.Material!;
 
         var insulation = new ChannelInsulation()
         {

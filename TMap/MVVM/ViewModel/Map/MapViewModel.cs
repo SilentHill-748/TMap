@@ -32,7 +32,7 @@ public class MapViewModel : ViewModelBase
     #region Models
     public ImageModel ImageModel => _imageModel;
     public SettingsModel Settings => _settings;
-    public MathModel? MathModel { get; set; }
+    public AppMathModel? MathModel { get; set; }
     public WriteableBitmap? TemperatureSource
     {
         get => _temperatureSource;

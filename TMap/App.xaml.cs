@@ -10,7 +10,11 @@ public partial class App : WpfApp
 
     public App()
     {
-        _rootAppPath = Path.GetFullPath(@"..\..\..\..\");
+#if DEBUG
+        _rootAppPath = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent!.Parent!.Parent!.Parent!.Parent!.FullName;
+#else
+        _rootAppPath = Path.Combine(new DirectoryInfo(Directory.GetCurrentDirectory()).FullName);
+#endif
 
         DispatcherUnhandledException += App_DispatcherUnhandledException;
     }
