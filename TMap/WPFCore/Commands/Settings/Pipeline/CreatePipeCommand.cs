@@ -14,7 +14,7 @@ public class CreatePipeCommand : CommandBase
     protected override void Execute()
     {
         var pipeData = _viewModel.InputPipeDataView;
-        var pipeType = pipeData.PipeType;
+        var pipeType = pipeData.PipeType!;
 
         var pipe = new Pipe()
         {

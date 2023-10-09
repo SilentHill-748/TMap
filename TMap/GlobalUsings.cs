@@ -48,7 +48,7 @@ global using TMap.MVVM.Messages.Settings.Road;
 global using TMap.MVVM.Model;
 global using TMap.MVVM.Model.Drawing;
 global using TMap.MVVM.Model.Map;
-global using TMap.MVVM.Model.Modeling;
+global using TMap.MathModel;
 global using TMap.MVVM.Model.Navigation;
 global using TMap.MVVM.Model.Pipeline;
 global using TMap.MVVM.Model.Settings;
